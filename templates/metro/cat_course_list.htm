@@ -1,0 +1,218 @@
+
+        
+   
+
+<h1 >
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	課程<small class="on-right">分類</small>
+
+</h1>
+<div class="clearfix"></div>   
+        <nav class="breadcrumbs">
+		    <ul>
+				<li><a href="home.php">Home</a></li>
+				<li class="active"><a href="course_list.php">{$lang.LearningCenter}</a></li>
+		    </ul>
+		</nav>       
+		
+		<!--  -->
+		
+      <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+                 	 <a href="#"><span class="tile-group-title fg-orange">功能<span class="icon-arrow-right-5"></span></span></a>
+					
+					<a id="icon_course_add" class="tile bg-darkCrimson " data-click="transform"  href="javascript:show_project_list('BEGIN');">
+					    <div class="tile-content icon">
+					        <i class="icon-plus-2"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">增加</span>
+					    </div>
+					</a>
+
+					<a id="icon_course_remove" class="tile bg-darkCrimson" data-click="transform"  href="javascript:course_remove();">
+					    <div class="tile-content icon">
+					        <i class="icon-remove"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">移除</span>
+					    </div>
+					</a>
+					
+					<a id="icon_course_show_list"  class="tile bg-darkCrimson no-display" data-click="transform"  href="javascript:course_show_list();">
+					    <div class="tile-content icon">
+					        <i class=" icon-undo"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">返回</span>
+					    </div>
+					</a>
+
+					
+                </div>
+        
+		
+		
+		 
+		 <!-- BEGIN CATALOG -->
+                <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+                    <a href="#"><span class="tile-group-title fg-orange">{CATALOG.catalog_title}<span class="icon-arrow-right-5"></span></span></a>                    
+					<!-- BEGIN TILE_LIST -->
+					
+					<a class="tile double  bg-darkCobalt "  id="coursetile_{CATALOG.TILE_LIST.course_id}"	 name="coursetile_{CATALOG.TILE_LIST.course_id}"	 data-click="transform"  href="javascript:click_course_tile({CATALOG.TILE_LIST.course_id})">
+						<div class="tile-content"	>
+							<div class="padding10">
+
+							</div>		
+						</div>
+						<div class="tile-status">
+							<div class="label"><h3 class="fg-white no-margin">{CATALOG.TILE_LIST.course_title}</h3></div>
+						</div>
+						<div class="brand">
+					        <div class="badge available"></div>
+					    </div>
+					</a>
+					  	
+					<!-- END TILE_LIST -->
+					
+					<!-- BEGIN MORE_TILE -->
+					<a class="tile {CATALOG.TILE_LIST.width} {CATALOG.TILE_LIST.height}  bg-darkGreen"	 data-click="transform"  href="course_list.php?catalog_id={CATALOG.catalog_id}">
+						  <div class="tile-content image">
+						        <img src="images/bt_more.png">
+						    </div>
+						
+					
+						<div class="tile-status">
+							<div class="label">更多	</div>
+						</div>
+						
+					</a>					
+					<!-- END MORE_TILE -->
+					<a class="tile half bg-darkMagenta"  href="course.php?course_id=0&catalog_id={CATALOG.catalog_id}">
+						<div class="tile-content icon">
+							<i class="icon-plus-2"></i>
+						</div>
+					</a>
+                </div>
+          <!-- END CATALOG -->      
+                
+<script>
+function show_project_list(tag)
+{
+	//FILTER_ARCHI
+	var btclass = $('#FILTER_'+tag).attr('class');
+	
+    classrow=btclass.split(" ") 
+    for (i in classrow) {
+    	if(classrow[i].indexOf('selected')>=0)
+    	{      //selected    
+    		$('#FILTER_'+tag).removeClass('selected');
+    	
+    		$('.FILTER_'+tag).each(function() {
+    			$(this).addClass('no-display');
+    		});
+    	
+    		return true;
+    	}     
+	}  
+    $('#FILTER_'+tag).addClass('selected');
+    $('.FILTER_'+tag).each(function() {
+		$(this).removeClass('no-display');
+	});
+	return true;
+}
+
+function course_show_list()
+{
+	set_tag("icon_course_add","s");
+	set_tag("icon_course_show_list","h");
+	set_tag("icon_course_remove","s");		
+}
+
+
+function course_remove()
+{
+	set_tag("icon_course_add","h");
+	set_tag("icon_course_show_list","s");
+	set_tag("icon_course_remove","h");		
+	
+	////////////
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,11)=='coursetile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('half-opacity');
+			}						
+		}
+	 }
+}
+
+
+function click_course_tile(course_id)
+{		
+	var btclass = $('#coursetile_'+course_id).attr('class');
+
+	if(btclass.indexOf('half-opacity')!=-1)
+	{                
+		//<div class="tile selected"></div>
+		var tag='#coursertile_'+course_id;
+		$(tag).addClass('selected');
+		
+		$.Dialog({
+			shadow : true,
+			overlay : false,
+			icon : '<span class="icon-remove"></span>',
+			title : '是否確定刪除',
+			width : 300,
+			padding : 20,
+			onShow: function(_dialog){
+				var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="course_remove_act('+course_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#coursetile_'+course_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+				$.Dialog.content(content);					
+			}				
+		});
+		
+	} 
+	else
+	{
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		location.href='course.php?course_id='+course_id;			
+	}	
+}
+
+
+function course_remove_act(course_id)
+{
+
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_course_remove.php?course_id="+course_id, //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			
+			$('#coursetile_'+course_id).remove()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+</script>

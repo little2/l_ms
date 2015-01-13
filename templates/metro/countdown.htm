@@ -1,0 +1,51 @@
+
+
+
+
+
+<script src="js/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost/common/plugins/countdown/jquery.countdown.css"> 
+<link rel="stylesheet" href="http://localhost/common/plugins/csshake/csshake.min.css">
+<script type="text/javascript" src="http://localhost/common/plugins/countdown/jquery.plugin.js"></script> 
+<script type="text/javascript" src="http://localhost/common/plugins/countdown/jquery.countdown.js"></script>
+
+
+<script>
+$(function () {
+	var austDay = new Date();
+	austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
+	$('#defaultCountdown').countdown({until: austDay});
+	$('#year').text(austDay.getFullYear());
+	
+	//$('#pauseResume').countdown({until: liftoffTime, onTick: showPauseTime}); 
+	 
+	$('#pauseButton').click(function() { 
+	    var pause = $(this).text() === 'Pause'; 
+	    $(this).text(pause ? 'Resume' : 'Pause'); 
+	    $('#defaultCountdown').countdown(pause ? 'pause' : 'resume'); 
+	}); 
+	 
+	$('#toggleButton').click(function() { 
+	    $('#defaultCountdown').countdown('toggle'); 
+	}); 
+	 
+	function showPauseTime(periods) { 
+	    $('#showPauseTime').text(periods[4] + ':' + twoDigits(periods[5]) + 
+	        ':' + twoDigits(periods[6])); 
+	}
+	
+});
+</script>
+</head>
+<body>
+<h1>jQuery Countdown Basics</h1>
+<p>This page demonstrates the very basics of the
+	<a href="http://keith-wood.name/countdown.html">jQuery Countdown plugin</a>.
+	It contains the minimum requirements for using the plugin and
+	can be used as the basis for your own experimentation.</p>
+<p>For more detail see the <a href="http://keith-wood.name/countdownRef.html">documentation reference</a> page.</p>
+<p>Counting down to 26 January <span id="year">2014</span>.</p>
+<div id="defaultCountdown"></div>
+
+<button type="button" id="pauseButton">Pause</button>&nbsp;
+<button type="button" id="toggleButton">Toggle</button>

@@ -1,0 +1,897 @@
+<link href="templates/{TPL_STYLE}/css/jquery.jscrollpane.css" rel="stylesheet">
+<link href="templates/{TPL_STYLE}/css/little2.css" rel="stylesheet">
+<script type="text/javascript" src="http://jscrollpane.kelvinluck.com/script/jquery.jscrollpane.min.js"></script>
+
+<link rel="stylesheet" href="templates/{TPL_STYLE}/css/jquery.fileupload.css">
+<script src="../common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+
+<style>
+.metro .quiz {
+  padding: 20px 40px 20px 60px;
+  border: 1px #ccc solid;
+  margin: 0 0 10px 0;
+  background-color: #fdfdfd !important;
+  min-height: 100px;
+}
+
+.metro .quiz:after {
+  display: table;
+  content: "";
+}
+.metro .quiz:after {
+  clear: both;
+}
+
+</style>
+
+<div class="no-display">
+	<input type="text" id="sco_id" name="sco_id" value="{sco_id}" />
+	<input type="text"  id="user_homework_id" name="user_homework_id" value="{user_homework_id}" />
+
+	<input type="text" id="reporter_uid" name="reporter_uid" >
+	<input type="text" id="grade" name="grade" value="{grade}">
+	<input type="text" id="result" name="result" value="{result}">
+	<input type="text"   id="pass_mark" name="pass_mark"  value="{pass_mark}" />
+	<input type="text"  id="filename" name="filename"  value="{filename}" />
+</div>
+
+<h1 >
+	<a href="javascript:history.go(-1)"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	{sco_title}<small
+		class="on-right">學習單元</small>
+</h1>
+                              
+                    
+                <div class="grid">
+                 
+                    <div class="row">
+                        <div class="span3 no-tablet-portrait">                                                  
+                            <nav >                
+   							 <div class="span3 side-menu"  style="border: 0" >
+ 
+                                   <div  id="bt_again" class="bg-white " >
+                                	<button type="button" class="span3  button fg-white" onClick='bt_return("desc")'><h2>作業說明</h2></button>
+                                </div>                               
+
+								<div  style="width:5px">&nbsp</div>
+
+                                <div  id="bt_send" class="bg-white viewmode" >
+                                	<button type="button" class="span3  fg-white" onClick='bt_return("upload")'><h2>上傳作業</h2></button>
+                                </div>
+  
+
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                
+                                
+                                <div  name="bt_exam_edit" id="bt_exam_edit"  class="bg-white viewmode {bt_review_homework_display}" >
+                                	<button type="button" class="button span3  fg-white"  name="bt_exam_edit2" id="bt_exam_edit2"   onClick='bt_return("list")' ><h2>批改</h2></button>
+                                </div>
+                                
+                              </div>       
+                            </nav>                            
+                        </div>
+                        
+                        
+                        
+                         <div class="span9" >                        
+                         	<div class="quiz"   id="homework_review" name="homework_review" class="no-display">                         
+                         		<dl>
+								  <dt>繳交者信息</dt>
+								  <dd>
+								  		<span id="jobtitle">資訊部經理</span> <span id="user_name">林小小</span>								  									
+									</dd>
+									
+								
+								<dt>作業繳交日期</dt>
+								  <dd id="upload_date_title">
+								  	{upload_date_title}
+								</dd>
+								
+								<dt>作業下載</dt>
+								  <dd >
+								  	<a id="download_homework" href='' target='_blank'>下載</a>
+								</dd>
+								
+								
+								<dt>評分者</dt>
+								  <dd id="reviewer_title">
+								  	
+								</dd>
+								
+								<dt>評分</dt>
+								  <dd>					
+								  	<div style="padding-top:30px"></div>			  	
+								  	<div  class="slider permanent-hint" data-role="slider"  data-position="70" data-accuracy="5" data-show-hint="true"   id="grade_slider" name="grade_slider">
+								  	<div class="complete" style="width: 645.5px;"></div>
+								  	<a class="marker" style="left: 645.5px;"></a>
+								  	<span class="hint" style="left: 635.5px;">63</span>
+								  	</div>
+								</dd>
+								
+								
+								
+								</dl>		
+								
+								<div class="place-left">
+									<button type="button" class="fg-white" onClick='bt_return("list")'>回到列表</button>
+								</div>
+								
+								<div class="place-right">
+									<button type="button" class="fg-white" onClick='save_review()'>儲存</button>
+									<button type="button" class="fg-white" onClick='save_review(true)'>儲存 並移到下個未批改作業</button>
+								</div>
+                         	</div>
+                         
+                         
+                         	 <div class="quiz"   id="homework_review_list" name="homework_review_list" >
+	                         	 <table class="table hovered">
+			                        <thead>
+			                        <tr>			                         
+			                            <th class="text-left">部門</th>
+			                            <th class="text-left">姓名</th>
+			                            <th class="text-left">作業繳交日期</th>
+			                            <th class="text-left">分數</th>
+			                        </tr>
+			                        </thead>
+			
+			                        <tbody>
+			                        <!-- BEGIN HWLIST -->
+			                        <tr data-filename="{HWLIST.filename}"  data-upload_date="{HWLIST.upload_date}"  data-reviewer="{HWLIST.reviewer_title}"  data-hid="{HWLIST.user_homework_id}"  data-jobtitle="{HWLIST.group_title}" data-username="{HWLIST.fullName}" data-reporter_uid="{HWLIST.reporter_uid}"  data-grade="{HWLIST.grade}">
+			                        	<td>{HWLIST.group_title}</td>
+			                        	<td class="right">{HWLIST.fullName}</td>
+			                        	<td class="right">{HWLIST.upload_date}</td>
+			                        	<td class="right" id="td_grade">{HWLIST.grade}</td>
+			                        </tr>
+			                        <!-- END HWLIST -->
+			                        </tbody>
+			
+			                        <tfoot></tfoot>
+			                    </table>
+                         	 </div>
+                         
+                          	
+                            <div class="quiz"   id="homework_upload" name="homework_upload" >
+	                            <dl>				
+	                            	<div id="take_upload_zone" name="take_upload_zone" >						
+									<dt>請選取上傳的檔案</dt>
+									<dd>
+										
+											<div style="clear:both;height:5px">&nbsp</div>								
+											<div class="span5" >
+									    		<input id="fileupload" type="file" name="files[]" >									    		
+											</div>
+											<div style="clear:both;height:5px">&nbsp</div>
+										
+											<div id="componennt_id"  class="progress-bar span5" data-role="progress-bar" style="left:-20px"></div>										 
+									</dd>	
+									</div>
+										
+									<div id="check_file_zone" name="check_file_zone" class="no-display">	
+									<dt>請確認檔案</dt>
+									<dd>									
+											<a href='' target='_blank'></a>
+											
+											<br><br>
+											<button type="button"  onClick="bt_confirm_upload()">確認上傳</button>
+											<button type="button"  onClick="bt_delete_upload()">刪除</button>
+									</dd>	
+									</div>								
+									<div style="clear:both"></div>
+								
+									<div id="upload_file_zone" name="upload_file_zone" class="no-display">	
+									<dt>你已經上傳檔案</dt>
+									<dd>									
+											<a href='' target='_blank'>下載</a>											
+											<br><br>											
+											<button type="button"  onClick="bt_delete_upload()">重新上傳</button>
+									</dd>	
+									</div>								
+									<div style="clear:both"></div>
+								
+								</dl>                            	               	
+                            </div>                                                    
+                 	
+                 	
+                 	
+						<!-- 作業說明 -->                 	
+                            <div class="quiz"   id="container_homework_desc" name="container_homework_desc" >                          
+                            <div style="clear:both"></div>
+	                            <dl>
+								  <dt>截止時間</dt>
+								  <dd>
+								    <span class="viewtext" id="homework_deadline_text">{homework_deadline}</span> 		
+								  	<span class="input-control text inputtext no-display"   data-date='{homework_deadline}'  id="datepicker_homework_deadline"  data-role="datepicker"   data-format="yyyy/m/d"  data-effect="fade" data-other-days="1"  data-locale="zhCN" >								
+								    	<input type="text"  id="homework_deadline" name="homework_deadline">
+								    	<button class="btn-date" ></button>
+									</span>
+								</dd>
+								
+								<dt>繳交地點</dt>
+								  <dd>
+								  	線上繳交
+								</dd>
+								
+								
+								<!-- 資料欄位 -->
+								<dt>報告內容</dt>
+								<dd>
+									<span class="viewtext" >
+										<textarea  id="homework_desc_text"  name="homework_desc_text"   style="background-color: #fdfdfd !important;" class="viewmode span7"  readonly>{homework_desc}</textarea>
+									</span>
+									<span class="inputtext no-display" >
+										<textarea class="span7 "  id="homework_desc"  name="homework_desc"  placeholder="請填"  >{homework_desc}</textarea>
+									</span>	
+									<div style="clear:both"></div>									
+								</dd>
+								
+								<dt>及格分數</dt>
+								  <dd>					
+								  	<div style="padding-top:30px"></div>			  	
+								  	<div  class="slider permanent-hint" data-role="slider"  data-position="{pass_mark}" data-accuracy="5" data-show-hint="true"   id="passmark_slider" name="passmark_slider">
+								  	<div class="complete" style="width: 645.5px;"></div>
+								  	<a class="marker" style="left: 645.5px;"></a>
+								  	<span class="hint" style="left: 635.5px;">63</span>
+								  	</div>
+								</dd>								
+								</dl>		
+                            	               	
+					  			<div style="margin-top: 40px; margin-bottom: 40px" class="inputtext no-display" align="center">
+									<a id="bt_save"  class="default button" >Save</a> 
+									<a id="bt_cancel" class="button on-right-more" >Cancel</a>
+								</div>                          	               	
+                            	               	
+                            	               	
+                            </div>                                                    
+                         </div>                               
+                        
+                        
+                        
+                    </div>
+                </div>
+
+
+<script>
+
+
+
+
+
+$(function(){
+
+	//== 上傳檔案
+	
+	if($('#filename').val())
+	{
+	    $('#take_upload_zone').addClass('no-display');
+	    $('#check_file_zone').addClass('no-display'); 		
+	    $('#upload_file_zone').removeClass('no-display');		
+	   
+        $('#upload_file_zone dd').children('a').attr('href','server/hwfiles/'+$('#filename').val());		
+	}	
+	
+	var pb = $("#componennt_id").progressbar();   
+	
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        
+        done: function (e, data) {
+        	
+            $.each(data.result.files, function (index, file) {  
+
+                $('#check_file_zone dd').children('a').attr('href',file.url);
+                $('#check_file_zone dd').children('a').text(file.realname);
+                
+                $('#filename').val(file.name);
+                $('#take_upload_zone').addClass('no-display');
+                $('#upload_file_zone').addClass('no-display');                
+                $('#check_file_zone').removeClass('no-display');               
+            });
+            
+           
+        },
+        progressall: function (e, data) {
+        
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+	
+    /*
+    <div id="take_upload_zone" name="take_upload_zone" >
+											<div class="input-control file span5">
+									    		<input id="fileupload" type="file" name="files[]" >
+									    		<button class="btn-file"></button>
+											</div>
+											
+											<div id="componennt_id" class="progress-bar span5 no-display" data-role="progress-bar" ></div>										 
+										</div>
+	*/
+	 //== 批改作業(成績)
+    var slider = $("#grade_slider").slider({      
+        changed:function(){
+        	complete = slider.children('.complete');        	
+        	var grade=parseInt(this.position);
+        	var pass_mark=$('#pass_mark').val();        	
+        	 $('#grade').val(grade);
+	       	if(grade >= pass_mark)
+	       	{
+	       		complete.css('background-color', 'green');	       		
+	       		$('#result').val('P');
+	       		 console.log('p'+grade+' '+pass_mark);
+	       	}
+	       	else
+	       	{	       		
+				complete.css('background-color', 'red');
+	       		$('#result').val('F');
+	       		 console.log('F'+grade+' '+pass_mark);
+	       	}	        	
+       	},
+    });
+    $("#grade_slider").slider('value', 15);
+    
+    
+	
+    
+  //== 批改作業列表
+  
+    $('tbody tr').each(function(){
+    	$( this ).click(function() {
+    		var datahid=$(this).attr('data-hid');
+    		bt_review(datahid);
+    		});
+    })
+    
+    
+    //== 作業說明區    
+    var container_homework_desc = new MetroContainer('container_homework_desc');		
+    container_homework_desc.init(
+    		{
+    			bt_edit:{bt_edit_homework_display},
+    			save:function(event){
+    				var o = {
+							url:"js_homework_update_information.php",						
+							onSuccess:function(data){				
+					
+							}					
+					}	
+					var msg=mypost(o);
+    			}
+    		}
+    );        
+    $('#homework_desc').bind('keyup',function(){    	
+    	autoResize('homework_desc');
+    	$('#homework_desc_text').val($('#homework_desc').val())
+    }).jScrollPane();    
+    autoResize();
+ 
+   //及格分數
+    var passmark_slider = $("#passmark_slider").slider({      
+        changed:function(){
+        	pass_mark=$('#pass_mark').val();
+        	
+        	if($('#homework_deadline_text').hasClass("no-display"))
+        	{        		
+        		var new_pass_mark=parseInt(this.position);
+        		$('#pass_mark').val(new_pass_mark);
+        	}
+        	else
+        	{        	
+        		passmark_slider.slider('value',pass_mark);	
+        	}
+        	
+       	},
+    });
+    
+  //Deadline 日期
+	$("#datepicker_homework_deadline").datepicker({     
+        selected:function(d,d1){
+       		$('#homework_deadline_text').text(d);
+        }
+    });	
+   
+    bt_return();
+});
+
+
+
+function bt_confirm_upload()
+{    
+    var o = {
+			url:"js_homework_confirm_upload.php",			
+			onSuccess:function(data){	
+				    $('#take_upload_zone').addClass('no-display');
+				    $('#check_file_zone').addClass('no-display'); 		
+				    $('#upload_file_zone').removeClass('no-display');		
+				    console.log(data);
+	                $('#upload_file_zone dd').children('a').attr('href',data.url);
+	             
+			}					
+	}	
+	var msg=mypost(o);	   
+}
+
+function bt_delete_upload()
+{
+    $('#take_upload_zone').removeClass('no-display');
+    $('#check_file_zone').addClass('no-display'); 	    
+    $('#upload_file_zone').addClass('no-display');         
+}
+
+
+
+
+function autoResize(obj_id)
+{	
+	if(typeof(obj_id)=='undefined') obj_id='homework_desc_text';
+	
+	var textarea_height=($('#'+obj_id).prop("scrollHeight"));
+	
+	var origHeight = ($('#'+obj_id).height());
+	
+	if(textarea_height > (origHeight+5))
+	{
+		var textarea_height_px=(textarea_height+3)+"px";
+		$('#homework_desc_text').height('0px').height(textarea_height_px);  
+		$('#homework_desc').height(textarea_height_px);  		
+	}
+	else if(textarea_height < (origHeight-5))
+	{
+		var textarea_height_px=(textarea_height-3)+"px";
+		$('#homework_desc_text').height('0px').height(textarea_height_px);  
+		$('#homework_desc').height(textarea_height_px);  			
+	}
+}
+
+function bt_review(datahid)
+{	
+	bt_return("review");
+	var obj=$("[data-hid='"+datahid+"']");
+	$('#user_homework_id').val(datahid);
+	$('#jobtitle').text(obj.attr('data-jobtitle'))
+	$('#user_name').text(obj.attr('data-username'))
+	$('#reviewer_title').text(obj.attr('data-reviewer'))
+	$('#upload_date_title').text(obj.attr('data-upload_date'))
+	$('#download_homework').attr('href','server/hwfiles/'+obj.attr('data-filename'))
+	
+	
+	$('#grade').val(obj.attr('data-grade'))
+	
+	grade=$('#grade').val();
+	var pass_mark=$('#pass_mark').val();	 
+
+	$(function(){	
+		complete = $("#grade_slider").children('.complete');
+	    $("#grade_slider").slider('value', grade);
+	   
+	    if(grade >= pass_mark)
+	    {
+	    	complete.css('background-color', 'green');
+	    }
+	    else
+	    {
+	    	complete.css('background-color', 'red');
+	    }
+	});
+}
+
+// Short method to set position
+
+
+function save_review(next)
+{
+	var grade=parseInt($('#grade_slider').children("span").text());
+	
+	var pass_mark=$('#pass_mark').val();	 
+//	 console.log(grade+' '+pass_mark);
+	if(grade > pass_mark)
+	{
+		$('#result').val('P');
+		// console.log('p'+grade+' '+pass_mark);
+	}
+	else
+	{
+		$('#result').val('F');
+		// console.log(grade+' '+pass_mark);
+	}	 
+	 
+	grade=$('#grade').val();
+	var datahid=$("#user_homework_id").val();
+	var obj=$("[data-hid='"+datahid+"']");	
+	obj.attr('data-grade',grade);
+	var reporter_uid=obj.attr('data-reporter_uid');
+	
+	//	reporter_uid
+	
+	$('#reporter_uid').val(reporter_uid);
+	$('#grade').val(grade);
+	
+		var o = {
+				url:"js_homework_save_user_review.php?next="+next,			
+				onSuccess:function(data){	
+					if(typeof(data.next_id)!="undefined")
+					{
+						bt_review(data.next_id)
+					}
+				}					
+		}	
+		var msg=mypost(o);			
+}
+
+function bt_return(act)
+{		
+	$( ".quiz" ).each(function( index ) {
+		$(this).addClass('no-display');
+	});
+	
+	switch(act)
+	{
+		case "list":
+			$('#homework_review_list').removeClass('no-display');
+			
+			$('tbody tr').each(function(){
+				$(this).children("td[id='td_grade']").text( $(this).attr('data-grade')) ;
+			})
+			break;
+			
+		case "upload":
+			$('#homework_upload').removeClass('no-display');
+			break;
+			
+		case "review":
+			$('#homework_review').removeClass('no-display');
+			break;
+			
+		default:
+			$('#container_homework_desc').removeClass('no-display');	
+			break;			
+	}
+}
+
+
+
+
+
+
+
+
+
+
+//交卷
+function finish_exam()
+{		
+	$('#defaultCountdown').addClass('no-display');
+	$('#area_quiz').addClass("no-display");
+	$('#area_result').removeClass("no-display");
+	$('#bt_exam_edit2').addClass('no-display');
+	
+	var pass_mark= $('#pass_mark').val();
+	var correct_count=0;
+	var total_count=0;
+		
+	$( ".quiz_section" ).each(function( index ) {
+		total_count++;
+		var qid= $( this ).attr('data-qid');
+		var quiz_type = $('#quiz_type_'+qid).val();
+		var user_exam_detail_id = $('#user_exam_detail_id_'+qid).val();
+		var user_answer = $('#user_answer_'+qid).val();
+		var correct_answer = $('#correct_answer_'+qid).val();
+		if(user_answer==correct_answer)
+		{
+			correct_count++;
+		}	
+	});
+	
+	var grade= parseInt(Math.min(100,Math.round(100 / total_count * correct_count)));
+	$('#bt_send').addClass('no-display');
+	if(grade > pass_mark)
+	{
+		$('button h1',$('#area_result')).text('Pass');
+		$('button',$('#area_result')).removeClass('danger');
+		$('button',$('#area_result')).addClass('success');
+		$('#result').val('P');
+	}
+	else
+	{
+		$('button h1',$('#area_result')).text('Fail');
+		$('button',$('#area_result')).removeClass('success');
+		$('button',$('#area_result')).addClass('danger');
+		$('#result').val('F');
+		
+		$('#bt_again').removeClass('no-display');
+	}
+	
+	$('#grade').val(grade);	
+
+	//回傳成績 
+	//user_exam_id
+	
+	var o = {
+			url:"js_quiz_finish_user_exam.php",			
+			onSuccess:function(data){	
+				//$('#user_exam_detail_id').val(data.user_exam_detail_id);		
+				$('#grade_title').text(grade);
+
+			}					
+	}	
+	var msg=mypost(o);		
+}
+
+
+
+
+function CountDownOnExpiry()
+{
+	if($('#area_quiz').hasClass("no-display"))
+	{
+		//強迫交卷
+		console.log('HAD')	
+	}
+	else
+	{
+		finish_exam();
+		
+	}
+	
+}
+
+function CountDownOnTick(periods)
+{	
+	 if ($.countdown.periodsToSeconds(periods) === 60) { 
+	   	$("#bt_send").addClass('fg-red');         
+	    $("#defaultCountdown").addClass('shake shake-constant shake-little fg-red'); 
+	}  
+	else if ($.countdown.periodsToSeconds(periods) === 15) { 
+	    $("#defaultCountdown").removeClass('shake-little'); 
+	    $("#bt_send").addClass('shake shake-constant shake-little');         
+	}
+}
+
+
+
+
+
+function bt_choose(obj,qid)
+{	
+	var type=$('#quiz_type_'+qid).val();
+	var container=$('#container_quiz_'+qid);
+
+	if(type=='quiz_SICE')
+	{
+		$('.bt_choose', container).each(function () {
+	
+			$(this).removeClass('primary');
+		});
+		$(obj).addClass('primary');
+	}
+	else
+	{	
+		if($(obj).hasClass('primary'))
+		{
+			$(obj).removeClass('primary');
+		}
+		else
+		{
+			$(obj).addClass('primary');
+		}
+	}
+	var id=$(obj).attr('seq');
+	
+	var user_answer="";
+	$('.bt_choose', container).each(function () {		
+		if($(this).hasClass('primary'))
+		{
+			if(user_answer) user_answer+=";"
+			user_answer+=$(this).attr("seq");
+		}
+	});
+	$('#user_answer_'+qid).val(user_answer);	
+	
+	//user_exam_detail_id_{QUIZ.qid}
+	var user_exam_detail_id=$('#user_exam_detail_id_'+qid).val();
+	var user_exam_id=$('#user_exam_id').val();
+	var o = {
+			url:"js_quiz_update_user_answer.php",
+			data: {user_exam_detail_id:user_exam_detail_id,qid:qid,user_answer:user_answer,user_exam_id:user_exam_id},
+			onSuccess:function(data){	
+				$('#user_exam_detail_id_'+qid).val(data.user_exam_detail_id);		
+				}					
+	}	
+	var msg=mypost(o);
+	
+	
+	//alert(id);
+}
+
+//
+function bt_choose_correct(obj,qid)
+{	
+	var type=$('#quiz_type_'+qid).val();
+	var container=$('#container_quiz_'+qid);
+
+	if(type=='quiz_SICE')
+	{
+		$('.bt_correct', container).each(function () {	
+			$(this).removeClass('primary');
+		});
+		$(obj).addClass('primary');
+	}
+	else
+	{	
+		if($(obj).hasClass('primary'))
+		{
+			$(obj).removeClass('primary');
+		}
+		else
+		{
+			$(obj).addClass('primary');
+		}
+	}
+	var id=$(obj).attr('seq');
+	
+	var correct_answer="";
+	$('.bt_correct', container).each(function () {		
+		if($(this).hasClass('primary'))
+		{
+			if(correct_answer) correct_answer+=";"
+				correct_answer+=$(this).attr("seq");
+		}
+	});
+	$('#correct_answer_'+qid).val(correct_answer);	
+	
+	//user_exam_detail_id_{QUIZ.qid}
+	var user_exam_detail_id=$('#user_exam_detail_id_'+qid).val();
+	var user_exam_id=$('#user_exam_id').val();
+	var o = {
+			url:"js_quiz_update_correct_answer.php",
+			data: {qid:qid,answer:correct_answer},
+			onSuccess:function(data){	
+				
+				}					
+	}	
+	var msg=mypost(o);
+	
+	
+	//alert(id);
+}
+
+
+function exam_edit()
+{	
+	
+	$('.viewmode').each(function() {
+		$(this).addClass('no-display');
+	});   		
+	
+	
+	$('.editmode').each(function() {
+		$(this).removeClass('no-display');
+	});             
+	
+
+}
+
+function exam_save()
+{	
+	exam_show()
+}
+
+
+
+function exam_show()
+{	
+	$('.viewmode').each(function() {
+		$(this).removeClass('no-display');
+	});   		
+	
+	$('.editmode').each(function() {
+		$(this).addClass('no-display');
+	});    
+}
+
+
+
+
+function quiz_create()
+{
+	var o = {
+			url:"js_quiz_create.php",
+			onSuccess:function(data){	
+						location.reload();					
+				}					
+	}	
+	var msg=mypost(o);
+}
+
+function quiz_remove(sid)
+{
+	var o = {
+			url:"js_quiz_remove.php?sid="+sid,
+			onSuccess:function(data){	
+						location.reload();					
+				}					
+	}	
+	var msg=mypost(o);
+}
+
+
+function create_new_item()
+{
+	if($('#new_item_content').val()=="")
+	{
+		alert('請填寫選項內容');
+		return;	
+	}
+	var item_count=0;
+	
+	var controls = document.getElementsByTagName('textarea');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+			if(t=='new_item[]')
+			{				
+				item_count++;				
+			}
+		}
+	 }
+	item_count=item_count+65
+	var item_no=String.fromCharCode(item_count);
+	var item_content=$('#new_item_content').val();
+	var item_html='<div style="clear:both;height:10px"></div><div>';
+	 item_html+='<div  class="place-left " style="width:10%"><button class="button large">'+item_no+'</button></div>';
+	 item_html+='<div  class="place-left" style="width:88%">';
+	 item_html+='<div class="input-control textarea editmode readable-text">';
+	 item_html+='<textarea style="readable-text" id="new_item[]" name="new_item[]">'+item_content+'</textarea>';
+	 item_html+='</div></div></div>';
+	 $('#new_item_content').val("");
+	 $(item_html).insertBefore('#new_item_zone');
+}
+
+function show_quiz_type()
+{
+	$("#quiz_SICE").removeClass('no-display').addClass('animated fadeIn half-opacity');
+	$("#quiz_MUCE").removeClass('no-display').addClass('animated fadeIn half-opacity');
+	$("#quiz_SHAS").removeClass('no-display').addClass('animated fadeIn half-opacity');
+}
+
+function quiz_kind(obj)
+{
+	$("#quiz_SICE").removeClass('animated fadeIn');
+	$("#quiz_MUCE").removeClass('animated fadeIn');
+	$("#quiz_SHAS").removeClass('animated fadeIn');	
+	
+	var type = obj.id;
+	$('#quiz_type').val(type);	
+	$("#quiz_SICE").addClass('half-opacity');
+	$("#quiz_MUCE").addClass('half-opacity');
+	$("#quiz_SHAS").addClass('half-opacity');	
+	$(obj).removeClass('half-opacity');
+	
+	switch(type)
+	{
+		case "quiz_SICE":
+			$('#quiz_choose_zone').removeClass('no-display');
+		break;
+		
+		case "quiz_MUCE":
+			$('#quiz_choose_zone').removeClass('no-display');
+		break;
+		
+		case "quiz_SHAS":
+			$('#quiz_choose_zone').addClass('no-display');
+		break;
+	}
+	
+}
+
+
+</Script>       

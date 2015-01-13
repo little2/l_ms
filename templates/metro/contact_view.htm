@@ -1,0 +1,96 @@
+<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+
+
+<input type="hidden"  id="user_id" name="user_id"  value="{user_id}">
+
+<div class="place-left" style="margin-left: 40px; width: 20%">
+	<img  id="myimg" name="mying"  src="{image}" class="cycle span2" />
+		<a class="button fileinput-button button inputtext no-display ">  
+		<div class="icon-folder-2">請選擇圖檔</div>
+        	<!-- The file input field used as target for the file upload widget -->
+        	<input id="fileupload" type="file" name="files[]" />
+    	</a>
+	    <div id="componennt_id"  name="componennt_id"  class="progress-bar  no-display"  data-role="progress-bar" data-value="0" ></div> 	
+</div>
+
+
+<div class="place-left" style="width: 65%">
+	<div class="viewtext">
+		<h1>{fullName}</h1>		
+		<h3>{department_title}</h3>
+        
+        <div style="margin-top: 40px" ></div>
+	</div>
+	
+	<div class="inputtext no-display">
+	<div class="input-control text ">
+		<input class="inputtext no-display" id="fullName"  name="fullName"  type="text"
+			value="{fullName}"
+			style="height: 72px; width: 55%; font-size: 4.8rem;"
+			placeholder="姓名" />	
+	</div>
+	
+	<div style="margin-top: 30px" class="inputtext  no-display" ></div>
+	<div class="input-control text">
+		<input class="inputtext no-display" id="job_title"  name="job_title"  type="text"
+			value="{job_title}" style="height: 36px; width: 65%; font-size: 2.4rem;"
+			placeholder="請輸入部門名稱" />
+		<button class="btn-clear"></button>
+	</div>
+	
+
+	</div>
+	
+	<dl>
+		
+		<dt>電子郵件</dt>
+		<dd>		
+			<div class="viewtext">{user_email}</div>
+			<span class="input-control text  on-right inputtext no-display" 	style="width:60%">	
+				<input type="text"  class="inputtext " size="10"  id="user_email"  name="user_email" value="{user_email}"
+				class="" placeholder="電子郵件" /> 	
+				<button class="btn-clear"></button>
+			</span>			
+			
+		</dd>	
+		
+		<dt>密碼</dt>
+		<dd>		
+			<div class="viewtext">*****</div>
+			<span class="input-control text  on-right inputtext no-display" 	style="width:60%">	
+				<input type="password"  data-transform="input-control"  class="inputtext " size="10"  id="password"  name="password" value="{password}"
+				class="" placeholder="密碼" /> 	
+				<button class="btn-clear"></button>
+			</span>			
+			
+		</dd>			
+		
+
+		
+		<!-- Block -->
+		<dt>性別</dt>
+		<dd>			
+			<div class="viewtext">{gender_name}</div>	
+			<div class="input-control select inputtext no-display">
+			    <select id="gender" name="gender" style="width:25%">
+			    	<option>N/A</option>
+			        <option value="m" {selected_gender_m}>男</option>
+			        <option value="f" {selected_gender_f}>女</option>			        
+			    </select>
+			</div>
+		</dd>
+		<!-- Block -->
+		<dt>備註</dt>
+		<dd>
+			<div class="viewtext" style="width: 85%;">{notes}</div>
+			<textarea class="inputtext no-display" data-transform="input-control" style="width: 85%;"
+				id="notes"  name="notes" >{notes}</textarea>
+		</dd>
+	</dl>
+	<div style="margin-top: 40px;margin-bottom: 40px" class="inputtext no-display">
+		<a class="default button"  onClick="contact_save()">Save</a>
+		<a class="button on-right-more"  onClick="contact_cancel()">Cancel</a>
+	</div>
+
+</div>

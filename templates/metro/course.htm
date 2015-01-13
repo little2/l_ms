@@ -1,0 +1,1159 @@
+<script type="text/javascript"  src="js/little2.js"></script>
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="../common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="../common/plugins/html5sortable/jquery.sortable.js"></script>
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	課程<small class="on-right">內容</small>
+</h1>
+
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="home.php">Home</a></li>
+		<li ><a href="{last_url}">{last_title}</a></li>
+		<li class="active"><a href="#">{course_title_str}</a></li>
+	</ul>
+</nav>
+
+	<div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+
+		<a class="tile bg-darkRed {bt-addtomycourse-no-display}" data-click="transform"
+			href="javascript:course_join();">
+			<div class=" tile-content icon">
+				<i class="icon-link"></i>
+			</div>
+			<div class="tile-status">
+				<span class="name">{$lang.AddToMyCourse}</span>
+			</div>
+		</a>
+	
+		
+	</div>
+<div class="clearfix"></div>
+
+
+
+<div class="accordion  with-marker" data-role="accordion">
+	<div class="accordion-frame">
+		<a id="courseinfo_header" name="courseinfo_header"href="#" class="heading">課程資料</a>		
+		<div class="content" id="container_course_info"  name="container_course_info">
+		
+			<!-- 編輯課程信息 --
+			<div class="place-right  viewtext"   id="icon_course_edit"  name="icon_course_edit" >
+				<a href="javascript:course_edit()" class="on-right-more"><img
+					src="images/edit.png" width="48px"></a>
+			</div>
+
+			<!-- 回到課程信息 ->
+			<div id="icon_course_show_info"  name="icon_course_show_info"  class="place-right no-display inputtext">
+				<a href="javascript:course_show_info()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>			
+			-->
+		
+			
+			<div class="clearfix"></div>
+
+			<input type="hidden" id="course_id" name="course_id" value="{course_id}"/>
+						
+
+			<dl style="margin-left: 40px;">
+				
+				<dt id="course_title_label">課程名稱</dt>
+				<dd>
+					<span class="viewtext"   id="course_title_viewtext">{course_title}	</span> 
+					<span id="course_title_span" name="course_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="course_title" name="course_title"  class="inputtext no-display "  type="text" value="{course_title}" 
+						placeholder="課程名稱" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt id="catalog_title_label">課程分類</dt>
+				<dd>
+					<span class="viewtext"   id="catalog_title_viewtext">{catalog_title}</span> 
+					<span id="catalog_title_span" name="catalog_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="catalog_title" name="catalog_title"  class="inputtext no-display "  type="text" value="{catalog_title}" 
+						placeholder="課程分類" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt>課程說明</dt>
+				<dd>
+					<span class="viewtext"   id="course_desc_viewtext">{course_desc}</span> 
+					<span class="input-control textarea inputtext no-display">
+						<textarea id="course_desc" name="course_desc" style="width: 80%"
+							placeholder="課程說明"   >{course_desc}</textarea>
+					</span>
+				</dd>
+			</dl>
+
+			<div style="margin-top: 40px; margin-bottom: 40px"
+				class="inputtext no-display" align="center">
+				<a class="default button large" onClick="course_save()">Save</a> 
+				<a class="button on-right-more"  id="bt_course_info_cancel" onClick=" course_show_info()">Cancel</a>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="accordion-frame {sco-list-no-display}">
+		<a href="#" class=" active heading">學習單元</a>
+		<div class="content clearfix">
+
+			<!-- 增加SCO -->
+			<div id="icon_sco_show_create"  name="icon_sco_show_create"  class="place-right {bt_create_course_display}">
+				<a href="javascript:sco_show_create()" class="on-right-more"><img
+					src="images/bt_create.png" width="48px"></a>
+			</div>
+			
+			<!-- 回到SCO清單 -->
+			<div id="icon_sco_show_list"  name="icon_sco_show_list"  class="place-right no-display">
+				<a href="javascript:sco_show_list()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>
+			
+			<!-- 刪除SCO清單 -->
+			<div id="icon_sco_remove_list"  name="icon_sco_remove_list"  class="place-right {bt_remove_course_display}">
+				<a href="javascript:sco_remove_list()" class="on-right-more"><img
+					src="images/bt_delete.png" width="48px"></a>
+			</div>
+			
+			<!-- 排序SCO清單 -->
+			<div id="icon_sco_move_list"  name="icon_sco_move_list"  class="place-right {bt_move_course_display}">
+				<a href="javascript:sco_move_list()" class="on-right-more"><img
+					src="images/bt_move.png" width="48px"></a>
+			</div>
+			
+			
+			<div class="clearfix"></div>			
+			<div class="padding10" ></div>
+	
+			<!-- 新增學習單元DIV  -->
+			<div id="sco_show_create_container"  name="sco_show_create_container"  class="offset1 no-display" >
+			<dl style="margin-left: 40px;">
+					<dt>請選擇要製作的種類</dt>
+					<dd>
+						<a id="bt_video" name="bt_video"  onClick="choose_source('bt_video');"  class="button command-button inverse margin20">
+						    <i class=" icon-film on-right"></i>
+						    影片課程
+						    <small>本機上傳或視頻網站</small>
+						</a>
+						<a id="bt_exam" name="bt_exam"  onClick="choose_source('bt_exam');"  class="button command-button inverse margin20">
+						    <i class="  icon-file-4 on-right"></i>
+						    測驗試題
+						    <small>新增測試題目</small>
+						</a>			
+						<a id="bt_homework" name="bt_homework"  onClick="choose_source('bt_homework');"  class="button command-button inverse margin20">
+						    <i class=" icon-file-3 on-right"></i>
+						    作業
+						    <small>讓學員繳交作業檔案</small>
+						</a>  
+					</dd>
+				
+					
+					<!-- 作業製作 -->			
+					<div id="homework_zone" name="homework_zone"  class="no-display">
+					
+					
+					
+			      	<dt>作業名稱</dt>
+						<dd>
+							<div class="input-control text span5">
+							    <input type="text"  id="sco_homework_title" name="sco_homework_title"  value="" placeholder="作業名稱"/>
+							    <button class="btn-clear"></button>
+							</div>
+						</dd>
+									
+                     
+					<dt>截止時間</dt>
+					<dd>						
+						<span class="input-control text  span8"   id="datepicker_homework_deadline"  data-role="datepicker"   data-format="yyyy/m/d"  data-effect="fade" data-other-days="1"  data-locale="zhCN" >								
+						  	<input type="text"  id="homework_deadline" name="homework_deadline">
+						   	<button class="btn-date" ></button>
+						</span>
+					</dd>									
+									
+									<dt>及格分數</dt>
+								  <dd>		
+								  <input type="hidden" id="pass_mark" name="pass_mark" />			
+								  	<div style="padding-top:30px"></div>			  	
+								  	<div  class="slider permanent-hint span8" data-role="slider"  data-position="60" data-accuracy="5" data-show-hint="true"   id="passmark_slider" name="passmark_slider">
+								  	<div class="complete" style="width: 645.5px;"></div>
+								  	<a class="marker" style="left: 645.5px;"></a>
+								  	<span class="hint" style="left: 635.5px;">63</span>
+								  	</div>
+								</dd>		
+												
+						<dt>作業說明</dt>
+						<dd>
+							<div class="input-control textarea span8">
+								 <textarea  id="sco_homework_desc" name="sco_homework_desc"  rows="15" ></textarea>			
+							</div>
+						</dd>	
+						<div class="offset1"><a class="button large default" href="javascript:sco_homework_create_act()" >新增</a></div>
+				</div>
+				
+					<!-- 試題製作 -->			
+					<div id="exam_zone" name="exam_zone"  class="no-display">
+			      	<dt>試卷名稱</dt>
+						<dd>
+							<div class="input-control text span5">
+							    <input type="text"  id="sco_exam_title" name="sco_exam_title"  value="" placeholder="試卷名稱"/>
+							    <button class="btn-clear"></button>
+							</div>
+						</dd>
+												
+						<dt>試卷說明</dt>
+						<dd>
+							<div class="input-control textarea span8">
+								 <textarea  id="sco_exam_desc" name="sco_exam_desc"  ></textarea>			
+							</div>
+						</dd>	
+						
+									<dt>及格分數</dt>
+								  <dd>		
+								  <input type="hidden" id="exam_pass_mark" name="exam_pass_mark" />			
+								  	<div style="padding-top:30px"></div>			  	
+								  	<div  class="slider permanent-hint span8" data-role="slider"  data-position="60" data-accuracy="5" data-show-hint="true"   id="exampassmark_slider" name="exampassmark_slider">
+								  	<div class="complete" style="width: 645.5px;"></div>
+								  	<a class="marker" style="left: 645.5px;"></a>
+								  	<span class="hint" style="left: 635.5px;">63</span>
+								  	</div>
+								</dd>							
+						
+						
+						<div class="offset1"><a class="button large default" href="javascript:sco_exam_create_act()" >新增</a></div>
+				</div>
+			
+			
+					<!-- 試題製作(END) -->				
+			
+			
+			
+			
+					<div id="video_zone" name="video_zone"  class="no-display">
+			      	<dt>請選擇學習單元來源</dt>
+			      	<dd>
+					    <a id="bt_online" name="bt_online"  onClick="choose_source('bt_online');" class="button command-button primary margin20">
+						   <i class="icon-youtube on-left"></i>
+						   線上課程
+						    <small>連結Youtube課程</small>
+						</a>
+						      
+						<a id="bt_upload" name="bt_upload"  onClick="choose_source('bt_upload');"  class="button command-button inverse margin20">
+						    <i class=" icon-upload on-right"></i>
+						    本機上傳
+						    <small>從我的電腦上傳</small>
+						</a>      
+						 <input type="hidden"  id="sco_type" name="sco_type"  value="" />
+					</dd>
+					
+					
+					<div id="online_zone" name="online_zone"  class="no-display">
+						<dt>請輸入連結網址</dt>
+						<dd>
+							<div class="input-control text span5">
+							    <input type="text"  id="sco_path" name="sco_path"  value="" placeholder="學習單元名稱"/>
+							    <button class="btn-clear"></button>
+							</div>				 
+						</dd>
+					</div>
+					
+					
+					<div id="upload_zone" name="upload_zone"  class="no-display">
+						<dt>請選取上傳的檔案</dt>
+						<dd>
+							<div  class="margin20"  id="take_upload_zone" name="take_upload_zone" >
+							 <div class="input-control file span5">
+							    <input id="fileupload" type="file" name="files[]" >
+							    <button class="btn-file"></button>
+							</div>
+							 <div id="componennt_id" class="progress-bar span5" data-role="progress-bar" ></div>
+							 
+							 </div>
+							 <div id="files_zone" class="files_zone"></div>
+						</dd>
+					</div>
+			
+					<div id="sco_profiles" name="sco_profiles"  class="no-display">
+						<dt>學習單元名稱</dt>
+						<dd>
+							<div class="input-control text span5">
+							    <input type="text"  id="sco_title" name="sco_title"  value="" placeholder="學習單元名稱"/>
+							    <button class="btn-clear"></button>
+							</div>
+						</dd>	
+						
+						<dt>學習單元長度(秒)</dt>
+						<dd>
+							<div class="input-control text span2">
+							    <input type="text"  id="sco_total_sec" name="sco_total_sec"  value="" placeholder="學習單元長度"/>
+							    <button class="btn-clear"></button>
+							    
+							</div>
+						</dd>	
+						
+						
+						<dt>學習單元簡介</dt>
+						<dd>
+							<div class="input-control textarea span8">
+								 <textarea  id="sco_desc" name="sco_desc"  ></textarea>
+			
+							</div>
+						</dd>	
+						<div class="offset1"><a class="button large default" href="javascript:sco_create_act()" >新增</a></div>
+					</div>		
+					</div>	
+					</dl>		
+			</div>
+			<!-- 新增學習單元DIV(END)  -->
+				
+			
+			<div id="sco_show_list_container"  name="sco_show_list_container" >
+			<input type="hidden" id="srot" name="sort" />
+			<ul class="sortable grid">
+
+			<!-- BEGIN SCO -->
+					<a class="tile double {SCO.height}  bg-lightBlue fg-white  shake-constant shake-little hover-stop"  id="scotile_{SCO.sco_id}"  name="scotile_{SCO.sco_id}"  data-click="transform"
+						href="javascript:click_sco_tile('{SCO.sco_id}')">
+						<div class="tile-content">
+							<div class="padding10">
+								<h1 class="fg-white ntm">
+									<!-- BEGIN USERREC -->
+									{SCO.progress}<small class="on-right">%</small>		
+									<!-- END USERREC -->		
+									
+									<!-- BEGIN SCOICON -->					
+									<div class="icon"><i class="icon-book"></i></div>
+									<!-- END SCOICON -->									
+								</h1>
+								<h3 class="fg-white no-margin">{SCO.sco_title}</h3>
+								<h6 class="fg-white">{SCO.parent_project}</h6>
+								<p class="tertiary-text fg-white">{SCO.sco_desc}</p>
+								
+							</div>
+						</div>
+						<div class="tile-status">
+							<div class="label"><i class="{SCO.icon_label}"></i>&nbsp{course_title}</div>
+						</div>
+						<div class="brand">
+							<div class="badge "><i class="{SCO.icon_badge}"></i></div>
+						
+						</div>
+					</a>		
+					<!-- END SCO -->
+					</ul>
+							
+				</div>	
+											
+		</div>
+	</div>
+
+	<!-- 課程成員 -->
+
+	<div class="accordion-frame {div-member-no-display}" >
+		<a href="#" class="heading "> {$lang.Member}</a>
+		<div class="content clearfix">
+			
+			<!-- 增加成員 -->
+			<div id="icon_course_add_member"  name="icon_course_add_member"  class="place-right">
+				<a href="javascript:course_show_add_member()" class="on-right-more"><img
+					src="images/bt_create.png" width="48px"></a>
+			</div>
+			
+			<!-- 回到成員清單 -->
+			<div id="icon_course_show_member_list"  name="icon_course_show_member_list"  class="place-right no-display">
+				<a href="javascript:course_show_member_list()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>
+			
+			<!-- 刪除成員清單 -->
+			<div id="icon_course_remove_member"  name="icon_course_remove_member"  class="place-right">
+				<a href="javascript:course_remove_member()" class="on-right-more"><img
+					src="images/bt_delete.png" width="48px"></a>
+			</div>
+			
+			
+			
+			<div class="clearfix"></div>
+			<div class="padding10" ></div>
+			
+			<div id="course_show_add_member_container"  name="course_show_add_member_container"  class="offset1 no-display" >
+				<h4>請輸入新增人員的Email</h4>
+				<div class="input-control text size5" data-role="input-control">
+					<input type="text"  id="user_email" name="user_email" placeholder="size5">
+				</div>
+				<a class="button large" href="javascript:course_add_member()" >新增</a>
+			</div>
+			
+			<div id="course_member_tile_container"  name="course_member_tile_container" >					
+					<!-- BEGIN USERLIST -->
+					<a id="usertile_{USERLIST.user_id}"   name="usertile_{USERLIST.user_id}"  class="tile double  bg-steel fg-white  " data-click="transform"  href="javascript:click_user_tile('{USERLIST.user_id}');">
+					<div class="tile-content email">
+						<div class="email-image">
+							<img src="{USERLIST.image}">
+							
+						</div>
+						<div class="email-data">
+							
+							<span class="email-data-title">{USERLIST.fullName}</span> <span
+								class="email-data-subtitle">{USERLIST.user_email}</span>
+						</div>	
+										
+						<div class="brand">
+							<div class="label">
+								<h3 class="no-margin fg-white"><span class="icon-power"></span></h3>
+							</div>
+							<div class="badge ">{USERLIST.group_title}</div>
+						</div>
+					</div></a>
+					
+					<!-- END USERLIST -->
+					<div id="user_tile_position" name="user_tile_position"></div>
+			</div>											
+		</div>
+	</div>
+
+	<!-- 課程成員(END) -->
+</div>
+
+
+
+<script>
+
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {	
+	
+	//課程資料
+	var container_course_info = new MetroContainer('container_course_info');		
+	container_course_info.init(
+			{
+				bt_edit:{bt_edit_course_display},	
+			}
+	);
+	
+	
+	var pb = $("#componennt_id").progressbar();   
+	
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files_zone');
+                $('#sco_path').val(file.name);
+            });         
+           
+            
+            $('#take_upload_zone').addClass('no-display');
+            $('#sco_profiles').removeClass('no-display');
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    
+    
+    //排序 
+	$('.sortable').sortable().bind('sortupdate', function(e, ui) {	
+			var sort_tag="";
+			var controls = document.getElementsByTagName('a');
+			for(var i=0; i<controls.length; i++)
+			{			
+				if(controls[i].id)
+				{
+					var t=controls[i].id;
+			
+					if(t.substr(0,8)=='scotile_')
+					{				
+						sort_tag+=t.substr(8)+';';
+					}						
+				}
+			 }
+			
+			if(sort_tag!=$('#srot').val())
+			{
+				$('#srot').val(sort_tag);
+				sco_update_sort();
+				
+			}
+	
+	    //ui.item contains the current dragged element.
+	    //Triggered when the user stopped sorting and the DOM position has changed.
+	});	
+    
+	$('.sortable').sortable('disable');
+    
+	   //及格分數
+    var passmark_slider = $("#passmark_slider").slider({      
+        changed:function(){          		
+        		var new_pass_mark=parseInt(this.position);
+        		$('#pass_mark').val(new_pass_mark);    
+        	
+       	},
+    });
+	   
+	   //考試及格分數
+    var passmark_slider = $("#exampassmark_slider").slider({      
+        changed:function(){          		
+        		var new_pass_mark=parseInt(this.position);
+        		$('#exam_pass_mark').val(new_pass_mark);    
+        	
+       	},
+    });
+	
+	
+	
+});
+
+
+function sco_update_sort()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_update_sort.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();		
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+
+function click_sco_tile(sco_id)
+{		
+	var btclass = $('#scotile_'+sco_id).attr('class');
+
+	if(btclass.indexOf('half-opacity')!=-1)
+	{            
+		//如果有half-opacity 代表是待刪狀況
+		//<div class="tile selected"></div>
+		var tag='#scotile_'+sco_id;
+		$(tag).addClass('selected');
+		
+		$.Dialog({
+			shadow : true,
+			overlay : false,
+			icon : '<span class="icon-remove"></span>',
+			title : '是否確定刪除',
+			width : 300,
+			padding : 20,
+			onShow: function(_dialog){
+				var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="sco_remove_act('+sco_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#scotile_'+sco_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+				$.Dialog.content(content);					
+			}				
+		});		
+	} 
+	else if(btclass.indexOf('shake ')!=-1)
+	{
+		//代表移動狀態
+	}
+	else
+	{
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		
+		if(btclass.indexOf('exam')!=-1)
+		{       
+			location.href='sco_exam.php?sco_id='+sco_id;
+		}
+		else if(btclass.indexOf('homework')!=-1)
+		{       
+			location.href='sco_homework.php?sco_id='+sco_id;
+		}
+		else
+		{
+			location.href='sco.php?sco_id='+sco_id;
+		}
+	}	
+}
+
+
+
+
+function choose_source(type)
+{
+	switch(type)
+	{
+		case 'bt_video':
+			$('#bt_video').removeClass('half-opacity');	
+			$('#bt_exam').addClass('half-opacity');
+			$('#bt_homework').addClass('half-opacity');
+			$('#video_zone').removeClass('no-display');		
+			$('#exam_zone').addClass('no-display');			
+			$('#homework_zone').addClass('no-display');		
+			break;
+			
+		case 'bt_exam':
+			$('#bt_video').addClass('half-opacity');	
+			$('#bt_exam').removeClass('half-opacity');
+			$('#bt_homework').addClass('half-opacity');
+			$('#video_zone').addClass('no-display');		
+			$('#exam_zone').removeClass('no-display');	
+			$('#homework_zone').addClass('no-display');		
+			
+			break;
+			
+		case 'bt_homework':
+			$('#bt_video').addClass('half-opacity');	
+			$('#bt_exam').addClass('half-opacity');
+			$('#bt_homework').removeClass('half-opacity');
+			$('#video_zone').addClass('no-display');		
+			$('#exam_zone').addClass('no-display');		
+			$('#homework_zone').removeClass('no-display');		
+			break;
+	
+	
+		case 'bt_upload':
+			$('#bt_online').addClass('half-opacity');
+			$('#bt_upload').removeClass('half-opacity');
+			$('#upload_zone').removeClass('no-display');
+			$('#online_zone').addClass('no-display');
+			$('#homework_zone').addClass('no-display');	
+			$('#sco_type').val("video");
+			break;
+		
+
+		case 'bt_online':
+			$('#bt_online').removeClass('half-opacity');
+			$('#bt_upload').addClass('half-opacity');
+			$('#upload_zone').addClass('no-display');
+			$('#online_zone').removeClass('no-display');
+			$('#homework_zone').addClass('no-display');	
+			$('#sco_type').val("youtube");
+			$('#sco_profiles').removeClass('no-display');
+			break;
+			
+	}
+	
+}
+
+
+
+function sco_remove_act(sco_id)
+{
+
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_remove.php?sco_id="+sco_id, //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			$('#scotile_'+sco_id).remove()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+function sco_show_create()
+{
+	
+	$('#sco_show_list_container').addClass("no-display");
+	$('#sco_show_create_container').removeClass("no-display");
+	
+
+	$('#icon_sco_show_create').addClass("no-display");
+	$('#icon_sco_show_list').removeClass("no-display");
+	$('#icon_sco_remove_list').addClass("no-display");
+	$('#icon_sco_move_list').addClass("no-display");
+	
+	
+}
+
+function sco_show_list()
+{
+	$('.sortable').sortable('disable');
+	$('#sco_show_list_container').removeClass("no-display");
+	$('#sco_show_create_container').addClass("no-display");
+
+	$('#icon_sco_show_create').removeClass("no-display");
+	$('#icon_sco_show_list').addClass("no-display");
+	$('#icon_sco_remove_list').removeClass("no-display");	
+	$('#icon_sco_move_list').removeClass("no-display");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).removeClass('half-opacity');
+				$(tag).removeClass('shake');
+			}						
+		}
+	 }
+	
+}
+
+function sco_remove_list()
+{	
+	set_tag("icon_sco_show_create","h");
+	set_tag("icon_sco_show_list","s");
+	set_tag("icon_sco_remove_list","h");
+	set_tag("icon_sco_move_list","h");
+	
+
+	set_tag("sco_show_list_container","s");
+	set_tag("sco_show_create_container","h");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('half-opacity');
+			}						
+		}
+	 }
+}
+
+
+function sco_move_list()
+{	
+	$('.sortable').sortable('enable');
+	set_tag("icon_sco_show_create","h");
+	set_tag("icon_sco_show_list","s");
+	set_tag("icon_sco_remove_list","h");
+	set_tag("icon_sco_move_list","h");
+	
+	set_tag("sco_show_list_container","s");
+	set_tag("sco_show_create_container","h");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('shake');
+			}						
+		}
+	 }
+}
+
+
+
+function sco_create_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?course_id='+data.course_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
+
+
+
+function sco_exam_create_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_exam_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?course_id='+data.course_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
+
+
+
+function sco_homework_create_act()
+{
+	var o = {
+			url:"js_sco_homework_create.php",						
+			onSuccess:function(data){				
+				location.href='?course_id='+data.course_id;
+			}					
+	}	
+	var msg=mypost(o);	
+}
+
+function course_edit()
+{
+	$('#courseinfo_header').addClass('active');	
+	$('.viewtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.inputtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+	
+	$('#icon_course_show_info').addClass('no-display');
+	$('#bt_course_info_cancel').addClass('no-display');
+	
+}
+
+function course_show_info()
+{	
+	$('.inputtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.viewtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+}
+
+
+function course_save() {
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	if(course_content_check())
+	{
+		//alert($("#formPost").serialize());
+		$.ajax({
+			type : 'POST', //GET or POST
+			url : "js_course_save.php", //請求的頁面
+			cache : false, //防止抓到快取的回應
+			data : $("#formPost").serialize(), //要傳送到頁面的參數
+			success : function(data) {
+				if (data.errmsg) {
+					alert(data.errmsg);
+				} else {
+					if(data.course_id)
+					{
+						location.href='?course_id='+data.course_id;
+					}
+					else
+					{
+						$('#course_title_viewtext').html($('#course_title').val());
+						$('#catalog_title_viewtext').html($('#catalog_title').val());
+						$('#course_desc_viewtext').html($('#course_desc').val());
+						$.unblockUI();
+						course_show_info()
+					}
+				}
+			}, //當請求成功後此事件會被呼叫
+			error : function(data) {
+				alert('error')
+				$.unblockUI(); 
+			}, //當請求失敗後此事件會被呼叫
+			statusCode : { //狀態碼處理
+				404 : function() {
+					alert("page not found");
+				}
+			}
+		});
+	}
+}
+
+
+function course_content_check()
+{
+	var is_ok=true;		
+	u_tagname='#course_title_label'
+	if($('#course_title').val()=="")
+	{			
+		shake(u_tagname,"{$lang.FillGroupTitle}")		
+		$(u_tagname).addClass('warning-state');
+		is_ok=false;
+	}
+	else
+	{		
+		$(u_tagname).removeClass('fg-red')	
+	}		
+	return is_ok;
+}		
+
+<!-- BEGIN SHOW_COURSE_EDIT -->
+course_edit();
+<!-- END SHOW_COURSE_EDIT -->
+
+
+/* 課程成員功能 */
+ 
+function course_show_add_member()
+{
+	set_tag("icon_course_add_member","h");
+	set_tag("icon_course_show_member_list","s");
+	set_tag("icon_course_remove_member","h");		
+	
+
+	set_tag("course_member_tile_container","h");		
+	set_tag("course_show_add_member_container","s");		
+	//
+}
+
+function course_show_member_list()
+{
+	set_tag("icon_course_add_member","s");
+	set_tag("icon_course_show_member_list","h");
+	set_tag("icon_course_remove_member","s");		
+	
+	set_tag("course_member_tile_container","s");		
+	set_tag("course_show_add_member_container","h");		
+
+
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,9)=='usertile_')
+			{
+				var tag='#'+t;					
+				$(tag).removeClass('half-opacity');
+			}						
+		}
+	 }	
+}
+
+//課程增加成員
+function course_add_member()
+{	
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_course_add_member.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();			
+			course_cerate_new_tile(data.user_id,data.fullName,data.user_email,data.image)
+			course_show_member_list()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});	
+}
+
+//課程新增後,新增一個tile
+function course_cerate_new_tile(user_id,fullName,user_email,image)
+{
+	var new_html='<a id="usertile_'+user_id+'"   name="usertile_'+user_id+'"  class="tile double  bg-steel fg-white  " data-click="transform"  href="javascript:click_user_tile('+user_id+');">';
+	new_html+='<div class="tile-content email">';
+		new_html+='<div class="email-image">';
+	new_html+='<img src="'+image+'">';
+		new_html+='</div>';
+	new_html+='<div class="email-data">';
+	new_html+='<span class="email-data-title">'+fullName+'</span>'; 
+		new_html+='<span class="email-data-subtitle">'+user_email+'</span>';
+		new_html+='</div>';						
+	new_html+='<div class="brand">';
+	new_html+='<div class="label">';
+		new_html+='<h3 class="no-margin fg-white"><span class="icon-power"></span></h3>';
+			new_html+='</div>';
+		new_html+='<div class="badge">'+$('#group_title').val()+'</div>';
+		new_html+='</div>';
+	new_html+='</div></a>';
+
+	
+	$(new_html).insertBefore('#user_tile_position');
+}
+
+
+function click_user_tile(user_id)
+{		
+	var btclass = $('#usertile_'+user_id).attr('class');
+
+	if(btclass.indexOf('half-opacity')!=-1)
+	{                
+		//<div class="tile selected"></div>
+		var tag='#usertile_'+user_id;
+		$(tag).addClass('selected');
+		
+		$.Dialog({
+			shadow : true,
+			overlay : false,
+			icon : '<span class="icon-remove"></span>',
+			title : '是否確定刪除',
+			width : 300,
+			padding : 20,
+			onShow: function(_dialog){
+				var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="course_remove_member_act('+user_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#usertile_'+user_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+				$.Dialog.content(content);					
+			}				
+		});
+		
+	} 
+	else
+	{
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		location.href='contact_list.php?id='+user_id;			
+	}	
+}
+
+
+function course_remove_member()
+{
+	set_tag("icon_course_add_member","h");
+	set_tag("icon_course_show_member_list","s");
+	set_tag("icon_course_remove_member","h");			
+	set_tag("course_member_tile_container","s");		
+	set_tag("course_show_add_member_container","h");		
+	
+	////////////
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,9)=='usertile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('half-opacity');
+			}						
+		}
+	 }
+}
+
+function course_remove_member_act(user_id)
+{
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_course_remove_member.php?user_id="+user_id, //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			
+			$('#usertile_'+user_id).remove()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+function course_join()
+{
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_course_join.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			course_id=$('#course_id').val();
+			$.unblockUI();
+			location.href='?course_id='+course_id
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});	
+}
+
+
+</SCRIPT>
+
+
+			
+
+		
+
+
+
+
+
+
+

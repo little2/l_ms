@@ -1,0 +1,175 @@
+<script type="text/javascript"  src="js/little2.js"></script>
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="../common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="../common/plugins/html5sortable/jquery.sortable.js"></script>
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	公司<small class="on-right">基本信息</small>
+</h1>
+
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="home.php">Home</a></li>
+		<li ><a href="#">安裝</a></li>
+		<li class="active"><a href="#">基本信息</a></li>
+	</ul>
+</nav>
+
+
+<div class="wizard" id="wizard">
+       <div class="steps">
+           <div class="step">
+           		<!-- 第一頁 -->
+            	<dl style="margin-left: 40px;">					
+					<dt id="system_manager_email_label"  name="system_manager_email_label">{$lang.SystemManagerEmail}</dt>
+					<dd>
+						<span id="system_manager_email_span"  name="system_manager_email_span" class="input-control text inputtext "  style="width: 80%"> 
+							<input id="system_manager_email" name="system_manager_email"  class="wizardp1 "  type="text" value="" 	placeholder="{$lang.SystemManagerEmail}" />
+							<button class="btn-clear"></button>
+						</span>						
+					</dd>	
+					
+					<dt id="system_manager_password_label">{$lang.SystemManagerPassword}</dt>
+					<dd>
+						<span id="system_manager_password_span"  name="system_manager_password_span" class="input-control password inputtext "  style="width: 60%"> 
+							<input id="system_manager_password" name="system_manager_password"  class="wizardp1 "  type="password" value="" 	placeholder="{$lang.SystemManagerPassword}" />
+							 <button class="btn-reveal" tabindex="-1"></button>
+						</span>
+						
+					</dd>	
+					
+				</dl>
+				<!-- 第一頁(結束) -->
+           </div>
+           <div class="step">Page 2</div>
+           <div class="step">Page 3</div>
+       </div>
+   </div>
+
+            <script>
+                $(function(){
+                    $('#wizard').wizard({
+                        locale: 'en',
+                        onCancel: function(){
+                            $.Dialog({
+                                title: 'Wizard',
+                                content: 'Cancel button clicked',
+                                shadow: true,
+                                padding: 10
+                            });
+                        },
+                        buttons: {
+                            cancel: true,
+                            help: false,
+                            prior: true,
+                            next: true,
+                            finish: true
+                        },
+                        onHelp: function(){
+                            $.Dialog({
+                                title: 'Wizard',
+                                content: 'Help button clicked',
+                                shadow: true,
+                                padding: 10
+                            });
+                        },  
+                        onHelp: function(){
+                            $.Dialog({
+                                title: 'Wizard',
+                                content: 'Help button clicked',
+                                shadow: true,
+                                padding: 10
+                            });
+                        },                         
+                        onNext: function(page,wiz){
+                        	var is_pass=true;                        	
+                        	var tag='.wizardp'+page;
+                   			$(tag).each(function() {
+                   				if($(this).val()=="")
+                   				{
+                   					u_tagname='#'+($(this).attr("id"))+"_label";
+                   					message=$(u_tagname).html();
+                    				//_label
+                    				shake(u_tagname,message);
+                    				is_pass=false;
+                   				}
+                   			});   
+                   			
+                   			if(is_pass)
+                   			{
+                   				switch(page)
+                            	{
+    	                        	case 1:
+    	                        		system_mngacc_update();
+    	                        		break;
+    	                        	case 2:
+    	                        		
+    	                        		break;
+                            		default:
+                            			
+                            		break;
+                            	}
+                   			}
+                   			
+                       		return is_pass;
+                        }, 
+                        onFinish: function(){
+                            $.Dialog({
+                                title: 'Wizard',
+                                content: 'Finish button clicked',
+                                shadow: true,
+                                padding: 10
+                            });
+                        }
+                    });
+                });
+            </script>
+
+
+
+<div class="clearfix"></div>
+
+
+
+
+<script>
+function system_mngacc_update()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" />{$lang.WaitForProcess}</h2>' }); 		
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_system_mngacc_update.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();		
+			return true;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});	
+}
+</SCRIPT>
+
+
+			
+
+		
+
+
+
+
+
+
+

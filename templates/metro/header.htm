@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="product" content="Metro UI CSS Framework">
+    <meta name="description" content="Simple responsive css framework">
+    <meta name="author" content="Sergey S. Pimenov, Ukraine, Kiev">
+
+    <link href="templates/{TPL_STYLE}/css/metro-bootstrap.css" rel="stylesheet">
+    <link href="templates/{TPL_STYLE}/css/metro-bootstrap-responsive.css" rel="stylesheet">
+    
+    <link href="templates/{TPL_STYLE}/css/docs.css" rel="stylesheet">
+ 
+    <link href="js/prettify/prettify.css" rel="stylesheet">
+  
+	<link rel="stylesheet" href="../common/plugins/animate.css-master/animate.css">
+	
+    <!-- Load JavaScript Libraries -->    
+	
+    
+ 
+     
+<script src="js/jquery/jquery.min.js"></script>     
+    <script src="js/jquery/jquery.widget.min.js"></script>
+    <script src="js/jquery/jquery.mousewheel.js"></script>
+    <script src="js/prettify/prettify.js"></script>
+    <script src="js/jquery.little2.js"></script>   
+    
+    <!-- Load Plug in -->
+  
+    <script src="../common/plugins/blockui/jquery.blockUI.js"></script>
+
+
+
+
+    <!-- Metro UI CSS JavaScript plugins -->
+    <script src="js/load-metro.js"></script>
+
+    <!-- Local JavaScript -->
+    <script src="js/docs.js"></script>
+    <script src="js/little2.js"></script>
+
+    <title>Little2 LMS</title>
+</head>
+<body class="metro">
+  
+ <header data-load="header_menu.php"></header>
+    
+<div class="container" id="container" name="container">
+ <form id="formPost" name="formPost" >
+ 
+ <input type="hidden" id="user_power_list" name="user_power_list" value="{user_power_list}" />
+ 
+<div class=" user-input"  id="loginForm" style="display:none">
+	
+	<label>E-mail</label>
+	<div class="input-control text span3">
+		<input type="text" name="user_email" id="user_email">
+		<button class="btn-clear"></button>
+	</div>
+	
+	<label>Password</label>
+	<div class="input-control password span3">
+		<input type="password" name="password" id="password">
+		<button class="btn-reveal"></button>
+	</div>
+	
+	<div class="form-actions">
+		<A class="button primary" onClick="login_to();return false;">Login</A>		
+	</div>
+	<p>&nbsp;</p>
+</div>
+
+
+ <script type="text/javascript">
+ 
+ $(function() {
+	    $("#password").keypress(function(event){       
+	        if (event.keyCode == 13)  login_to();
+	    });
+	});
+ 
+ function login_to()
+ {    	
+	 //console.log( $('#user_email',$('#loginForm')).val());
+	// console.log( $('#password',$('#loginForm')).val());
+	
+    	$.ajax({
+ 	    type: 'POST',                     //GET or POST
+ 	    url: "./js_login_with_little2.php",               //請求的頁面
+ 	    cache: false,                     //防止抓到快取的回應
+ 	    data: { login_name: $('#user_email',$('#loginForm')).val(), login_password: $('#password',$('#loginForm')).val() },      //要傳送到頁面的參數
+ 	    success: function(data) {
+ 	    	if(data.errmsg)
+ 	    	{
+ 	    		alert(data.errmsg);
+ 	    	}
+ 	    	else
+ 	    	{ 	    	
+ 	    		
+ 	    		location.reload();
+ 	    	}
+         }
+ ,         //當請求成功後此事件會被呼叫
+ 	    error: function(data) {
+ 	    	alert('error')
+ 	    	},            //當請求失敗後此事件會被呼叫
+ 	    statusCode: {                     //狀態碼處理
+ 	      404: function() {
+ 	        alert("page not found");
+ 	      }
+ 	    }
+ 	});	
+	 
+	 
+ }
+ </script>
+
+<!-- BEGIN LOGIN -->       
+<SCRIPT>
+ $(document).ready(function() {	
+	 $.blockUI({ message: $('#loginForm') });	
+ }); 
+</SCRIPT>   
+ <!-- END LOGIN -->   
+
+ 
+ 

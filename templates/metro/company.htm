@@ -1,0 +1,757 @@
+<script type="text/javascript"  src="js/little2.js"></script>
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="../common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="../common/plugins/html5sortable/jquery.sortable.js"></script>
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	公司<small class="on-right">基本信息</small>
+</h1>
+
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="home.php">Home</a></li>
+		<li ><a href="#">使用者管理</a></li>
+		<li class="active"><a href="#">公司基本信息</a></li>
+	</ul>
+</nav>
+
+	<div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+
+	
+	
+		
+	</div>
+<div class="clearfix"></div>
+
+
+
+<div class="accordion  with-marker" data-role="accordion">
+	<div class="accordion-frame">
+		<a id="courseinfo_header" name="courseinfo_header"href="#" class="active heading">{$lang.CompnayInfo}</a>
+		<div class="content">
+
+			<div class="place-right  viewtext"   id="icon_company_edit"  name="icon_company_edit" >
+				<a href="javascript:company_edit()" class="on-right-more"><img
+					src="images/edit.png" width="48px"></a>
+			</div>
+
+			<!-- 回到課程清單 -->
+			<div id="icon_company_show_info"  name="icon_company_show_info"  class="place-right no-display inputtext">
+				<a href="javascript:company_show_info()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>			
+			
+			<div class="clearfix"></div>
+
+			<input type="hidden" id="company_id" name="company_id" value="{company_id}"/>
+						
+
+			<dl style="margin-left: 40px;">
+				
+				<dt id="company_title_label">{$lang.CompnayTitle}</dt>
+				<dd>
+					<span class="viewtext"   id="company_title_viewtext">{company_title}	</span> 
+					<span id="company_title_span" name="company_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="company_title" name="company_title"  class="inputtext no-display "  type="text" value="{company_title}" 
+						placeholder="{$lang.CompnayTitle}" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>				
+				
+			</dl>
+
+			<div style="margin-top: 40px; margin-bottom: 40px"
+				class="inputtext no-display" align="center">
+				<a class="default button" onClick="company_save()">Save</a> <a
+					class="button on-right-more" onClick=" company_show_info()">Cancel</a>
+			</div>
+
+		</div>
+	</div>
+
+
+</div>
+
+
+
+<script>
+
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {	
+	var pb = $("#componennt_id").progressbar();   
+	
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files_zone');
+                $('#sco_path').val(file.name);
+            });         
+           
+            
+            $('#take_upload_zone').addClass('no-display');
+            $('#sco_profiles').removeClass('no-display');
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    
+    
+    //排序 
+	$('.sortable').sortable().bind('sortupdate', function(e, ui) {	
+			var sort_tag="";
+			var controls = document.getElementsByTagName('a');
+			for(var i=0; i<controls.length; i++)
+			{			
+				if(controls[i].id)
+				{
+					var t=controls[i].id;
+			
+					if(t.substr(0,8)=='scotile_')
+					{				
+						sort_tag+=t.substr(8)+';';
+					}						
+				}
+			 }
+			
+			if(sort_tag!=$('#srot').val())
+			{
+				$('#srot').val(sort_tag);
+				sco_update_sort();
+				
+			}
+	
+	    //ui.item contains the current dragged element.
+	    //Triggered when the user stopped sorting and the DOM position has changed.
+	});	
+    
+	$('.sortable').sortable('disable');
+    
+});
+
+
+function sco_update_sort()
+{
+
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_update_sort.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();		
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+
+function click_sco_tile(sco_id)
+{		
+	var btclass = $('#scotile_'+sco_id).attr('class');
+
+	if(btclass.indexOf('half-opacity')!=-1)
+	{            
+		//如果有half-opacity 代表是待刪狀況
+		//<div class="tile selected"></div>
+		var tag='#scotile_'+sco_id;
+		$(tag).addClass('selected');
+		
+		$.Dialog({
+			shadow : true,
+			overlay : false,
+			icon : '<span class="icon-remove"></span>',
+			title : '是否確定刪除',
+			width : 300,
+			padding : 20,
+			onShow: function(_dialog){
+				var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="sco_remove_act('+sco_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#scotile_'+sco_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+				$.Dialog.content(content);					
+			}				
+		});
+		
+	} 
+	else if(btclass.indexOf('shake ')!=-1)
+	{
+		//代表移動狀態
+	}
+	else
+	{
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		
+		if(btclass.indexOf('exam')!=-1)
+		{       
+			location.href='sco_exam.php?sco_id='+sco_id;
+		}
+		else
+		{
+			location.href='sco.php?sco_id='+sco_id;
+		}
+	}	
+}
+
+
+
+
+function choose_source(type)
+{
+	switch(type)
+	{
+		case 'bt_video':
+			$('#bt_video').removeClass('half-opacity');	
+			$('#bt_exam').addClass('half-opacity');
+			$('#bt_homework').addClass('half-opacity');
+			$('#video_zone').removeClass('no-display');		
+			$('#exam_zone').addClass('no-display');		
+			break;
+			
+		case 'bt_exam':
+			$('#bt_video').addClass('half-opacity');	
+			$('#bt_exam').removeClass('half-opacity');
+			$('#bt_homework').addClass('half-opacity');
+			$('#video_zone').addClass('no-display');		
+			$('#exam_zone').removeClass('no-display');		
+			
+			break;
+			
+		case 'bt_homework':
+			$('#bt_video').addClass('half-opacity');	
+			$('#bt_exam').addClass('half-opacity');
+			$('#bt_homework').removeClass('half-opacity');
+			$('#video_zone').addClass('no-display');		
+			$('#exam_zone').addClass('no-display');			
+			break;
+	
+	
+		case 'bt_upload':
+			$('#bt_online').addClass('half-opacity');
+			$('#bt_upload').removeClass('half-opacity');
+			$('#upload_zone').removeClass('no-display');
+			$('#online_zone').addClass('no-display');
+			$('#sco_type').val("video");
+			break;
+		
+
+		case 'bt_online':
+			$('#bt_online').removeClass('half-opacity');
+			$('#bt_upload').addClass('half-opacity');
+			$('#upload_zone').addClass('no-display');
+			$('#online_zone').removeClass('no-display');
+			$('#sco_type').val("youtube");
+			$('#sco_profiles').removeClass('no-display');
+			break;
+			
+	}
+	
+}
+
+
+
+function sco_remove_act(sco_id)
+{
+
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_remove.php?sco_id="+sco_id, //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			$('#scotile_'+sco_id).remove()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+function sco_show_create()
+{
+	
+	$('#sco_show_list_container').addClass("no-display");
+	$('#sco_show_create_container').removeClass("no-display");
+	
+
+	$('#icon_sco_show_create').addClass("no-display");
+	$('#icon_sco_show_list').removeClass("no-display");
+	$('#icon_sco_remove_list').addClass("no-display");
+	$('#icon_sco_move_list').addClass("no-display");
+	
+	
+}
+
+function sco_show_list()
+{
+	$('.sortable').sortable('disable');
+	$('#sco_show_list_container').removeClass("no-display");
+	$('#sco_show_create_container').addClass("no-display");
+
+	$('#icon_sco_show_create').removeClass("no-display");
+	$('#icon_sco_show_list').addClass("no-display");
+	$('#icon_sco_remove_list').removeClass("no-display");	
+	$('#icon_sco_move_list').removeClass("no-display");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).removeClass('half-opacity');
+				$(tag).removeClass('shake');
+			}						
+		}
+	 }
+	
+}
+
+function sco_remove_list()
+{	
+	set_tag("icon_sco_show_create","h");
+	set_tag("icon_sco_show_list","s");
+	set_tag("icon_sco_remove_list","h");
+	set_tag("icon_sco_move_list","h");
+	
+
+	set_tag("sco_show_list_container","s");
+	set_tag("sco_show_create_container","h");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('half-opacity');
+			}						
+		}
+	 }
+}
+
+
+function sco_move_list()
+{	
+	$('.sortable').sortable('enable');
+	set_tag("icon_sco_show_create","h");
+	set_tag("icon_sco_show_list","s");
+	set_tag("icon_sco_remove_list","h");
+	set_tag("icon_sco_move_list","h");
+	
+	set_tag("sco_show_list_container","s");
+	set_tag("sco_show_create_container","h");
+	
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,8)=='scotile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('shake');
+			}						
+		}
+	 }
+}
+
+
+
+function sco_create_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?company_id='+data.company_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
+
+
+
+function sco_exam_create_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_exam_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?company_id='+data.company_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
+
+
+
+function company_edit()
+{
+	$('#courseinfo_header').addClass('active');	
+	$('.viewtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.inputtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+}
+
+function company_show_info()
+{	
+	$('.inputtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.viewtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+}
+
+
+function company_save() {
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" />{$lang.WaitForProcess}</h2>' }); 
+	if(company_content_check())
+	{
+		//alert($("#formPost").serialize());
+		$.ajax({
+			type : 'POST', //GET or POST
+			url : "js_company_save.php", //請求的頁面
+			cache : false, //防止抓到快取的回應
+			data : $("#formPost").serialize(), //要傳送到頁面的參數
+			success : function(data) {
+				if (data.errmsg) {
+					alert(data.errmsg);
+				} else {
+					if(data.company_id)
+					{
+						location.href='?company_id='+data.company_id;
+					}
+					else
+					{
+						$('#company_title_viewtext').html($('#company_title').val());				
+						$.unblockUI();
+						company_show_info()
+					}
+				}
+			}, //當請求成功後此事件會被呼叫
+			error : function(data) {
+				alert('error')
+				$.unblockUI(); 
+			}, //當請求失敗後此事件會被呼叫
+			statusCode : { //狀態碼處理
+				404 : function() {
+					alert("page not found");
+				}
+			}
+		});
+	}
+}
+
+
+function company_content_check()
+{
+	var is_ok=true;		
+	u_tagname='#company_title_label'
+	if($('#company_title').val()=="")
+	{			
+		shake(u_tagname,"{$lang.FillGroupTitle}")		
+		$(u_tagname).addClass('warning-state');
+		is_ok=false;
+	}
+	else
+	{		
+		$(u_tagname).removeClass('fg-red')	
+	}		
+	return is_ok;
+}		
+
+<!-- BEGIN SHOW_COURSE_EDIT -->
+company_edit();
+<!-- END SHOW_COURSE_EDIT -->
+
+
+/* 課程成員功能 */
+ 
+function company_show_add_member()
+{
+	set_tag("icon_company_add_member","h");
+	set_tag("icon_company_show_member_list","s");
+	set_tag("icon_company_remove_member","h");		
+	
+
+	set_tag("company_member_tile_container","h");		
+	set_tag("company_show_add_member_container","s");		
+	//
+}
+
+function company_show_member_list()
+{
+	set_tag("icon_company_add_member","s");
+	set_tag("icon_company_show_member_list","h");
+	set_tag("icon_company_remove_member","s");		
+	
+	set_tag("company_member_tile_container","s");		
+	set_tag("company_show_add_member_container","h");		
+
+
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,9)=='usertile_')
+			{
+				var tag='#'+t;					
+				$(tag).removeClass('half-opacity');
+			}						
+		}
+	 }	
+}
+
+//課程增加成員
+function company_add_member()
+{	
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_company_add_member.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();			
+			company_cerate_new_tile(data.user_id,data.fullName,data.user_email,data.image)
+			company_show_member_list()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});	
+}
+
+//課程新增後,新增一個tile
+function company_cerate_new_tile(user_id,fullName,user_email,image)
+{
+	var new_html='<a id="usertile_'+user_id+'"   name="usertile_'+user_id+'"  class="tile double  bg-steel fg-white  " data-click="transform"  href="javascript:click_user_tile('+user_id+');">';
+	new_html+='<div class="tile-content email">';
+		new_html+='<div class="email-image">';
+	new_html+='<img src="'+image+'">';
+		new_html+='</div>';
+	new_html+='<div class="email-data">';
+	new_html+='<span class="email-data-title">'+fullName+'</span>'; 
+		new_html+='<span class="email-data-subtitle">'+user_email+'</span>';
+		new_html+='</div>';						
+	new_html+='<div class="brand">';
+	new_html+='<div class="label">';
+		new_html+='<h3 class="no-margin fg-white"><span class="icon-power"></span></h3>';
+			new_html+='</div>';
+		new_html+='<div class="badge">'+$('#group_title').val()+'</div>';
+		new_html+='</div>';
+	new_html+='</div></a>';
+
+	
+	$(new_html).insertBefore('#user_tile_position');
+}
+
+
+function click_user_tile(user_id)
+{		
+	var btclass = $('#usertile_'+user_id).attr('class');
+
+	if(btclass.indexOf('half-opacity')!=-1)
+	{                
+		//<div class="tile selected"></div>
+		var tag='#usertile_'+user_id;
+		$(tag).addClass('selected');
+		
+		$.Dialog({
+			shadow : true,
+			overlay : false,
+			icon : '<span class="icon-remove"></span>',
+			title : '是否確定刪除',
+			width : 300,
+			padding : 20,
+			onShow: function(_dialog){
+				var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="company_remove_member_act('+user_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#usertile_'+user_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+				$.Dialog.content(content);					
+			}				
+		});
+		
+	} 
+	else
+	{
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		location.href='contact_list.php?id='+user_id;			
+	}	
+}
+
+
+function company_remove_member()
+{
+	set_tag("icon_company_add_member","h");
+	set_tag("icon_company_show_member_list","s");
+	set_tag("icon_company_remove_member","h");			
+	set_tag("company_member_tile_container","s");		
+	set_tag("company_show_add_member_container","h");		
+	
+	////////////
+	//half-opacity
+	var controls = document.getElementsByTagName('a');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+	
+			if(t.substr(0,9)=='usertile_')
+			{
+				var tag='#'+t;					
+				$(tag).addClass('half-opacity');
+			}						
+		}
+	 }
+}
+
+function company_remove_member_act(user_id)
+{
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_company_remove_member.php?user_id="+user_id, //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			
+			$('#usertile_'+user_id).remove()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+	
+}
+
+
+function company_join()
+{
+	$.Dialog.close()
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_company_join.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			company_id=$('#company_id').val();
+			$.unblockUI();
+			location.href='?company_id='+company_id
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});	
+}
+
+
+</SCRIPT>
+
+
+			
+
+		
+
+
+
+
+
+
+

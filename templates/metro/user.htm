@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="js/magicsuggest/magicsuggest-1.3.1.css">
+<script type="text/javascript"
+	src="js/magicsuggest/magicsuggest-1.3.1.js"></script>
+<script type="text/javascript"
+	src="js/magicsuggest/magicsuggest-little2.js"></script>
+<script type="text/javascript" src="js/little2.js"></script>
+<div id="tmp_val" style="display: none">
+	pid<input id="project_id" name="project_id" value="{project_id}" />
+	wid<input id="wbs_id" name="wbs_id" value="{wbs_id}" /> pwid<input
+		id="pwid" name="pwid" value="{pwid}" />
+</div>
+
+
+<div class="place-right">
+	<form>
+		<div class="input-control text size6 margin20 nrm">
+			<input type="text" name="q" placeholder="Search...">
+			<button class="btn-search"></button>
+		</div>
+	</form>
+</div>
+
+<h1>
+	<a href="javascript:history.go(-1)"><i
+		class="icon-arrow-left-3 fg-darker smaller"></i></a> 使用者<small
+		class="on-right">列表</small>
+</h1>
+
+
+
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="index.php">Home</a></li>
+		<li class="active"><a href="#">課程內容</a></li>
+	</ul>
+</nav>
+
+
+
+
+
+<table class="table hovered">
+                        <thead>
+                        <tr>
+                            <th class="text-left" >開始時間</th>
+                            <th class="text-left">開始段落</th>                           
+                            <th class="text-left">長度(秒)</th>
+                        </tr>
+                        </thead>
+
+                        <tbody >
+                        <tr id="loglist"  name="loglist"></tr>
+                        <!-- BEGIN LogList -->
+                        <tr >
+                        	<td>{LogList.reading_time}</td>
+                        	<td class="right">{LogList.begin_time}</td>
+                        	<td class="right">{LogList.reading_length}</td>
+                        </tr>
+                       <!-- END LogList -->
+                        </tbody>
+
+                        <tfoot></tfoot>
+                    </table>
+
+
+<!--  -->
+<div class="tile-group no-margin no-padding1 clearfix"
+	style="width: 100%;">
+	<a href="#"><span class="tile-group-title fg-orange">使用者
+			列表<span class="icon-arrow-right-5"></span>
+	</span></a>
+	
+	
+	
+	
+	<!-- BEGIN PROJECT -->
+	<a
+		class="tile double double-vertical bg-darkCobalt FILTER_{PROJECT.project_status} {PROJECT.nodisplay}"
+		data-click="transform"
+		href="project_detail.php?pid={PROJECT.project_id}">
+		<div class="tile-content">
+			<div class="padding10">
+				<h1 class="fg-white ntm">
+					{PROJECT.project_completion}<small class="on-right">%</small>
+				</h1>
+
+
+				<h2 class="fg-white no-margin">{PROJECT.title}</h2>
+				<h5 class="fg-white">
+					{PROJECT.project_number} <span style="font-size: 8pt;">{PROJECT.customer_company_str}</span>
+				</h5>
+				<p class="tertiary-text fg-white">更新日期：{PROJECT.update_date}</p>
+
+			</div>
+		</div>
+		<div class="tile-status">
+			<div class="label">{PROJECT.project_responsibility_str}</div>
+		</div>
+		<div class="brand">
+			<div class="badge available"></div>
+		</div>
+	</a>
+	<!-- END PROJECT -->
+	<a style="display: {display_bt_subproject"
+		class="tile bg-darkGreen {project_create_no-display}"
+		data-click="transform" href="project_create.php">
+		<div class="tile-content icon">
+			<img src="images/icon-project.png">
+		</div>
+		<div class="tile-status">
+			<span class="name ">新增專案</span>
+		</div>
+	</a>
+</div>
+
+
+
+<script>
+	function course(u_tagname, url, sco_id) {
+		location.href = url + '?sco_id=' + sco_id;
+	}
+</SCRIPT>
+
+
+
+
+
+
+
+
+

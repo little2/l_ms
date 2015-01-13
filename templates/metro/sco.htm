@@ -1,0 +1,560 @@
+
+
+<script
+	src="../common/plugins/mediaelement/mediaelement-and-player.min.js"></script>
+<link rel="stylesheet"
+	href="../common/plugins/mediaelement/mediaelementplayer.min.css" />
+
+
+
+
+
+<h1 >
+	<a href="javascript:history.go(-1)"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	{sco_title}<small
+		class="on-right">學習單元</small>
+</h1>
+
+
+<div class="grid">
+	<div class="row">
+		<div class="span6 " >
+			<div class="span5 bg-green fg-white "
+				style="margin-left:40px;position: absolute;  height: 70%; padding: 15px;">
+				
+				<div style="vertical-align: top;">
+					<h2 class="fg-white">
+						<span class="icon-rocket "></span>
+					</h2>
+					<div class="rating fg-white">
+						<ul>
+							<li class="rated"></li>
+							<li class="rated"></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+						<span class="score-hint"></span>
+					</div>
+					<!-- BEGIN ShowUserLog -->
+					<a class="button bg-green fg-white  " style="border: 1px solid;"
+						onClick="play_video('{sco_title}','{sco_type}','{sco_path}')">播放</a>
+					<!-- END ShowUserLog -->
+				</div>
+
+				<div
+					style="vertical-align: bottom; position: absolute; bottom: 15px;">
+					分類：{catalog_title}<br> 
+					播放長度：{sco_total_sec_str}<input type="hidden" id="sco_total_sec"  name="sco_total_sec"  value="{sco_total_sec}"/><br> 
+					作者：{sco_author}<br>
+					
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+
+		<div class="span6">
+			<div class="bg-white">
+				<div style="margin-top:-10px;">
+					<h3 style="cursor: pointer; ">
+						<span onClick="click_function(1)">概觀</span>&nbsp&nbsp
+						<span onClick="click_function(2)" class="no-display">詳細資料&nbsp&nbsp</span>
+						<span onClick="click_function(3)">評論</span>&nbsp&nbsp
+						<!-- BEGIN ShowUserLog -->
+						<span onClick="click_function(4)">閱讀紀錄</span>
+						<!-- END ShowUserLog -->
+					</h3>
+				</div>
+				
+				<input type="hidden" name="click_type" id="click_type" value="1">
+				<div style="margin-top:30px;" id="sco_content" name="sco_content">
+					<!-- 內文  -->
+					<h5>描述</h5>
+					{sco_desc}
+					<!--  -->
+				</div>
+				
+				<div style="display:none" id="sco_1"  name="sco_1">
+
+				</div>
+				<div style="display:none" id="sco_2"  name="sco_2"></div>
+				
+				<div style="display:none" id="sco_3"  name="sco_3">
+			
+					<div id="new_comment" class="content">
+						<div style="margin-top: 15px">
+						
+							<div class="user-id place-left" style="width: 15%">
+								<div class="user-id-image">
+									<img src="{image}">
+								</div>
+								<div class="user-id-name text-center">
+									{user_name}
+								</div>
+							</div>
+							
+							<div
+								class="notice marker-on-top-left bg-orange  place-left on-right-more "
+								style="width: 80%">
+								<div>
+									<textarea data-transform="input-control" id="activity_process_message" name="activity_process_message"></textarea>
+								</div>
+			
+								<div style="margin-top: 5px">
+									<button type="button"  class="button place-right"  onClick="create_comment()">POST</button>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>	
+					</div>
+			
+					<div id="area_user_comment" name="area_user_comment">			
+						
+						<!-- BEGIN COMMENT -->								
+						<div class="comment_item" style="margin-top: 15px; {COMMENT.display}" data-discussid="{COMMENT.discuss_id}">						
+								<div class="user-id place-left" style="width: 15%" >
+									<div class="user-id-image">
+										<img src="{COMMENT.image}">
+									</div>
+									<div class="user-id-name text-center">
+										{COMMENT.name}								
+									</div>
+								</div>
+								<div class="notice marker-on-top-left bg-amber fg-white place-left on-right-more  {COMMENT.display}"
+									style="width: 80%">
+									<div id="_comment" name="_comment">{COMMENT.content}</div>									
+									<HR>
+									<div>
+										<p class="place-left " ><a class="{COMMENT.link_delete_display}"><small  id="link_delete" data-discussid="{COMMENT.discuss_id}" onClick="delete_comment(this)">刪除</small></a></p>
+										<p class="place-right">
+											<small id="datetime">{COMMENT.datetime}</small>
+										</p>
+									</div>
+								</div>		
+							<div style="clear:both"></div>			
+						</div>
+						<!-- END COMMENT -->
+					</div>	
+					
+					<div class="clearfix"></div>
+				</div>
+				
+				
+				<div style="display:none" id="sco_4"  name="sco_4">
+				<h5>完成率(<span id="sco_progress" name="sco_progress">{sco_progress}</span>%)</h5>
+					<div class="progress-bar" data-role="progress-bar" data-value="{sco_progress}" ></div>
+					<input type="hidden" id="reading_sec" name="reading_sec" value="{reading_sec}"/>
+					<br>
+					<h5>最近閱讀列表</h5>
+					<table class="table hovered">
+                        <thead>
+                        <tr>
+                            <th class="text-left" >開始時間</th>
+                            <th class="text-left">開始段落</th>                           
+                            <th class="text-left">長度(秒)</th>
+                        </tr>
+                        </thead>
+
+                        <tbody >
+                        <tr id="loglist"  name="loglist"></tr>
+                        <!-- BEGIN LogList -->
+                        <tr >
+                        	<td>{LogList.reading_time}</td>
+                        	<td class="right">{LogList.begin_time}</td>
+                        	<td class="right">{LogList.reading_length}</td>
+                        </tr>
+                       <!-- END LogList -->
+                        </tbody>
+
+                        <tfoot></tfoot>
+                    </table>
+				</div>
+				
+			</div>
+			
+			
+		</div>
+	</div>
+	
+</div>
+
+
+<div style="display:none">
+<input type="text" id="sco_id" name="sco_id" value="{sco_id}" />
+			<input type="text" id="user_id" name="user_id" value="{user_id}" /> <input
+				type="text" id="time" name="time" value="1" /> <input type="text"
+				id="point" name="point" value="1" /> <span id="temp_zone"></span>
+			<div id="output"></div>
+
+</div>
+<script>
+//////////////Function Log////////////////////
+	function create_comment()
+	{
+		
+		var container=$('#sco_content');
+		var content=$('#activity_process_message',container).val();			
+		var sco_id=$('#sco_id').val();
+		var o = {
+				url:"js_comment_create.php",			
+				data:{sco_id:sco_id,content:content},				
+				onSuccess:function(data){		
+					var newtile=$('#area_user_comment div.comment_item:first-child',container).clone()				
+					.removeClass('no-display');
+					
+					newtile.attr("data-discussid",data.discuss_id);
+					newtile.find("#link_delete").attr('data-discussid',data.discuss_id);
+					
+					newtile.find("div.notice").removeClass('no-display');
+//{COMMENT.display}
+					var useridname=$('#new_comment').find("div.user-id-name").text();
+					var useridimage=$('#new_comment').find("div.user-id-image img").attr('src');
+					//console.log(useridname);
+					
+					newtile.find(".user-id-image img").attr('src',useridimage);
+					newtile.find(".user-id-name").text(useridname);
+					
+					
+					
+					var content_html=content.replace(/\n/g,"<br/>"); 
+				
+					//str = str.replace('\r',"<br>");
+					
+					newtile.find("#_comment").html(content_html);	
+					newtile.find("#datetime").html(data.datetime);	
+					$("#area_user_comment",container).append(newtile);
+				}					
+		}	
+		var msg=mypost(o);
+		
+	//	$("<p>123</p>").appendTo( $("#area_user_comment") );	
+	}
+
+	function delete_comment(obj)
+	{
+		var discuss_id=$(obj).attr('data-discussid');
+		
+		var o = {
+				url:"js_comment_delete.php",			
+				data:{discuss_id:discuss_id},				
+				onSuccess:function(data){	
+					var r_tagname=$('div[data-discussid="'+discuss_id+'"]');
+					$(r_tagname).addClass('animated flipOutX')
+					 setTimeout(function(){
+						 $(r_tagname).removeClass('animated flipOutX')
+						 $(r_tagname).remove();
+					 }, 700 );    	
+					
+					
+					//<div class="comment_item" style="margin-top: 15px; {COMMENT.display}" data-discussid="{COMMENT.discuss_id}">
+					
+				}					
+		}	
+		var msg=mypost(o);
+	}
+
+//////////////////////////
+	function click_function(type)
+	{	
+		var old_tag='#sco_'+$('#click_type').val();
+		$(old_tag).html($('#sco_content').html());
+		
+		var tag='#sco_'+type		
+		$('#sco_content').html($(tag).html());
+		$('#click_type').val(type);
+	}
+
+
+	function save_log() {
+		var point = $("#point").val();
+		var sco_id = $("#sco_id").val();
+		var user_id = $("#user_id").val();
+		var reading_sec=$('#reading_sec').val();
+		var sco_total_sec=$('#sco_total_sec').val();
+		
+		var beginfield = "learningrecBegin[" + point + "]";
+		var field = "learningrecEnd[" + point + "]";
+
+		//大於3秒才做紀錄
+		var learning_length =parseInt( (document.getElementById(field).value - document
+				.getElementById(beginfield).value));
+		if (learning_length > 0) {
+			
+			
+			var beginT=parseInt(document.getElementById(beginfield).value);
+			
+			
+           	$.ajax({
+        	    type: 'POST',                     //GET or POST
+        	    url: "rec.php",               //請求的頁面
+        	    cache: false,                     //防止抓到快取的回應
+        	    data: {user_id : user_id,
+        			beginT : beginT,
+        			endT : parseInt(document.getElementById(field).value),
+        			sco_id : sco_id,
+        			point : point,
+        			learning_length : learning_length,
+        			sco_total_sec:sco_total_sec,
+        			reading_sec:reading_sec},      //要傳送到頁面的參數
+        	    success: function(data) {
+        	    	if(data.errmsg)
+        	    	{
+        	    		alert(data.errmsg);
+        	    	}
+        	    	else
+        	    	{
+        	    		var new_html='<tr><td>'+data.reading_time+'</td>';
+        				new_html+='<td class="right">'+beginT+'</td>';
+        				new_html+='<td class="right">'+learning_length+'</td></tr>';
+        				$(new_html).insertAfter('#loglist');        	
+        				
+        				
+        				var pb_val=parseInt(data.reading_sec*100/$('#sco_total_sec').val())
+        				$('#reading_sec').val(data.reading_sec);
+        				
+        				var pb = $("#componennt_id").progressbar();        			    
+        				pb.progressbar('value', pb_val);
+        				$('#sco_progress').html(pb_val);
+        				
+        	    	}
+        	    	
+                }
+        ,         //當請求成功後此事件會被呼叫
+        	    error: function(data) {alert('error')},            //當請求失敗後此事件會被呼叫
+        	    statusCode: {                     //狀態碼處理
+        	      404: function() {
+        	        alert("page not found");
+        	      }
+        	    }
+        	});	
+			
+			
+			
+		}
+	}
+	
+
+
+	function reading_second() {
+		document.getElementById('time').value = parseInt(document
+				.getElementById('time').value) + 1;
+	}
+
+	function play_video(title,type,sco_path) {
+		var source_type_src=null;
+		switch(type)
+		{
+			case "youtube":
+				source_type_src = '<source type="video/youtube" src="'+sco_path+'" />';
+				break;
+
+			case "video":
+				source_type_src = '<source type="video/mp4" src="./server/files/'+sco_path+'" />';
+				break;
+		}
+		
+		//var source_type_src='<source type="video/mp4"	src="video.mp4" />';
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			draggable : true,
+			icon : '<div class="icon"><i class="icon-book"></i></div>',
+			title : title,
+			content : '',
+			onShow : function(_dialog) {
+				var html = [ '<video width="640" height="360" id="player1">'
+						+ source_type_src + '</video>	' ].join("");
+
+				$.Dialog.content(html);
+			}
+		});
+
+		var reading_sec;
+		var debug = false;
+		var input_att = "hidden";
+
+		$('audio,video')
+				.mediaelementplayer(
+						{
+							features : [ 'playpause', 'progress', 'volume',
+									'sourcechooser', 'fullscreen' ],
+							success : function(player, node) {
+
+								var events = [ 'loadstart', 'play', 'pause',
+										'ended', 'seeking' ];
+								for ( var i = 0, il = events.length; i < il; i++) {
+
+									var eventName = events[i];
+									player
+											.addEventListener(
+													events[i],
+													function(e) {
+
+														var point = document
+																.getElementById("point").value;
+														var beginfield = "learningrecBegin["
+																+ point + "]";
+														var field = "learningrecEnd["
+																+ point + "]";
+
+														switch (e.type) {
+														case "loadstart":
+															//$('#output').append( $('<div>1'+ e.type + '</div>') );
+															break;
+														case "play":
+															if (!document
+																	.getElementById(beginfield)) {
+																reading_sec = setInterval(
+																		"reading_second()",
+																		1000);
+																var html_inner = '';
+																if (debug)
+																	html_inner += '<BR><BR>BE';
+																html_inner += '<input type="'+input_att+'" id="'+beginfield+'" name="'+beginfield+'" value="'+player.currentTime+'">';
+																document
+																		.getElementById("temp_zone").innerHTML += html_inner;
+															} else {
+																//若是play的時間有存在, 則檢查end的時間是否存在,不存在則補
+																if (!document
+																		.getElementById(field)) {
+																	var lasttime = document
+																			.getElementById('time').value;
+																	var html_inner = '';
+																	if (debug)
+																		html_inner += ' END';
+																	html_inner += '<input type="'+input_att+'" id="'+field+'" name="'+field+'" value="'+lasttime+'">';
+
+																	document
+																			.getElementById("temp_zone").innerHTML += html_inner;
+																	save_log();
+																	document
+																			.getElementById(field).value = player.currentTime;
+																	document
+																			.getElementById("point").value++;
+
+																	var point = document
+																			.getElementById("point").value;
+																	var newbeginfield = "learningrecBegin["
+																			+ point
+																			+ "]";
+
+																	var new_html_inner = ''
+																	if (debug)
+																		new_html_inner += '<BR><BR>BE';
+																	new_html_inner += '<input type="'+input_att+'" id="'+newbeginfield+'" name="'+newbeginfield+'" value="'+player.currentTime+'">';
+																	document
+																			.getElementById("temp_zone").innerHTML += new_html_inner;
+
+																}
+															}
+															break;
+														case "pause":
+															window
+																	.clearInterval(reading_sec);
+															if (document
+																	.getElementById(beginfield)) {
+																if (!document
+																		.getElementById(field)) {
+																	var html_inner = ''
+																	if (debug)
+																		html_inner += ' END';
+																	html_inner += '<input type="'+input_att+'" id="'+field+'" name="'+field+'" value="'+player.currentTime+'">';
+
+																	document
+																			.getElementById("temp_zone").innerHTML += html_inner;
+																	save_log();
+																}
+																document
+																		.getElementById(field).value = player.currentTime;
+																document
+																		.getElementById("point").value++;
+															}
+															break;
+														case "ended":
+															if (document
+																	.getElementById(beginfield)) {
+																if (!document
+																		.getElementById(field)) {
+																	var html_inner = '';
+																	if (debug)
+																		html_inner += ' END';
+																	html_inner += '<input type="'
+																			+ input_att
+																			+ '" id="'
+																			+ field
+																			+ '" name="'
+																			+ field
+																			+ '" value="'
+																			+ document
+																					.getElementById('time').value
+																			+ '">';
+
+																	document
+																			.getElementById("temp_zone").innerHTML += html_inner;
+																	save_log();
+																}
+																document
+																		.getElementById(field).value = player.currentTime;
+															}
+															break;
+														case "seeking":
+
+															var html_inner = '';
+															if (debug)
+																html_inner += ' END';
+															html_inner += '<input type="'
+																	+ input_att
+																	+ '" id="'
+																	+ field
+																	+ '" name="'
+																	+ field
+																	+ '" value="'
+																	+ document
+																			.getElementById('time').value
+																	+ '">';
+
+															document
+																	.getElementById("temp_zone").innerHTML += html_inner;
+															save_log();
+
+															document
+																	.getElementById("point").value++;
+															if (!document
+																	.getElementById(beginfield)) {
+																var html_inner = '';
+																if (debug)
+																	html_inner += '<BR><BR>BE';
+																html_inner += '<input type="'+input_att+'" id="'+beginfield+'" name="'+beginfield+'" value="'+player.currentTime+'">';
+																document
+																		.getElementById("temp_zone").innerHTML += html_inner;
+															}
+															break;
+														default:
+															if (!document
+																	.getElementById(beginfield)) {
+																var html_inner = '';
+																if (debug)
+																	html_inner += '<BR><BR>BE';
+																html_inner += '<input type="'+input_att+'" id="'+beginfield+'" name="'+beginfield+'" value="'+player.currentTime+'">';
+																document
+																		.getElementById("temp_zone").innerHTML += html_inner;
+
+															}
+															break;
+														}
+														document
+																.getElementById('time').value = player.currentTime;
+													});
+								}
+
+							}
+						}
+
+				);
+
+	}
+</script>

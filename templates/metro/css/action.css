@@ -1,0 +1,203 @@
+.wrapper{
+   perspective: 0px;  /*设置元素被查看位置的视图：*/
+}
+
+.wrapper.perspective{
+   perspective: 3000px;  /*设置元素被查看位置的视图：*/	
+}
+
+.turnpage{
+  width:100%;
+  height:50%;
+  font-weight:300;
+  position:absolute;
+  right:0;
+  top:0;
+  transform-origin: 100% 0%; 
+  transform:translateZ(5em)  rotateY(-90deg);
+}
+
+.turnpage-title {
+  margin-top:1em; 
+  font-weight:100; 
+  font-size:2.5em;
+}
+
+/*styling the pages*/
+.turnpage.random-page{
+  right:0;
+  height:200%
+}
+
+.return-page{
+  background:#EF3A5B;
+  height:100%; 
+  width:100%;
+  position:absolute; 
+  top:0;
+  left:-150%;
+  color:white;
+  text-align:center;
+  font-weight:300;
+  z-index:1010;
+}
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*
+CSS3發佈的 transitions提供了參數可以製作簡單的動畫效果。其動畫效果是由起始參數及結束時的參數所決定。
+transitions 只是提供設計師一個可以指定中間過度動畫的方法。
+animation和transitions最大的不同在於，tansitions是當參數改變時觸發，而animation則是直接就執行，所以動
+畫效果需要明確的指定關鍵影格的參數。
+*/
+
+.slidePageInFromLeft{
+  animation: slidePageInFromLeft .8s cubic-bezier(.01,1,.22,.99) 1 0.25s normal forwards;
+  }
+  
+.openpage{ 
+  animation: rotatePageInFromRight 1s cubic-bezier(.66,.04,.36,1.03) 1 normal forwards;
+}
+
+
+/*
+ease就是直接漸，那些in, out, 或是一起來的指的就是在進來或是出去時速度變慢，
+ease-in就是慢進，
+ease-out就是慢出，
+ease-in-out就是中間快前後慢啦~~ 
+linear就是都很慢...
+
+*/
+
+.slidePageBackLeft{
+  opacity:1; 
+  left:0;
+  animation: slidePageBackLeft .8s ease-out 1 normal forwards;
+}
+
+.slidePageLeft{
+  opacity:1;
+  transform: rotateY(0) translateZ(0) ; 
+  animation:slidePageLeft 2.8s ease-out 1 normal forwards;
+}
+
+.fadeOutback{
+  animation: fadeOutBack 0.3s ease-out 1 normal forwards;
+}
+
+.fadeInForward-1, .fadeInForward-2, .fadeInForward-3, .fadeInForward-4, .fadeInForward-5 {
+  opacity:0;
+  transform: translateZ(-5em) scale(0.75);
+  animation: fadeInForward .5s cubic-bezier(.03,.93,.43,.77) .4s normal forwards;
+}
+
+.fadeInForward-2{
+  animation-delay: .55s;
+}
+
+.fadeInForward-3{
+  animation-delay: .7s;
+}
+
+
+.fadeInForward-4{
+  animation-delay: .95s;
+}
+
+
+
+.test{
+    animation-name: 'diagonal-slide';
+    animation-duration: 5s;
+    animation-iteration-count: 10;
+  }
+
+  @keyframes 'diagonal-slide' {
+    from {left: 0;top: 0;}
+    to {left: 100px;top: 100px;}
+  }
+/*
+CSS3的動畫效果可以藉由CSS的 keyframe 參數來控制動畫的 期間、重覆及重覆的模式例如重覆次數、起始延遲、暫時停止。
+*/
+
+@keyframes fadeOutBack{
+  0%{transform: translateX(-2em) scale(1); opacity:1;}
+  70% {transform: translateZ(-5em) scale(0.6); opacity:0.5;}
+  95% {transform: translateZ(-5em) scale(0.6); opacity:0.5;}
+  100% {transform: translateZ(-5em) scale(0); opacity:0;}
+}
+
+@keyframes fadeInForward{
+  0%{transform: translateZ(-5em) scale(0); opacity:0;}
+  100% {transform: translateZ(0) scale(1); opacity:1;}
+}
+
+@keyframes rotatePageInFromRight{
+  0% {transform:rotateY(-90deg) translateZ(5em);opacity:0}
+  30%{opacity:1}
+  100%{transform: rotateY(0deg) translateZ(0) ; opacity:1}
+}
+
+@keyframes slidePageLeft{
+  0%{left:0; transform: rotateY(0deg) translateZ(0) ; opacity:1}
+  70%{opacity:1;}
+  100%{opacity:0; left:-150%; transform: rotateY(0deg)}
+}
+
+@keyframes slidePageInFromLeft{
+  0%{opacity:0; }
+  30%{opacity:1}
+  100%{opacity:1; left:0;}
+}
+
+@keyframes slidePageBackLeft{
+  0%{opacity:1; left:0; transform: scale(0.95);}
+  10%{transform: scale(0.9);}
+  70%{opacity:1;}
+  100%{opacity:0; left:-150%;}
+}
+
+/*======================= media queries for animations =======================*/
+
+@media screen and (min-width: 64em){
+  
+  @keyframes fadeInForward{
+    80%{opacity:0.9;}
+    100% {transform: translateZ(0) scale(1) translateX(-2em); opacity:1;}
+  }
+
+}
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+.metro .quiz {
+  padding: 20px 40px 20px 60px;
+  border: 1px #ccc solid;
+  margin: 0 0 10px 0;
+  background-color: #fdfdfd !important;
+  min-height: 100px;
+}
+
+.metro .quiz:after {
+  display: table;
+  content: "";
+}
+.metro .quiz:after {
+  clear: both;
+}
+
+
+textarea .viewmode
+{
+	border : 0;
+	  overflow-y : auto; /* IE */
+	  resize : none; /* Firefox, Chrome */	
+}
+
+
+textarea .viewmode:focus
+{
+	outline : 0; /* Chrome */
+}

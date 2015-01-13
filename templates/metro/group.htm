@@ -1,0 +1,741 @@
+<link rel="stylesheet" href="js/magicsuggest/magicsuggest-1.3.1.css">
+<script type="text/javascript"  src="js/magicsuggest/magicsuggest-1.3.1.js"></script>
+<script type="text/javascript"  src="js/magicsuggest/magicsuggest-little2.js"></script>
+<script type="text/javascript"  src="js/little2.js"></script>
+	<div id="tmp_val" style="display:none">
+		
+	</div>
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	{$lang.Department}<small class="on-right">管理</small>
+</h1>
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="#">Home</a></li>
+		
+		<!-- BEGIN GROUP_NAV --> 
+		<li class="{GROUP_NAV.active}"><a href="group.php?group_id={GROUP_NAV.group_id}">{GROUP_NAV.group_title}</a></li>
+		<!-- END GROUP_NAV -->
+	
+	</ul>
+</nav>
+
+
+
+
+	<div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+
+
+		
+		
+		<a class="tile bg-darkRed {display_bt_parent_group}" data-click="transform" href="?group_id={group_parent_id}">
+			<div class=" tile-content icon">
+				<i class="icon-arrow-up-2"></i>
+			</div>
+			<div class="tile-status">
+				<span class="name">上層部門</span>
+			</div>
+		</a>		
+	
+		<a class="tile bg-darkRed" data-click="transform"  href="group_tree.php?group_id={group_id}">
+		    <div class="tile-content icon">
+		        <i class="icon-tree-view"></i>
+		    </div>
+		    <div class="tile-status">
+		        <span class="name">架構</span>
+		    </div>
+		</a>				
+	</div>
+
+
+<div class="clearfix"></div>
+
+<div class="accordion  with-marker" data-role="accordion">
+	<div class="accordion-frame">
+		<a id="wbs_header" name="wbs_header"href="#" class="heading">{$lang.DepartmentProperty}</a>
+		<div class="content">
+
+			<div class="place-right">
+				<a href="javascript:group_edit()" class="on-right-more {bt_display_group_edit}"><img
+					src="images/edit.png" width="48px"></a>
+			</div>
+			<div class="clearfix"></div>
+
+			<input type="hidden" id="wbs_id" name="wbs_id" value="{wbs_id}"/>
+			<input type="hidden" id="workpackage_id" name="workpackage_id" value="{workpackage_id}"/>
+			<dl style="margin-left: 40px;">
+				<div data-hint-position="top" data-hint="工作包名稱|工作包必需要有一個可以代表的名稱">
+				<dt id="group_title_label">{$lang.DepartmentTitle}</dt>
+				<dd>
+					<span class="viewtext">{group_title}</span> 					
+					<span id="group_title_span" name="group_title_span"
+						class="input-control text inputtext no-display size10"  > 
+						<input class="inputtext no-display "  id="group_title"  name="group_title"  type="text" value="{group_title}" 
+						placeholder="{$lang.DepartmentTitle}" />
+						<input class="no-display "  id="group_id"  name="group_id"  type="text" value="{group_id}"  />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				</div>
+				
+				<div class='no-display'>
+					<dt >群組種類</dt>
+					<dd>
+						<span class="viewtext" >{group_type}</span> <span
+							class="input-control text inputtext no-display size10"> <input
+							id="group_type" class="inputtext no-display" name="group_type"
+							type="text" value="dep" 
+							placeholder="請輸入群組種類" />
+							<button class="btn-clear"></button>
+						</span>
+					</dd>
+				</div>
+				
+				
+				<div class="{display_parent_group_sel}">
+				<dt id="group_parent_id_label" name="group_parent_id_label"  >父群組</dt>
+				<dd>
+					<span class="viewtext">{group_parent_title}</span> 					
+					<div class="inputtext input-control select  no-display size10" data-role="input-control" >
+                    	<select name="group_parent_id"  id="group_parent_id">    
+                    		<!-- BEGIN GROUP_LIST -->                		
+                        	<option value="{GROUP_LIST.group_id}" {GROUP_LIST.selected}>{GROUP_LIST.group_title}</option>
+                        	<!-- END GROUP_LIST --> 
+                    	</select>
+                    </div>					
+				</dd>
+				</div>
+	
+				
+			</dl>
+
+			<div style="margin-top: 40px; margin-bottom: 40px"
+				class="inputtext no-display" align="center">
+				<a class="default button" onClick="group_save()">Save</a> <a
+					class="button on-right-more" onClick="group_cancel()">Cancel</a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="accordion  with-marker" data-role="accordion" style="display: {display_edit}">
+	<div class="accordion-frame">
+		<a href="#" class=" heading active">{$lang.SubDepartment} </a>
+		<div class="content clearfix"  id="container_subgroup_list">
+
+
+		
+			<!-- 增加部門 -->
+			<div id="icon_group_show_add_subgroup"  name="icon_group_show_add_subgroup"  class="bt_create place-right  on-right-more  {bt_display_group_create}">
+				<img 	src="images/bt_create.png" width="48px">
+			</div>
+			<!-- <a href="javascript:group_show_add_subgroup()" class="on-right-more"> </a>-->
+			
+			<!-- 回到部門清單 -->
+			<div id="icon_group_show_subgroup_list"  name="icon_group_show_subgroup_list"  class="bt_return place-right no-display on-right-more">
+				<img	src="images/bt_undo.png" width="48px">
+			</div>
+			
+			<!-- 刪除部門清單 -->
+			<div id="icon_group_remove_subgroup"  name="icon_group_remove_subgroup"  class="bt_remove place-right on-right-more {bt_display_group_delete}">
+				<img	src="images/bt_delete.png" width="48px">
+			</div>
+						
+		
+			<div class="clearfix"></div>
+
+				<div class="clearfix" style="margin-top:10px"></div>
+				
+				<div class="padding10" ></div>
+				
+				<div id="group_show_add_subgroup_container"  name="group_show_add_subgroup_container"  class="offset1 no-display container_create" >
+					<h4>請輸入子部門名稱</h4>
+					<div class="input-control text size5" data-role="input-control">
+						<input type="text"  id="subgroup_title" name="subgroup_title" placeholder="子部門名稱">
+					</div>
+					<button type="button" class="bt_submit large" >新增</button>
+				</div>				
+				
+				
+				<div id="subgroup_tile_container"  name="subgroup_tile_container"  class="container_tile_list">
+				<!-- BEGIN SUBGROUP -->
+				<a class="tile double double-vertical bg-lightBlue fg-white" data-click="transform"  id="subgrouptile_{SUBGROUP.group_id}"  name="subgrouptile_{SUBGROUP.group_id}" >
+					<div class="tile-content">
+						<div class="padding10">					
+							<h1 class="fg-white no-margin">{SUBGROUP.group_title}</h1>
+							<h5 class="fg-white">{SUBGROUP.parent_group_title}</h5>
+							<p class="tertiary-text fg-white">{ACTIVITY.activity_desc}</p>									
+						</div>
+					</div>
+					<div class="tile-status">
+						<div class="label"></div>
+					</div>
+					<div class="brand">
+						
+					</div>
+				</a>
+				<!-- END SUBGROUP -->
+				<div id="group_tile_position" name="group_tile_position"></div>
+				</div>	
+
+			
+
+											
+		</div>
+	</div>
+
+
+
+
+	<div class="accordion-frame">
+		<a href="#" class="heading active"> {$lang.Member}</a>
+		<div class="content clearfix"  id="container_group_member"  name="container_group_member">
+			<div id="area_buttom"></div>
+			
+			<div class="clearfix"></div>
+			<div class="padding10" ></div>
+			
+
+			
+			<div id="area_add"  name="area_add"  class="offset1 no-display" >
+				<h4>請輸入新增人員的Email</h4>
+				<div class="input-control text size5" data-role="input-control">
+					<input type="text"  id="user_email" name="user_email"  placeholder="請輸入新增人員的Email">
+				</div>
+				<a id="bt_create" class="button large">新增</a>
+			</div>
+						
+			
+			<div id="area_list"  name="area_list" >
+					
+					<!-- BEGIN TILE_USER -->
+					<a  class="tile double  bg-steel fg-white   {TILE_USER.display}" data-click="transform"  data-userid="{TILE_USER.user_id}">
+					<div class="tile-content email">
+						<div class="email-image">
+							<img src="{TILE_USER.image}">
+						</div>
+						<div class="email-data">
+							<span class="email-data-title">{TILE_USER.fullName}</span> <span
+								class="email-data-subtitle">{TILE_USER.user_email}</span>
+						</div>	
+						<div class="brand">
+							<div class="label">
+								<h3 class="no-margin fg-white"><span class="{TILE_USER.icon_role}"></span></h3>
+							</div>
+							<div class="badge ">{TILE_USER.group_title}</div>
+						</div>
+					</div></a>
+					<!-- END TILE_USER -->
+					
+					
+					<div id="tile_bottom" name="tile_bottom"></div>
+			</div>				
+		</div>
+	</div>
+
+
+</div>
+
+
+
+<script>
+
+
+
+var container_group_member = new MetroContainer('container_group_member');		
+container_group_member.init(
+		{
+			bt_add:{bt_display_member_create},
+			bt_list:true,
+			bt_remove:{bt_display_member_delete},
+			jump:function(options) {
+				var user_id = options.obj.attr('data-userid');				
+				$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+				location.href='member.php?uid='+user_id;			
+				
+			},
+			remove:function(options){			
+				var group_id = $('#group_id').val();	//不限定範圍
+				var user_id = options.obj.attr('data-userid');						
+			
+				var o = {
+						url:"js_group_remove_member.php?user_id="+user_id,
+						data:{group_id:group_id},
+						onSuccess:function(data){				
+							options.obj.remove();
+						}					
+				}	
+				var msg=mypost(o);
+			},
+			create:function(event){				
+				var _self = (event.data) ? event.data : this;	
+				var container=$('#'+_self.container_id);	
+				
+				var group_id = $('#group_id').val();	//不限定範圍
+				var user_email = $('#user_email',container).val();
+				
+				console.log(typeof(user_email)+" "+user_email);
+			
+				if(!user_email)
+				{					
+					shake('#user_email','請輸入新增人員的Email');
+				}
+				else
+				{
+					var o = {
+							url:"js_group_add_member.php",
+							data:{user_email:user_email,group_id:group_id},
+							onSuccess:function(data){			
+								
+								if(data.errmsg)
+								{
+									setTimeout(function() {
+										$.Notify({
+											style : {
+												background : 'red',
+												color : 'white',
+												timeout:10000
+											},
+											content : data.errmsg
+										});
+									}, 100);
+								}
+								else
+								{
+									var newtile=$('#area_list a:first-child',container).clone()								
+									.attr('data-userid', data.user_id)							
+									.removeClass('no-display');
+									
+									newtile.find("span.email-data-title").text(data.fullName);
+									newtile.find("span.email-data-subtitle").text(data.user_email);
+									newtile.find("div.badge").text(data.group_id);		
+									
+									newtile.appendTo( $("#area_list",container) );
+									
+									_self.show_tile(event);
+								}
+							}					
+					}	
+					var msg=mypost(o);
+				}
+				
+			}
+		}
+);
+
+
+function group_add_member()
+{		
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_group_add_member.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			$.unblockUI();
+			user_cerate_new_tile(data.user_id,data.fullName,data.user_email,data.image)
+			group_show_member_list()
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+}
+
+////////////////////////
+////子部門按鈕功能////
+////////////////////////
+$('#container_subgroup_list').toolspanel(
+		{
+			onSubmitCreate: function(){			
+				var errmsg="";
+				if(errmsg=group_add_subgroup())
+				{
+					alert(errmsg);					
+					return false;
+				}
+				else
+				{					
+					return true;
+				}				
+			},
+			onSubmitRemove: function(obj){
+				 group_remove_subgroup(obj)
+			}
+		}
+);
+
+function group_remove_subgroup(obj)
+{	
+	var id=$(obj).attr("id");
+	var parameter = id.split('_');
+	$(obj).addClass('selected');	
+	$.Dialog({
+		shadow : true,overlay : false,
+		icon : '<span class="icon-remove"></span>',
+		title : "del"+parameter[1],
+		width : 300,
+		padding : 20,     	    				
+		onShow: function(_dialog){
+			var content = '<p>Are you sure<p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="group_remove_subgroup_act('+parameter[1]+')">Yes</a><a class="button on-right-more" onclick="$(\'#'+id+'\').removeClass(\'selected\');$.Dialog.close()">No</a></p>';
+			$.Dialog.content(content);					
+		}				
+	});	
+	
+}
+
+function group_remove_subgroup_act(group_id)
+{
+	var o = {
+			url:"js_group_remove_subgroup.php?group_id="+group_id,
+			onSuccess:function(data){				
+					if(data.reload)
+					{
+						location.reload();
+					}
+					else
+					{
+						$('#subgrouptile_'+group_id).remove()		
+					}
+				}					
+	}	
+	var msg=mypost(o);
+}
+
+
+function group_add_subgroup()
+{			
+	var o = {
+			url: 'js_group_add_subgroup.php',
+			onSuccess:function(data){				
+					group_cerate_new_tile(data.group_id,data.group_title,data.parent_group_title,data.desc);
+				}					
+	}
+	var msg=mypost(o);	
+	
+}
+
+
+function group_cerate_new_tile(group_id,group_title,parent_group_title,desc)
+{	
+	var new_html='<a class="tile double double-vertical bg-lightBlue fg-white" data-click="transform"  id="subgrouptile_'+group_id+'"  name="subgrouptile_'+group_id+'" >';
+	 new_html+='<div class="tile-content"><div class="padding10">';			
+	 new_html+='<h1 class="fg-white no-margin">'+group_title+'</h1>';	
+	 new_html+='<h5 class="fg-white">'+parent_group_title+'</h5>';	
+	 new_html+='<p class="tertiary-text fg-white">'+desc+'</p>';									
+	 new_html+='</div></div><div class="tile-status">';	
+	 new_html+='<div class="label"></div>';	
+	 new_html+='</div><div class="brand"></div></a>';	
+	$(new_html).insertBefore('#group_tile_position');
+}
+
+/////////////
+
+	function click_user_tile(user_id)
+	{		
+		var btclass = $('#usertile_'+user_id).attr('class');
+		if(btclass.indexOf('half-opacity')!=-1)
+    	{                
+			//<div class="tile selected"></div>
+			var tag='#usertile_'+user_id;
+			$(tag).addClass('selected');
+			
+			$.Dialog({
+				shadow : true,
+				overlay : false,
+				icon : '<span class="icon-remove"></span>',
+				title : '是否確定刪除',
+				width : 300,
+				padding : 20,
+				onShow: function(_dialog){
+					var content = '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="group_remove_member_act('+user_id+')">是, 刪除</a><a class="button on-right-more" onclick="$(\'#usertile_'+user_id+'\').removeClass(\'selected\');$.Dialog.close()">否</a></p>';
+					$.Dialog.content(content);					
+				}				
+			});			
+    	} 
+		else
+		{
+			$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+			location.href='contact_list.php?id='+user_id;			
+		}	
+	}
+	
+
+
+	function group_remove_member()
+	{
+		$('#icon_group_add_member').addClass("no-display");		
+		$('#icon_group_remove_member').addClass("no-display");		
+		$('#icon_group_show_member_list').removeClass("no-display");		
+		////////////
+		//half-opacity
+		var controls = document.getElementsByTagName('a');
+		for(var i=0; i<controls.length; i++)
+		{			
+			if(controls[i].id)
+			{
+				var t=controls[i].id;
+		
+				if(t.substr(0,9)=='usertile_')
+				{
+					var tag='#'+t;					
+					$(tag).addClass('half-opacity');
+				}						
+			}
+		 }
+	}
+
+	function group_remove_member_act(user_id)
+	{
+		$.Dialog.close()
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		$.ajax({
+			type : 'POST', //GET or POST
+			url : "js_group_remove_member.php?user_id="+user_id, //請求的頁面
+			cache : false, //防止抓到快取的回應
+			data : $("#formPost").serialize(), //要傳送到頁面的參數
+			success : function(data) {				
+				$.unblockUI();
+				
+				$('#usertile_'+user_id).remove()
+			}, //當請求成功後此事件會被呼叫
+			error : function(data) {
+				alert('error')
+			}, //當請求失敗後此事件會被呼叫
+			statusCode : { //狀態碼處理
+				404 : function() {
+					alert("page not found");
+				}
+			}
+		});
+		
+	}
+
+adjust_for_center();
+
+
+
+	
+	//調整時tile置中
+	function adjust_for_center()
+	{		
+		var container_width=$('#container').width();	
+		var padding= (container_width%260)/2-5
+		$( "#user_tile_container" ).offset({ left: padding });		
+		$( "#subgroup_tile_container" ).offset({ left: padding });				
+	}
+
+
+	
+	
+	
+	
+	
+	function user_show_add_member()
+	{
+		$('#user_tile_container').addClass("no-display");
+		$('#icon_group_add_member').addClass("no-display");
+		$('#icon_group_remove_member').addClass("no-display");
+		
+		$('#icon_group_show_member_list').removeClass("no-display");
+		$('#user_show_add_member_container').removeClass("no-display");
+	}
+	
+	
+	
+	
+	
+		
+	function user_cerate_new_tile(user_id,fullName,user_email,image)
+	{
+		var new_html='<a id="usertile_'+user_id+'"   name="usertile_'+user_id+'"  class="tile double  bg-steel fg-white  " data-click="transform"  href="javascript:click_user_tile('+user_id+');">';
+		new_html+='<div class="tile-content email">';
+			new_html+='<div class="email-image">';
+		new_html+='<img src="'+image+'">';
+			new_html+='</div>';
+		new_html+='<div class="email-data">';
+		new_html+='<span class="email-data-title">'+fullName+'</span>'; 
+			new_html+='<span class="email-data-subtitle">'+user_email+'</span>';
+			new_html+='</div>';						
+		new_html+='<div class="brand">';
+		new_html+='<div class="label">';
+			new_html+='<h3 class="no-margin fg-white"><span class="icon-power"></span></h3>';
+				new_html+='</div>';
+			new_html+='<div class="badge">'+$('#group_title').val()+'</div>';
+			new_html+='</div>';
+		new_html+='</div></a>';
+	
+		
+		$(new_html).insertBefore('#user_tile_position');
+	}
+	
+
+	function group_show_member_list()
+	{
+		$('#user_tile_container').removeClass("no-display");
+		$('#icon_group_add_member').removeClass("no-display");
+		$('#icon_group_remove_member').removeClass("no-display");
+		$('#icon_group_show_member_list').addClass("no-display");
+		$('#user_show_add_member_container').addClass("no-display");		
+
+		var controls = document.getElementsByTagName('a');
+		for(var i=0; i<controls.length; i++)
+		{			
+			if(controls[i].id)
+			{
+				var t=controls[i].id;		
+				if(t.substr(0,9)=='usertile_')
+				{
+					var tag='#'+t;					
+					$(tag).removeClass('half-opacity');
+				}						
+			}
+		 }		
+	}	
+	
+	function group_edit() {
+		$('#wbs_header').addClass('active');	
+		$('.viewtext').each(function() {
+			$(this).addClass('no-display');
+		});
+
+		$('.inputtext').each(function() {
+			$(this).removeClass('no-display');
+		});
+	}
+	
+	function group_cancel() {
+		$('.inputtext').each(function() {
+			$(this).addClass('no-display');
+		});
+
+		$('.viewtext').each(function() {
+			$(this).removeClass('no-display');
+		});
+	}
+
+	function group_content_check()
+	{
+		var is_ok=true;		
+		u_tagname='#group_title_label'
+		if($('#group_title').val()=="")
+		{			
+			shake(u_tagname,"{$lang.FillGroupTitle}")		
+			$(u_tagname).addClass('warning-state');
+			is_ok=false;
+		}
+		else
+		{		
+			$(u_tagname).removeClass('fg-red')	
+		}		
+		return is_ok;
+	}		
+	
+	function group_save() {
+		$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+		if(group_content_check())
+		{
+			//alert($("#formPost").serialize());
+			$.ajax({
+				type : 'POST', //GET or POST
+				url : "group_save.php", //請求的頁面
+				cache : false, //防止抓到快取的回應
+				data : $("#formPost").serialize(), //要傳送到頁面的參數
+				success : function(data) {
+					if (data.errmsg) {
+						alert(data.errmsg);
+					} else {
+						$('#group_id').val(data.group_id);		
+						location.href='?group_id='+data.group_id;
+					}
+				}, //當請求成功後此事件會被呼叫
+				error : function(data) {
+					alert('error')
+					$.unblockUI(); 
+				}, //當請求失敗後此事件會被呼叫
+				statusCode : { //狀態碼處理
+					404 : function() {
+						alert("page not found");
+					}
+				}
+			});
+		}
+	}
+	<!-- BEGIN CreateWP -->
+	group_edit()
+	<!-- END CreateWP -->	
+		function workpackage_del_confirm() {
+			$.Dialog({
+				shadow : true,
+				overlay : false,
+				icon : '<span class="icon-remove"></span>',
+				title : '是否確定刪除',
+				width : 300,
+				padding : 20,
+				content : '<p>刪除後將無法回復，是否仍要刪除</p><div style="margin-top: 20px;"/><p><a class="default button"  onClick="workpackage_del()">是, 刪除</a><a class="button on-right-more" onclick="$.Dialog.close()">否</a></p>'
+			});
+		}
+
+		function workpackage_del() {
+			$.ajax({
+						type : 'POST', //GET or POST
+						url : "workpackage_del.php", //請求的頁面
+						cache : false, //防止抓到快取的回應
+						data : $("#formPost").serialize(), //要傳送到頁面的參數
+						success : function(data) {
+							if (data.errmsg) {
+								alert(data.errmsg);
+							} else {
+
+								setTimeout(function() {
+									$.Notify({
+										style : {
+											background : 'green',
+											color : 'white'
+										},
+										content : "刪除成功!!!"
+									});
+								}, 100);
+
+								$.Dialog.close()
+
+								location.href = ('./wbs_detail.php?wid='+data.wbs_id+'&pid=' + data.project_id);
+							}
+						}, //當請求成功後此事件會被呼叫
+						error : function(data) {
+							alert('error')
+						}, //當請求失敗後此事件會被呼叫
+						statusCode : { //狀態碼處理
+							404 : function() {
+								alert("page not found");
+							}
+						}
+					});
+
+		}
+	</SCRIPT>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+        <script src="js/orgchart/jquery.orgchart.js"></script>
+	<link rel="stylesheet" href="templates/metro/css/jquery.orgchart.css"/>
+         <style>     
+ 
+ 		div.orgChart h2 {		
+		     color: #ffffff !important;
+		}
+          
+		div.orgChart h2 a {		
+		     color: #ffffff !important;
+		}
+		
+		div.orgChart div.node.hiddenChildren {
+			border:3px solid black;
+		}
+
+        li.orgChart
+        {
+          background-color: #4390df !important;
+         color: #ffffff !important;
+        }
+        
+        
+
+        div.orgChart div.department {
+		           background-color: #4390df !important;
+         color: #ffffff !important;
+          font-weight:bold;
+		 }
+		 
+        </style>
+
+        
+        
+<h1>
+		<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+		Unit<small class="on-right">Structure</small>
+	</h1>
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="index.php">Home</a></li>
+		<li class="active"><a href="#">{$lang.DepartmentTree}</a></li>
+	</ul>
+</nav>
+
+
+
+
+<div id="information"  class="no-display">
+
+	<ul id="organisation">
+	{organisation_html}
+	</ul>
+</div>            
+
+<div id="main"></div>
+
+
+<script>
+        $(function() {
+            $("#organisation").orgChart({container: $("#main"), interactive: true, fade: true, speed: 'slow'});
+        });
+        </script>

@@ -1,0 +1,41 @@
+
+
+
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+
+<body>
+	 <div class="input-control file">
+	    <input id="fileupload" type="file" name="files[]" multiple>
+	    <button class="btn-file"></button>
+	</div>
+	 <div id="componennt_id" class="progress-bar" data-role="progress-bar" ></div>
+	 <div id="files_zone" class="files_zone"></div>
+<script>
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {	
+	var pb = $("#componennt_id").progressbar();   
+	
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files_zone');
+            });         
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>

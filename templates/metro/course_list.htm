@@ -1,0 +1,126 @@
+
+        
+   
+
+<h1 >
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	課程<small class="on-right">分類</small>
+
+</h1>
+<div class="clearfix"></div>   
+        <nav class="breadcrumbs">
+		    <ul>
+				<li><a href="home.php">Home</a></li>
+				<li class="active"><a href="#">{function_title}</a></li>
+		    </ul>
+		</nav>       
+		
+		<!--  -->
+		
+      <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+                 	 <a href="#"><span class="tile-group-title fg-orange">功能<span class="icon-arrow-right-5"></span></span></a>
+					
+					<a id="FILTER_BEGIN" class="tile bg-darkBlue selected" data-click="transform"  href="javascript:show_project_list('BEGIN');">
+					    <div class="tile-content icon">
+					        <i class="icon-rocket"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">進行中</span>
+					    </div>
+					</a>
+
+					<a id="FILTER_PAUSE" class="tile bg-darkBlue" data-click="transform"  href="javascript:show_project_list('PAUSE');">
+					    <div class="tile-content icon">
+					        <i class="icon-pause"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">暫停</span>
+					    </div>
+					</a>
+					<a id="FILTER_ARCHI"  class="tile bg-darkBlue" data-click="transform"  href="javascript:show_project_list('ARCHI');">
+					    <div class="tile-content icon">
+					        <i class="icon-box-add"></i>
+					    </div>
+					    <div class="tile-status">
+					        <span class="name">封存</span>
+					    </div>
+					</a>
+
+					
+                </div>
+        
+		
+		
+		 
+		 <!-- BEGIN CATALOG -->
+                <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+                    <a href="cat_course_list.php?catalog_id={CATALOG.catalog_id}"><span class="tile-group-title fg-orange">{CATALOG.catalog_title}<span class="icon-arrow-right-5"></span></span></a>                    
+					<!-- BEGIN TILE_LIST -->
+					
+					<a class="tile {CATALOG.TILE_LIST.width} {CATALOG.TILE_LIST.height}  bg-darkCobalt "	 data-click="transform"  href="course.php?course_id={CATALOG.TILE_LIST.course_id}">
+						<div class="tile-content"	>
+							<div class="padding10">
+
+							</div>		
+						</div>
+						<div class="tile-status">
+							<div class="label"><h3 class="fg-white no-margin">{CATALOG.TILE_LIST.course_title}</h3></div>
+						</div>
+						<div class="brand">
+					        <div class="badge available"></div>
+					    </div>
+					</a>
+					  	
+					<!-- END TILE_LIST -->
+					
+					<!-- BEGIN MORE_TILE -->
+					<a class="tile {CATALOG.TILE_LIST.width} {CATALOG.TILE_LIST.height}  bg-darkGreen"	 data-click="transform"  href="cat_course_list.php?catalog_id={CATALOG.catalog_id}">
+						  <div class="tile-content image">
+						        <img src="images/bt_more.png">
+						    </div>
+						
+					
+						<div class="tile-status">
+							<div class="label">更多	</div>
+						</div>
+						
+					</a>					
+					<!-- END MORE_TILE -->
+					
+					
+					<a class="{bt_create_course_display}  tile half bg-darkMagenta"  href="course.php?course_id=0&catalog_id={CATALOG.catalog_id}">
+						<div class="tile-content icon">
+							<i class="icon-plus-2"></i>
+						</div>
+					</a>
+					
+                </div>
+          <!-- END CATALOG -->      
+                
+<script>
+function show_project_list(tag)
+{
+	//FILTER_ARCHI
+	var btclass = $('#FILTER_'+tag).attr('class');
+	
+    classrow=btclass.split(" ") 
+    for (i in classrow) {
+    	if(classrow[i].indexOf('selected')>=0)
+    	{      //selected    
+    		$('#FILTER_'+tag).removeClass('selected');
+    	
+    		$('.FILTER_'+tag).each(function() {
+    			$(this).addClass('no-display');
+    		});
+    	
+    		return true;
+    	}     
+	}  
+    $('#FILTER_'+tag).addClass('selected');
+    $('.FILTER_'+tag).each(function() {
+		$(this).removeClass('no-display');
+	});
+	return true;
+}
+
+</script>

@@ -1,0 +1,552 @@
+<link rel="stylesheet" type="text/css" href="../common/plugins/countdown/jquery.countdown.css"> 
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+<script type="text/javascript" src="../common/plugins/countdown/jquery.plugin.js"></script> 
+<script type="text/javascript" src="../common/plugins/countdown/jquery.countdown.js"></script>
+
+<style>
+.metro .quiz {
+  padding: 20px 40px 20px 60px;
+  border: 1px #ccc solid;
+  margin: 0 0 10px 0;
+  background-color: #fdfdfd !important;
+  min-height: 100px;
+}
+
+.metro .quiz:after {
+  display: table;
+  content: "";
+}
+.metro .quiz:after {
+  clear: both;
+}
+
+</style>
+<div class="no-display">
+	<input type="text" id="sco_id" name="sco_id" value="{sco_id}" />
+	<input type="text"  id="user_exam_id" name="user_exam_id" value="{user_exam_id}" />
+	<input type="text" id="grade" name="grade" value="{grade}">
+	<input type="text" id="result" name="result" value="{result}">
+	<input type="text"   id="pass_mark" name="pass_mark"  value="{pass_mark}" />
+</div>
+
+<h1 >
+	<a href="javascript:history.go(-1)"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	{sco_title}<small
+		class="on-right">學習單元</small>
+</h1>
+                              
+                    
+                <div class="grid">
+                 
+                    <div class="row">
+                        <div class="span3 no-tablet-portrait">                                                  
+                            <nav >                
+   							 <div class="span3 side-menu"  style="border: 0" >
+                                
+                                <div  id="defaultCountdown" class="span3 bg-white" style="border: 1;height:50px"></div>
+                              
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                <div  id="bt_send" class="bg-white viewmode" >
+                                	<button type="button" class="span3 large shortcut  fg-white" onClick='finish_exam()'><h2>交卷</h2></button>
+                                </div>
+  
+                                  <div  id="bt_again" class="bg-white no-display" >
+                                	<button type="button" class="span3 large shortcut  fg-white" onClick='location.reload()'><h2>再考一次</h2></button>
+                                </div>
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                
+                                
+                                <div  name="bt_exam_edit" id="bt_exam_edit"  class="bg-white viewmode {bt_edit_exam_display}" >
+                                	<button type="button" class="button span3  fg-white"  name="bt_exam_edit2" id="bt_exam_edit2"   onClick="exam_edit();" ><h2>編輯</h2></button>
+                                </div>
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                 <div  id="bt_exam_save" class="bg-white  editmode" >
+                                	<a class="button span3  fg-white" onClick="exam_save();"><h2>儲存</h2></a>
+                                </div>
+                                <div  style="width:10px">&nbsp</div>
+                                 <div  id="bt_exam_show" class="bg-white  editmode" >
+                                	<a class="button span3  fg-white" onClick="exam_show();"><h2>返回</h2></a>
+                                </div>
+                              </div>       
+                            </nav>                            
+                        </div>
+                        
+                        
+                         <div class="span9 no-display"  id="area_result" name="area_result">                         	
+                            <div class="quiz"  >
+                            	<p class="readable-text">本次成績<span id="grade_title" name="grade_title">{grade}</span>分</p>           
+                            	<p style="padding-top:10px;padding-left:50px"><button  type="button"  class="danger"><h1>PASS</h1></button></p>
+                            	<p class="tertiary-text">及格分數為{pass_mark}分</p>                            	
+                            </div>
+                         </div>
+                        
+                        <div class="span9" id="area_quiz" name="area_quiz">
+                        	<!-- 題目開始 -->
+
+                        	 
+                        	 
+                        	 
+                        	<!-- BEGIN QUIZ -->
+                            <div class="quiz quiz_section"  id="container_quiz_{QUIZ.qid}" data-qid="{QUIZ.qid}">
+                            <button  type="button"  class="shortcut info"><h1>{QUIZ.no}</h1></button>
+                            <div style="vertical-align: top;float:right" class="editmode"><button type="button" class="large danger"  onClick="quiz_remove({QUIZ.sid})">{$lang.Del}</button></div>
+                            
+                            <div class="no-display">
+                            <input id="quiz_type_{QUIZ.qid}"  value="{QUIZ.quiz_type}" />                            
+                            <input id="user_exam_detail_id_{QUIZ.qid}"  value="{QUIZ.user_exam_detail_id}" />
+                            <input id="user_answer_{QUIZ.qid}"  value="{QUIZ.user_answer}" />
+                            <input id="correct_answer_{QUIZ.qid}"  value="{QUIZ.answer}" />
+                            </div>
+                            
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text viewmode">{QUIZ.question}</p>           
+                            	
+                            	<div class="input-control textarea editmode no-display readable-text">
+								    <textarea style="readable-text">{QUIZ.question}</textarea>
+								</div>
+                            	
+                            	<!-- BEGIN ITEM -->	
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%">
+	                                	<button type="button" class="bt_choose large {QUIZ.ITEM.choose}"  seq="{QUIZ.ITEM.seq}" onClick="bt_choose(this,{QUIZ.qid})">{QUIZ.ITEM.no}</button>
+	                                	<div  style="width:1px">&nbsp</div>
+	                                	<button type="button" class="editmode bt_correct {QUIZ.ITEM.correct} fg-white"  seq="{QUIZ.ITEM.seq}"  onClick="bt_choose_correct(this,{QUIZ.qid})">正解</button>
+	                                </div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description  viewmode">{QUIZ.ITEM.content} {QUIZ.ITEM.seq}</p>
+	                                	<div class="input-control textarea editmode no-display readable-text">
+								    		<textarea style="readable-text">{QUIZ.ITEM.content}</textarea>
+										</div>
+	                                </div>
+                                </div>
+                                <!-- END ITEM -->	                                                         
+                            </div>
+                            <!-- 題目結束 -->
+                            <!-- END QUIZ -->
+                            
+                            
+                            
+                            
+							<!-- 新增題目開始 -->
+                            <div class="quiz editmode ">
+                            <button type="button" class="shortcut info" onClick="show_quiz_type();"><h1>+</h1></button>
+                            <button id="quiz_SICE"  type="button" class="shortcut info no-display" onClick="quiz_kind(this);"><h2>單選</h2></button>
+                            <button id="quiz_MUCE"   type="button" class="shortcut info  no-display" onClick="quiz_kind(this);"><h2>多選</h2></button>
+                            <!-- 
+                            <button id="quiz_SHAS"   type="button" class="shortcut info  no-display" onClick="quiz_kind(this);"><h2>簡答</h2></button>
+                             -->
+                          	<input type="text"  id="quiz_type"  name="quiz_type" value=""/>
+      
+                            <div style="clear:both;height:10px"></div>
+                            	<label>請輸入題目</label>
+                            	<div class="input-control textarea editmode no-display readable-text" data-role="input-control">
+                            	
+								    <textarea id="question" name="question" style="readable-text"></textarea>
+								</div>
+								        
+								 <div id="quiz_choose_zone" class="no-display">      
+								 <label>請輸入選項</label>                                   
+                                <div style="clear:both;height:10px" id="new_item_zone"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button type="button"  class="button large"  onClick="create_new_item();">+</button></div>
+	                            	<div  class="place-left" style="width:88%">	                                	
+	                                	<div class="input-control textarea editmode readable-text">
+								    		<textarea style="readable-text"  id="new_item_content" name="new_item_content"></textarea>
+										</div>
+	                                </div>
+	                            </div>         
+	                            <br>
+	                            <div style="clear:both;height:10px" id="new_item_zone"></div>
+	                             </div>
+	                            
+	                            
+	                            <div id="quiz_text_zone" class="no-display">   
+	                            </div>
+	                            
+                                 <div  align="center"><button type="button"  class="button large"  onClick="quiz_create();">{$lang.Save}</button></div>
+                                        
+                            </div>
+                            <!-- 新增題目結束 -->
+				
+
+                        </div>
+                    </div>
+                </div>
+
+
+<script>
+
+if({isPass})
+{
+	exam_show()
+	$('#area_quiz').addClass("no-display");
+	$('#bt_send').addClass("no-display");	
+	$('#bt_exam_edit2').addClass("no-display");	
+	$('#area_result').removeClass("no-display");
+
+	var grade= $('#grade').val();
+	var pass_mark= $('#pass_mark').val();
+console.log(grade +' '+pass_mark);
+
+	if(grade > pass_mark)
+	{
+		$('button h1',$('#area_result')).text('Pass');
+		$('button',$('#area_result')).removeClass('danger');
+		$('button',$('#area_result')).addClass('success');
+		$('#result').val('P');
+	}
+	else
+	{
+		$('button h1',$('#area_result')).text('Fail');
+		$('button',$('#area_result')).removeClass('success');
+		$('button',$('#area_result')).addClass('danger');
+		$('#result').val('F');
+	}	
+	
+}
+else
+{
+	$('#defaultCountdown').countdown({until: +300, 
+		onExpiry: CountDownOnExpiry, 
+		onTick: CountDownOnTick,
+		format: 'HMS'});
+
+	exam_show()	
+}
+
+//交卷
+function finish_exam()
+{		
+	$('#defaultCountdown').addClass('no-display');
+	$('#area_quiz').addClass("no-display");
+	$('#area_result').removeClass("no-display");
+	$('#bt_exam_edit2').addClass('no-display');
+	
+	var pass_mark= $('#pass_mark').val();
+	var correct_count=0;
+	var total_count=0;
+		
+	$( ".quiz_section" ).each(function( index ) {
+		total_count++;
+		var qid= $( this ).attr('data-qid');
+		var quiz_type = $('#quiz_type_'+qid).val();
+		var user_exam_detail_id = $('#user_exam_detail_id_'+qid).val();
+		var user_answer = $('#user_answer_'+qid).val();
+		var correct_answer = $('#correct_answer_'+qid).val();
+		if(user_answer==correct_answer)
+		{
+			correct_count++;
+		}	
+	});
+	
+	var grade= parseInt(Math.min(100,Math.round(100 / total_count * correct_count)));
+	$('#bt_send').addClass('no-display');
+	if(grade > pass_mark)
+	{
+		$('button h1',$('#area_result')).text('Pass');
+		$('button',$('#area_result')).removeClass('danger');
+		$('button',$('#area_result')).addClass('success');
+		$('#result').val('P');
+	}
+	else
+	{
+		$('button h1',$('#area_result')).text('Fail');
+		$('button',$('#area_result')).removeClass('success');
+		$('button',$('#area_result')).addClass('danger');
+		$('#result').val('F');
+		
+		$('#bt_again').removeClass('no-display');
+	}
+	
+	$('#grade').val(grade);	
+
+	//回傳成績 
+	//user_exam_id
+	
+	var o = {
+			url:"js_quiz_finish_user_exam.php",			
+			onSuccess:function(data){	
+				//$('#user_exam_detail_id').val(data.user_exam_detail_id);		
+				$('#grade_title').text(grade);
+
+			}					
+	}	
+	var msg=mypost(o);		
+}
+
+
+
+
+function CountDownOnExpiry()
+{
+	if($('#area_quiz').hasClass("no-display"))
+	{
+		//強迫交卷
+		console.log('HAD')	
+	}
+	else
+	{
+		finish_exam();
+		
+	}
+	
+}
+
+function CountDownOnTick(periods)
+{	
+	 if ($.countdown.periodsToSeconds(periods) === 60) { 
+	   	$("#bt_send").addClass('fg-red');         
+	    $("#defaultCountdown").addClass('shake shake-constant shake-little fg-red'); 
+	}  
+	else if ($.countdown.periodsToSeconds(periods) === 15) { 
+	    $("#defaultCountdown").removeClass('shake-little'); 
+	    $("#bt_send").addClass('shake shake-constant shake-little');         
+	}
+}
+
+
+
+
+
+function bt_choose(obj,qid)
+{	
+	var type=$('#quiz_type_'+qid).val();
+	var container=$('#container_quiz_'+qid);
+
+	if(type=='quiz_SICE')
+	{
+		$('.bt_choose', container).each(function () {
+	
+			$(this).removeClass('primary');
+		});
+		$(obj).addClass('primary');
+	}
+	else
+	{	
+		if($(obj).hasClass('primary'))
+		{
+			$(obj).removeClass('primary');
+		}
+		else
+		{
+			$(obj).addClass('primary');
+		}
+	}
+	var id=$(obj).attr('seq');
+	
+	var user_answer="";
+	$('.bt_choose', container).each(function () {		
+		if($(this).hasClass('primary'))
+		{
+			if(user_answer) user_answer+=";"
+			user_answer+=$(this).attr("seq");
+		}
+	});
+	$('#user_answer_'+qid).val(user_answer);	
+	
+	//user_exam_detail_id_{QUIZ.qid}
+	var user_exam_detail_id=$('#user_exam_detail_id_'+qid).val();
+	var user_exam_id=$('#user_exam_id').val();
+	var o = {
+			url:"js_quiz_update_user_answer.php",
+			data: {user_exam_detail_id:user_exam_detail_id,qid:qid,user_answer:user_answer,user_exam_id:user_exam_id},
+			onSuccess:function(data){	
+				$('#user_exam_detail_id_'+qid).val(data.user_exam_detail_id);		
+				}					
+	}	
+	var msg=mypost(o);
+	
+	
+	//alert(id);
+}
+
+//
+function bt_choose_correct(obj,qid)
+{	
+	var type=$('#quiz_type_'+qid).val();
+	var container=$('#container_quiz_'+qid);
+
+	if(type=='quiz_SICE')
+	{
+		$('.bt_correct', container).each(function () {	
+			$(this).removeClass('primary');
+		});
+		$(obj).addClass('primary');
+	}
+	else
+	{	
+		if($(obj).hasClass('primary'))
+		{
+			$(obj).removeClass('primary');
+		}
+		else
+		{
+			$(obj).addClass('primary');
+		}
+	}
+	var id=$(obj).attr('seq');
+	
+	var correct_answer="";
+	$('.bt_correct', container).each(function () {		
+		if($(this).hasClass('primary'))
+		{
+			if(correct_answer) correct_answer+=";"
+				correct_answer+=$(this).attr("seq");
+		}
+	});
+	$('#correct_answer_'+qid).val(correct_answer);	
+	
+	//user_exam_detail_id_{QUIZ.qid}
+	var user_exam_detail_id=$('#user_exam_detail_id_'+qid).val();
+	var user_exam_id=$('#user_exam_id').val();
+	var o = {
+			url:"js_quiz_update_correct_answer.php",
+			data: {qid:qid,answer:correct_answer},
+			onSuccess:function(data){	
+				
+				}					
+	}	
+	var msg=mypost(o);
+	
+	
+	//alert(id);
+}
+
+
+function exam_edit()
+{	
+	
+	$('.viewmode').each(function() {
+		$(this).addClass('no-display');
+	});   		
+	
+	
+	$('.editmode').each(function() {
+		$(this).removeClass('no-display');
+	});             
+	
+
+}
+
+function exam_save()
+{	
+	exam_show()
+}
+
+
+
+function exam_show()
+{	
+	$('.viewmode').each(function() {
+		$(this).removeClass('no-display');
+	});   		
+	
+	$('.editmode').each(function() {
+		$(this).addClass('no-display');
+	});    
+}
+
+
+
+
+function quiz_create()
+{
+	var o = {
+			url:"js_quiz_create.php",
+			onSuccess:function(data){	
+						location.reload();					
+				}					
+	}	
+	var msg=mypost(o);
+}
+
+function quiz_remove(sid)
+{
+	var o = {
+			url:"js_quiz_remove.php?sid="+sid,
+			onSuccess:function(data){	
+						location.reload();					
+				}					
+	}	
+	var msg=mypost(o);
+}
+
+
+function create_new_item()
+{
+	if($('#new_item_content').val()=="")
+	{
+		alert('請填寫選項內容');
+		return;	
+	}
+	var item_count=0;
+	
+	var controls = document.getElementsByTagName('textarea');
+	for(var i=0; i<controls.length; i++)
+	{			
+		if(controls[i].id)
+		{
+			var t=controls[i].id;
+			if(t=='new_item[]')
+			{				
+				item_count++;				
+			}
+		}
+	 }
+	item_count=item_count+65
+	var item_no=String.fromCharCode(item_count);
+	var item_content=$('#new_item_content').val();
+	var item_html='<div style="clear:both;height:10px"></div><div>';
+	 item_html+='<div  class="place-left " style="width:10%"><button class="button large">'+item_no+'</button></div>';
+	 item_html+='<div  class="place-left" style="width:88%">';
+	 item_html+='<div class="input-control textarea editmode readable-text">';
+	 item_html+='<textarea style="readable-text" id="new_item[]" name="new_item[]">'+item_content+'</textarea>';
+	 item_html+='</div></div></div>';
+	 $('#new_item_content').val("");
+	 $(item_html).insertBefore('#new_item_zone');
+}
+
+function show_quiz_type()
+{
+	$("#quiz_SICE").removeClass('no-display').addClass('animated fadeIn half-opacity');
+	$("#quiz_MUCE").removeClass('no-display').addClass('animated fadeIn half-opacity');
+	$("#quiz_SHAS").removeClass('no-display').addClass('animated fadeIn half-opacity');
+}
+
+function quiz_kind(obj)
+{
+	$("#quiz_SICE").removeClass('animated fadeIn');
+	$("#quiz_MUCE").removeClass('animated fadeIn');
+	$("#quiz_SHAS").removeClass('animated fadeIn');	
+	
+	var type = obj.id;
+	$('#quiz_type').val(type);	
+	$("#quiz_SICE").addClass('half-opacity');
+	$("#quiz_MUCE").addClass('half-opacity');
+	$("#quiz_SHAS").addClass('half-opacity');	
+	$(obj).removeClass('half-opacity');
+	
+	switch(type)
+	{
+		case "quiz_SICE":
+			$('#quiz_choose_zone').removeClass('no-display');
+		break;
+		
+		case "quiz_MUCE":
+			$('#quiz_choose_zone').removeClass('no-display');
+		break;
+		
+		case "quiz_SHAS":
+			$('#quiz_choose_zone').addClass('no-display');
+		break;
+	}
+	
+}
+
+
+</Script>       

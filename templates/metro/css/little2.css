@@ -1,0 +1,13 @@
+textarea.viewmode
+{
+	border : 0;
+	  overflow-y : auto; /* IE */
+	  resize : none; /* Firefox, Chrome */
+
+}
+
+
+textarea.viewmode:focus
+{
+	outline : 0; /* Chrome */
+}

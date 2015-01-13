@@ -1,0 +1,326 @@
+<link rel="stylesheet" type="text/css" href="../common/plugins/countdown/jquery.countdown.css"> 
+<script type="text/javascript" src="../common/plugins/countdown/jquery.plugin.js"></script> 
+<script type="text/javascript" src="../common/plugins/countdown/jquery.countdown.js"></script>
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+
+
+<style>
+.metro .quiz {
+  padding: 20px 40px 20px 60px;
+  border: 1px #ccc solid;
+  margin: 0 0 10px 0;
+  background-color: #fdfdfd !important;
+  min-height: 100px;
+}
+
+.metro .quiz:after {
+  display: table;
+  content: "";
+}
+.metro .quiz:after {
+  clear: both;
+}
+
+</style>
+
+
+<h1 >
+	<a href="javascript:history.go(-1)"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	{sco_title}123<small
+		class="on-right">學習單元</small>
+</h1>
+
+                    
+                <div class="grid">
+                 
+                    <div class="row">
+                        <div class="span2no-tablet-portrait">                                                  
+                            <nav >                
+                            
+                                     
+   							 <div class="span3 side-menu"  style="border: 0">
+   							 <!-- 
+                                <div  id="defaultCountdown" class=" span3 bg-white" style="border: 1;height:50px"></div>
+                                
+   								<input type="button"  id="removeCountdown"  name="removeCountdown" >
+                                      -->
+                                <div  style="width:10px">&nbsp</div>
+                                <input type="text" id="timer_status" >
+                                
+                                <div  id="bt_send" class="bg-white" >
+                                	<button class="span3 large shortcut  fg-white"><h2>交卷</h2></button>
+                                </div>
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                
+                                <div  name="bt_exam_edit" id="bt_exam_edit"  class="bg-white" >
+                                	<a class="button span3  fg-white" onClick="exam_edit();" ><h2>編輯</h2></a>
+                                </div>
+                                
+                                <div  style="width:10px">&nbsp</div>
+                                 <div  id="bt_exam_save" class="bg-white " >
+                                	<a class="button span3  fg-white" onClick="exam_save();"><h2>儲存</h2></a>
+                                </div>
+                                <div  style="width:10px">&nbsp</div>
+                                 <div  id="bt_exam_show" class="bg-white " >
+                                	<a class="button span3  fg-white" onClick="exam_show();"><h2>返回</h2></a>
+                                </div>
+                                
+                              </div>                             
+                            </nav>                            
+                        </div>
+                       
+                        
+                        <div class="span9">
+                        	<!-- 題目開始 -->
+                            <div class="quiz">
+                            <button class="shortcut info"><h1>1</h1></button>
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text">
+                               	25個學生每個人都各猜一個0到100間的數字。所有的人猜的數字取平均後，再乘以2/3就是大家的目標數字。最接近這個目標數字的人就獲勝。
+                            	</p>                            	
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >A</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >B</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>                                
+                                <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >C</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                   <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >D</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>                                
+                            </div>
+                            <!-- 題目結束 -->
+                            
+                            <!-- 題目開始 -->
+                            <div class="quiz">
+                            <button class="shortcut info"><h1>2</h1></button>
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text">
+                               	25個學生每個人都各猜一個0到100間的數字。所有的人猜的數字取平均後，再乘以2/3就是大家的目標數字。最接近這個目標數字的人就獲勝。
+                            	</p>                            	
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >A</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >B</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>                                
+                                <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >C</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                   <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >D</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>                                
+                            </div>
+                            <!-- 題目結束 -->
+                            
+                            
+ 							<div class="example">
+                            <button class="shortcut info"><h1>2</h1></button>
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text">
+                               	25個學生每個人都各猜一個0到100間的數字。所有的人猜的數字取平均後，再乘以2/3就是大家的目標數字。最接近這個目標數字的人就獲勝。
+                            	</p>                            	
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >A</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >B</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                
+                                <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >C</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                   <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >D</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                
+                            </div>
+
+						<p class="subheader">123</p>
+						<p class="subheader-secondary">Lorem ipsum dolor sit amet, consectetur ad</p>
+
+						<div class="example">
+                            <button class="shortcut info"><h1>2</h1></button>
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text">
+                               	25個學生每個人都各猜一個0到100間的數字。所有的人猜的數字取平均後，再乘以2/3就是大家的目標數字。最接近這個目標數字的人就獲勝。
+                            	</p>
+                            	
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >A</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                            	<div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >B</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                
+                                <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >C</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                   <div style="clear:both;height:10px"></div>
+                            	<div >
+	                                <div  class="place-left " style="width:10%"><button class="button large"  >D</button></div>
+	                                <div  class="place-left" style="width:88%">
+	                                	<p class="description "> 這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？這個遊戲的奈許均衡（Nash Equilibrium）為何？唯一存在？為什麼？</p>
+	                                </div>
+                                </div>
+                                
+                            </div>
+
+							<div class="example">
+                            <button class="shortcut info"><h1>3</h1></button>
+                            <div style="clear:both;height:10px"></div>
+                            	<p class="readable-text">
+                               	25個學生每個人都各猜一個0到100間的數字。所有的人猜的數字取平均後，再乘以2/3就是大家的目標數字。最接近這個目標數字的人就獲勝。
+                            	</p>
+                            	
+                            	<div style="clear:both;height:10px"></div>
+                            	
+                            	<div class="input-control textarea">
+								    <textarea rows="10"></textarea>
+								</div>
+                            	
+                            	
+                                
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+<script>
+$('#defaultCountdown').countdown({until: +300, 
+	onExpiry: CountDownOnExpiry, 
+	onTick: CountDownOnTick,
+	format: 'HMS'});
+
+$('#removeCountdown').click(function() { 	
+    $('#defaultCountdown').countdown('destroy');
+});	
+
+
+function exam_edit()
+{	
+	set_tag("bt_exam_edit","h");
+	set_tag("bt_exam_show","s");
+	set_tag("bt_exam_save","s");
+}
+
+function exam_show()
+{
+	$("#defaultCountdown").countdown('resume'); 
+	set_tag("bt_exam_edit","s");
+	set_tag("bt_exam_show","h");
+	set_tag("bt_exam_save","h");
+}
+
+
+function CountDownOnExpiry()
+{
+	alert('We have lift off!'); 
+}
+
+function CountDownOnTick(periods)
+{
+	
+		
+		
+	    if ($.countdown.periodsToSeconds(periods) === 60) { 
+	    	$("#bt_send").addClass('fg-red');         
+	        $("#defaultCountdown").addClass('shake shake-constant shake-little fg-red'); 
+	    }  
+	    else if ($.countdown.periodsToSeconds(periods) === 15) { 
+	        $("#defaultCountdown").removeClass('shake-little'); 
+	        $("#bt_send").addClass('shake shake-constant shake-little');         
+	    }
+	
+	    var btclass = $('#bt_exam_edit').attr('class');
+
+		if(btclass.indexOf('no-display')!=-1)
+		{       
+			//在編輯狀態
+			if($('#timer_status').val()!="pause")
+			{
+				$('#timer_status').val("pause");
+				 $("#defaultCountdown").countdown('pause'); 
+			}
+		}
+		else
+		{
+			if($('#timer_status').val()!="")
+			{
+				$('#timer_status').val("");
+				 
+			}
+		}
+	    
+	    
+}
+
+
+</script>

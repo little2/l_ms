@@ -1,0 +1,457 @@
+<script type="text/javascript"  src="js/little2.js"></script>
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="../common/plugins/html5sortable/jquery.sortable.js"></script>
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	配色<small class="on-right">範本</small>
+</h1>
+<nav class="breadcrumbs">
+	<ul>
+		<li><a href="home.php">Home</a></li>
+		<li ><a href="course_list.php">{$lang.LearningCenter}</a></li>
+		<li class="active"><a href="tpl.php">當前</a></li>
+	</ul>
+</nav>
+
+	<div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+
+		<a class="tile bg-crimson" data-click="transform"
+			href="sco_create.php?course_id={course_id}">
+			<div class=" tile-content icon">
+				<i class="icon-link"></i>
+			</div>
+			<div class="tile-status">
+				<span class="name">使用者管理權限</span>
+			</div>
+		</a>
+	
+		<a class="tile bg-darkCrimson" data-click="transform"
+			href="sco_create.php?course_id={course_id}">
+			<div class=" tile-content icon">
+				<i class="icon-link"></i>
+			</div>
+			<div class="tile-status">
+				<span class="name">管理者權限</span>
+			</div>
+		</a>	
+	
+		
+	</div>
+<div class="clearfix"></div>
+
+
+
+<div class="accordion  with-marker" data-role="accordion">
+	<div class="accordion-frame">
+		<a id="courseinfo_header" name="courseinfo_header"href="#" class="heading">課程資料</a>
+		<div class="content">
+
+			<div class="place-right  viewtext"   id="icon_course_edit"  name="icon_course_edit" >
+				<a href="javascript:course_edit()" class="on-right-more"><img
+					src="images/edit.png" width="48px"></a>
+			</div>
+
+			<!-- 回到課程清單 -->
+			<div id="icon_course_show_info"  name="icon_course_show_info"  class="place-right no-display inputtext">
+				<a href="javascript:course_show_info()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>			
+			
+			<div class="clearfix"></div>						
+
+			<dl style="margin-left: 40px;">
+				
+				<dt id="course_title_label">課程名稱</dt>
+				<dd>
+					<span class="viewtext">{course_title}	</span> 
+					<span id="course_title_span" name="course_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="course_title" name="course_title"  class="inputtext no-display "  type="text" value="{course_title}" 
+						placeholder="課程名稱" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt id="catalog_title_label">課程分類</dt>
+				<dd>
+					<span class="viewtext">{catalog_title}</span> 
+					<span id="catalog_title_span" name="catalog_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="catalog_title" name="catalog_title"  class="inputtext no-display "  type="text" value="{catalog_title}" 
+						placeholder="課程分類" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt>課程說明</dt>
+				<dd>
+					<span class="viewtext">{course_desc}</span> 
+					<span class="input-control textarea inputtext no-display">
+						<textarea id="course_desc" name="course_desc" style="width: 80%"
+							placeholder="課程說明" >{course_desc}</textarea>
+					</span>
+				</dd>
+			</dl>
+
+			<div style="margin-top: 40px; margin-bottom: 40px"
+				class="inputtext no-display" align="center">
+				<a class="default button" onClick="course_save()">Save</a> <a
+					class="button on-right-more" onClick=" course_show_info()">Cancel</a>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="accordion-frame ">
+		<a href="#" class=" active heading">學習單元</a>
+		<div class="content clearfix">
+
+			<!-- 增加SCO -->
+			<div id="icon_sco_show_create"  name="icon_sco_show_create"  class="place-right">
+				<a href="javascript:sco_show_create()" class="on-right-more"><img
+					src="images/bt_create.png" width="48px"></a>
+			</div>
+			
+			<!-- 回到SCO清單 -->
+			<div id="icon_sco_show_list"  name="icon_sco_show_list"  class="place-right no-display">
+				<a href="javascript:sco_show_list()" class="on-right-more"><img
+					src="images/bt_undo.png" width="48px"></a>
+			</div>
+			
+			<!-- 刪除SCO清單 -->
+			<div id="icon_sco_remove_list"  name="icon_sco_remove_list"  class="place-right">
+				<a href="javascript:sco_remove_list()" class="on-right-more"><img
+					src="images/bt_delete.png" width="48px"></a>
+			</div>
+			
+			
+			
+			<div class="clearfix"></div>			
+			<div class="padding10" ></div>
+	
+	
+				
+			
+			<div id="sco_show_list_container"  name="sco_show_list_container" >
+			<ul class="sortable grid">
+					<a class="tile double double-vertical bg-darkCobalt  fg-white"  id="xxx"  name="xxx"  data-click="transform">
+						<div class="tile-content">
+							<div class="padding10">
+								<h1 class="fg-white ntm">
+									<div class="icon"><i class="icon-book"></i></div>
+								</h1>
+								<h3 class="fg-white no-margin">{SCO.sco_title}</h3>
+								<h6 class="fg-white">{SCO.parent_project}</h6>
+								<p class="tertiary-text fg-white">{SCO.sco_desc}</p>
+							</div>
+						</div>
+						<div class="tile-status">
+							<div class="label">課程</div>
+						</div>
+						<div class="brand">
+							<div class="badge activity"></div>
+						</div>
+					</a>		
+
+
+			
+					<a class="tile double double-vertical bg-lightBlue fg-white"  id="xxx"  name="xxx"  data-click="transform"						>
+						<div class="tile-content">
+							<div class="padding10">
+								<h1 class="fg-white ntm">
+									<div class="icon"><i class="icon-book"></i></div>
+								</h1>
+								<h3 class="fg-white no-margin">{SCO.sco_title}</h3>
+								<h6 class="fg-white">{SCO.parent_project}</h6>
+								<p class="tertiary-text fg-white">{SCO.sco_desc}</p>
+							</div>
+						</div>
+						<div class="tile-status">
+							<div class="label">學習單元</div>
+						</div>
+						<div class="brand">
+							<div class="badge activity"></div>
+						</div>
+					</a>		
+					
+					<!-- 區塊開始 -->
+					<a class="tile bg-darkCobalt  fg-white"  data-click="transform"  id="tile_1">A</a>		
+					<!-- 區塊結束 -->
+					
+					<!-- 區塊開始 -->
+					<a class="tile bg-darkCobalt  fg-white"  data-click="transform" id="tile_2">B</a>		
+					<!-- 區塊結束 -->
+					
+					<!-- 區塊開始 -->
+					<a class="tile double bg-darkCobalt  fg-white"  data-click="transform" id="tile_3">C</a>		
+					<!-- 區塊結束 -->
+					
+					<!-- 區塊開始 -->
+					<a class="tile bg-darkCobalt  fg-white"  data-click="transform" id="tile_4">D</a>		
+					<!-- 區塊結束 -->
+										
+				</ul>			
+				</div>	
+											
+		</div>
+	</div>
+
+</div>
+<input type="text" id="srot" name="sort" />
+
+
+<script>
+
+$(function() {	
+	$('.sortable').sortable().bind('sortupdate', function(e, ui) {	
+
+			var sort_tag="";
+			var controls = document.getElementsByTagName('a');
+			for(var i=0; i<controls.length; i++)
+			{			
+				if(controls[i].id)
+				{
+					var t=controls[i].id;
+			
+					if(t.substr(0,5)=='tile_')
+					{				
+						sort_tag+=t.substr(5)+';';
+					}						
+				}
+			 }
+			
+			if(sort_tag!=$('#srot').val())
+			{
+				$('#srot').val(sort_tag)
+				alert(sort_tag);
+			}
+			
+			
+			
+	
+	    //ui.item contains the current dragged element.
+	    //Triggered when the user stopped sorting and the DOM position has changed.
+	});	
+});
+
+
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {	
+	var pb = $("#componennt_id").progressbar();   
+	
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files_zone');
+                $('#sco_path').val(file.name);
+            });         
+           
+            
+            $('#take_upload_zone').addClass('no-display');
+            $('#sco_profiles').removeClass('no-display');
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+
+
+
+
+function course(u_tagname,url,sco_id)
+{
+	location.href=url+'?sco_id='+sco_id;
+}
+
+
+function choose_source(type)
+{
+
+	if(type=='bt_upload')
+	{
+		$('#bt_online').addClass('half-opacity');
+		$('#bt_upload').removeClass('half-opacity');
+		$('#upload_zone').removeClass('no-display');
+		$('#online_zone').addClass('no-display');
+		
+		
+		$('#sco_type').val("video");
+	}
+	else
+	{
+		$('#bt_online').removeClass('half-opacity');
+		$('#bt_upload').addClass('half-opacity');
+		$('#upload_zone').addClass('no-display');
+		$('#online_zone').removeClass('no-display');
+		$('#sco_type').val("youtube");
+		$('#sco_profiles').removeClass('no-display');
+		
+	}
+	
+	
+}
+
+
+
+
+
+function sco_show_create()
+{
+	
+	$('#sco_show_list_container').addClass("no-display");
+	$('#sco_show_create_container').removeClass("no-display");
+	
+
+	$('#icon_sco_show_create').addClass("no-display");
+	$('#icon_sco_show_list').removeClass("no-display");
+	$('#icon_sco_remove_list').addClass("no-display");
+	
+	
+}
+
+function sco_show_list()
+{
+	$('#sco_show_list_container').removeClass("no-display");
+	$('#sco_show_create_container').addClass("no-display");
+	
+
+	$('#icon_sco_show_create').removeClass("no-display");
+	$('#icon_sco_show_list').addClass("no-display");
+	$('#icon_sco_remove_list').removeClass("no-display");	
+	
+}
+
+function sco_remove_list()
+{
+}
+
+
+function sco_create_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?course_id='+data.course_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
+
+
+
+function course_edit()
+{
+	$('#courseinfo_header').addClass('active');	
+	$('.viewtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.inputtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+}
+
+function course_show_info()
+{
+	
+	$('.inputtext').each(function() {
+		$(this).addClass('no-display');
+	});
+
+	$('.viewtext').each(function() {
+		$(this).removeClass('no-display');
+	});
+}
+
+
+function course_save() {
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 
+	if(course_content_check())
+	{
+		//alert($("#formPost").serialize());
+		$.ajax({
+			type : 'POST', //GET or POST
+			url : "js_course_save.php", //請求的頁面
+			cache : false, //防止抓到快取的回應
+			data : $("#formPost").serialize(), //要傳送到頁面的參數
+			success : function(data) {
+				if (data.errmsg) {
+					alert(data.errmsg);
+				} else {
+					if(data.course_id)
+					{
+						location.href='?course_id='+data.course_id;
+					}
+					$.unblockUI();
+				}
+			}, //當請求成功後此事件會被呼叫
+			error : function(data) {
+				alert('error')
+				$.unblockUI(); 
+			}, //當請求失敗後此事件會被呼叫
+			statusCode : { //狀態碼處理
+				404 : function() {
+					alert("page not found");
+				}
+			}
+		});
+	}
+}
+
+
+function course_content_check()
+{
+	var is_ok=true;		
+	u_tagname='#course_title_label'
+	if($('#course_title').val()=="")
+	{			
+		shake(u_tagname,"{$lang.FillGroupTitle}")		
+		$(u_tagname).addClass('warning-state');
+		is_ok=false;
+	}
+	else
+	{		
+		$(u_tagname).removeClass('fg-red')	
+	}		
+	return is_ok;
+}		
+
+
+</SCRIPT>
+
+
+			
+
+		
+
+
+
+
+
+
+

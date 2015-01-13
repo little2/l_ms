@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery Countdown</title>
+<link rel="stylesheet" type="text/css" href="../common/plugins/countdown/jquery.countdown.css"> 
+<style type="text/css">
+body > iframe { display: none; }
+
+#defaultCountdown2 { width: 240px; height: 45px; }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="../common/plugins/countdown/jquery.plugin.js"></script> 
+<script type="text/javascript" src="../common/plugins/countdown/jquery.countdown.js"></script>
+
+
+
+</head>
+<body>
+
+<div id="defaultCountdown2"></div>
+<input type="button" id="removeCountdown" name="removeCountdown" >
+
+</body>
+</html>
+<script>
+$(function () {
+	$('#defaultCountdown2').countdown({until: +300});
+	$('#removeCountdown').click(function() { 
+	    $('#defaultCountdown2').countdown('destroy'); 
+	});	
+});
+</script>

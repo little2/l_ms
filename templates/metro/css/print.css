@@ -1,0 +1,77 @@
+@page { margin: 0px; }
+
+body
+{
+ margin: 0px;
+	font-family:droidsansfallback;
+	line-height: 95%
+}
+
+.inquiry_item {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #000000;
+}
+
+.inquiry_item table{
+    border-collapse: collapse;
+    border-spacing: 0;
+	width:100%;	
+	margin:0px;padding:0px;
+}
+
+
+
+.inquiry_item td{
+	vertical-align:middle;	
+	background-color:#fcfcfc;
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	padding:10px;
+	font-size:12px;	
+	font-weight:normal;
+	color:#000000;
+}
+.inquiry_item tr:first-child td{
+	background-color:#cccccc;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-weight:bold;
+	color:#000000;
+}
+
+
+
+
+.inquiry_item tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+
+
+
+.inquiry_item2 {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #000000;
+}
+
+.inquiry_item2 table{
+    border-collapse: collapse;
+    border-spacing: 0;
+	width:100%;
+	
+	margin:0px;padding:0px;
+}
+
+.inquiry_item2 td{		
+	background-color:#fcfcfc;
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	padding:10px;
+	font-size:12px;	
+	font-weight:normal;
+	color:#000000;
+}

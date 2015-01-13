@@ -1,0 +1,104 @@
+
+
+
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="//localhost/common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<style>
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+.btn-success {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c
+}
+
+
+.progress {
+	overflow: hidden;
+	height: 20px;
+	margin-bottom: 20px;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
+}
+
+.progress-bar {
+	float: left;
+	width: 0;
+	height: 100%;
+	font-size: 12px;
+	line-height: 20px;
+	color: #fff;
+	text-align: center;
+	background-color: #428bca;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	-webkit-transition: width .6s ease;
+	transition: width .6s ease
+}
+.progress-bar-success {
+	background-color: #5cb85c
+}
+</style>
+
+
+
+<body>
+    <span class="btn btn-success fileinput-button">       
+        <span>Select files...</span>
+        <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="files[]" multiple>
+    </span>
+
+
+    <div id="files_zone" class="files_zone"></div>
+    
+    
+     <div id="componennt_id" class="progress-bar" data-role="progress-bar" ></div>
+
+<script>
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {
+	var pb = $("#componennt_id").progressbar();   
+    // Change this to the location of your server-side upload handler:
+    var url =  'server/';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });         
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+
+            pb.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>

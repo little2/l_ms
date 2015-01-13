@@ -1,0 +1,64 @@
+   <div class="navigation-bar" >
+    <div class="navigation-bar-content container" >
+        <a href="home.php" class="element"><span class="icon-grid-view"></span>Little2LMS <sup>0.33 Beta</sup></a>
+        <span class="element-divider"></span>
+
+        <a class="element1 pull-menu" href="#"></a>
+        <ul class="element-menu">
+            <li>
+                <a class="dropdown-toggle" href="#">學習</a>
+                <ul class="dropdown-menu" data-role="dropdown">
+                    <li><a href="course_list.php">學習中心</a></li>
+                    <li>
+                        <a href="course_list.php?m" class="dropdown-toggle">我的課程</a>
+                    </li>
+                </ul>
+            </li>
+ 
+            <li>
+                <a class="dropdown-toggle"  href="#">使用者管理</a>
+                <ul class="dropdown-menu" data-role="dropdown">
+                    <li><a href="company.php">公司信息</a></li>
+                    <li><a href="group.php?group_id=1" >部門</a></li>
+                    <li><a href="contact_list.php" class="{li_display_contact}">用戶</a></li>
+             	</ul>  
+             </li> 
+                
+        </ul>
+
+        <div class="no-tablet-portrait no-phone">
+        <ul class="element-menu place-right">
+
+			
+			<!-- BEGIN LOGOUT -->
+			<li>
+				<button class="dropdown-toggle  element image-button image-left ">
+	                            	{LOGOUT.user_name}
+	            	<img src="{LOGOUT.photo}"/>
+	            </button>
+                <ul class="dropdown-menu" data-role="dropdown">
+					<li><a href="contact_list.php">Properties</a></li>
+					<li class="divider"></li>
+					<li><a href="logout.php">Log out</a></li>
+             	</ul>  
+			</li>
+			<!-- END LOGOUT -->   
+                         
+                         <!-- BEGIN LOGIN -->                      
+	                      <li>
+							<button class="dropdown-toggle  element image-button ">
+				            	Login
+				            </button>
+			                <ul class="dropdown-menu" data-role="dropdown">
+								<li><a href="login_with_microsoft.php">Windows Live</a></li>
+								<li class="divider"></li>
+								<li><a href="login_with_facebook.php">Facebook</a></li>
+			             	</ul>  
+						</li>
+                        <!-- END LOGIN -->
+              </ul>
+        
+        </div>
+    </div>
+</div>
+
