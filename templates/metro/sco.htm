@@ -30,24 +30,26 @@
 						<ul>
 							<li class="rated"></li>
 							<li class="rated"></li>
-							<li></li>
-							<li></li>
+							<li class="rated"></li>
+							<li class="rated"></li>
 							<li></li>
 						</ul>
 						<span class="score-hint"></span>
 					</div>
+
+					
 					<!-- BEGIN ShowUserLog -->
 					<a class="button bg-green fg-white  " style="border: 1px solid;"
 						onClick="play_video('{sco_title}','{sco_type}','{sco_path}')">播放</a>
 					<!-- END ShowUserLog -->
 				</div>
 
-				<div
-					style="vertical-align: bottom; position: absolute; bottom: 15px;">
+				<div style="vertical-align: bottom; position: absolute; bottom: 15px;">
 					分類：{catalog_title}<br> 
-					播放長度：{sco_total_sec_str}<input type="hidden" id="sco_total_sec"  name="sco_total_sec"  value="{sco_total_sec}"/><br> 
-					作者：{sco_author}<br>
-					
+					播放長度：{sco_total_sec_str}<input type="hidden" id="sco_total_sec"  name="sco_total_sec"  value="{sco_total_sec}"/><br>
+					通過門檻：閱讀超過 80 % 
+					<div class='hide'>作者：{sco_author}</div><br>
+					<input type="hidden" id="o_sco_total_sec"  name="o_sco_total_sec"  value="{sco_total_sec}"/>
 				</div>
 				
 			</div>
@@ -273,7 +275,10 @@
 		var sco_id = $("#sco_id").val();
 		var user_id = $("#user_id").val();
 		var reading_sec=$('#reading_sec').val();
-		var sco_total_sec=$('#sco_total_sec').val();
+		var sco_total_sec=$('#sco_total_sec').val();		
+		var o_sco_total_sec = $('#o_sco_total_sec').val();
+		
+		//console.log(sco_total_sec);
 		
 		var beginfield = "learningrecBegin[" + point + "]";
 		var field = "learningrecEnd[" + point + "]";
@@ -298,6 +303,7 @@
         			point : point,
         			learning_length : learning_length,
         			sco_total_sec:sco_total_sec,
+        			o_sco_total_sec:o_sco_total_sec,
         			reading_sec:reading_sec},      //要傳送到頁面的參數
         	    success: function(data) {
         	    	if(data.errmsg)
@@ -319,6 +325,8 @@
         				pb.progressbar('value', pb_val);
         				$('#sco_progress').html(pb_val);
         				
+        				$('#o_sco_total_sec').val(data.o_sco_total_sec);
+        		
         	    	}
         	    	
                 }
@@ -377,25 +385,27 @@
 		var debug = false;
 		var input_att = "hidden";
 
-		$('audio,video')
-				.mediaelementplayer(
+		$('audio,video').mediaelementplayer(
 						{
-							features : [ 'playpause', 'progress', 'volume',
-									'sourcechooser', 'fullscreen' ],
+							features : [ 'playpause', 'progress', 'volume','sourcechooser', 'fullscreen' ],
 							success : function(player, node) {
-
-								var events = [ 'loadstart', 'play', 'pause',
-										'ended', 'seeking' ];
+								var duration;
+								var events = [ 'loadstart', 'play', 'pause','ended', 'seeking' ];
 								for ( var i = 0, il = events.length; i < il; i++) {
 
 									var eventName = events[i];
-									player
-											.addEventListener(
+									
+									player.addEventListener('loadedmetadata', function(e) {
+					                    duration = parseInt(player.duration);
+					                    $('#sco_total_sec').val(parseInt(duration));
+					                    console.log(duration);
+					                });
+									
+									player.addEventListener(
 													events[i],
 													function(e) {
 
-														var point = document
-																.getElementById("point").value;
+														var point = document.getElementById("point").value;
 														var beginfield = "learningrecBegin["
 																+ point + "]";
 														var field = "learningrecEnd["

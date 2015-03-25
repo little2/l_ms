@@ -43,35 +43,43 @@
 
     <title>Little2 LMS</title>
 </head>
+
+
+		
+
 <body class="metro">
+<div class="hide">
+  <div  id="loginForm" >		
+			<label >E-mail2</label>
+			<div class="input-control text  " style="width:85%">
+				<input type="text" name="user_email" id="user_email" >
+				<button class="btn-clear"></button>
+			</div>
+			
+			<label>Password</label>
+			<div class="input-control password " style="width:85%">
+				<input type="password" name="password" id="password"  >
+				<button class="btn-reveal"></button>
+			</div>
+			
+			<div>
+				<button type="button" class="button primary" onClick="login_to();return false;">Login</button>		
+			</div>
+			<p>&nbsp;</p>
+		</div>
+</div>
+  
   
  <header data-load="header_menu.php"></header>
-    
+	
+
+      
 <div class="container" id="container" name="container">
  <form id="formPost" name="formPost" >
  
  <input type="hidden" id="user_power_list" name="user_power_list" value="{user_power_list}" />
  
-<div class=" user-input"  id="loginForm" style="display:none">
-	
-	<label>E-mail</label>
-	<div class="input-control text span3">
-		<input type="text" name="user_email" id="user_email">
-		<button class="btn-clear"></button>
-	</div>
-	
-	<label>Password</label>
-	<div class="input-control password span3">
-		<input type="password" name="password" id="password">
-		<button class="btn-reveal"></button>
-	</div>
-	
-	<div class="form-actions">
-		<A class="button primary" onClick="login_to();return false;">Login</A>		
-	</div>
-	<p>&nbsp;</p>
-</div>
-
+ 
 
  <script type="text/javascript">
  
@@ -81,10 +89,12 @@
 	    });
 	});
  
+
+ 
  function login_to()
  {    	
-	 //console.log( $('#user_email',$('#loginForm')).val());
-	// console.log( $('#password',$('#loginForm')).val());
+	 console.log( $('#user_email',$('#loginForm')).val());
+	 console.log( $('#password',$('#loginForm')).val());
 	
     	$.ajax({
  	    type: 'POST',                     //GET or POST
@@ -120,7 +130,16 @@
 <!-- BEGIN LOGIN -->       
 <SCRIPT>
  $(document).ready(function() {	
-	 $.blockUI({ message: $('#loginForm') });	
+
+	 container_width=parseInt($('#container').width());
+	 window_width=parseInt($(window).width());
+	 left_width=(window_width-320)/2;
+	 
+	 $.blockUI({ 
+		 message: $('#loginForm'),
+		css:{width:320, left:left_width }
+		 });
+
  }); 
 </SCRIPT>   
  <!-- END LOGIN -->   

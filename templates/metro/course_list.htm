@@ -1,4 +1,43 @@
+<style>
 
+.metro .tile .tile-content.course {
+  color: #ffffff;
+  padding: 10px;
+}
+.metro .tile .tile-content.course .course-image {
+  width:30%;  
+  float: left;
+}
+.metro .tile .tile-content.course .course-image img {
+  width: 100%;
+  height: 100%;
+}
+.metro .tile .tile-content.course .course-data {
+  display: block;
+  color: inherit;
+  margin-left: 70px;
+  width: auto;
+  overflow: hidden;
+}
+.metro .tile .tile-content.course .course-data .course-data-title,
+.metro .tile .tile-content.course .course-data .course-data-subtitle,
+.metro .tile .tile-content.course .course-data .course-data-text {
+  color: inherit;
+  display: block;
+}
+.metro .tile .tile-content.course .course-data .course-data-title {
+  font-size: 14pt;
+}
+.metro .tile .tile-content.course .course-data .course-data-subtitle {
+  font-size: 11pt;
+}
+.metro .tile .tile-content.course .course-data .course-data-text {
+  font-size: 10pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style>
         
    
 
@@ -55,6 +94,7 @@
 		 <!-- BEGIN CATALOG -->
                 <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
                     <a href="cat_course_list.php?catalog_id={CATALOG.catalog_id}"><span class="tile-group-title fg-orange">{CATALOG.catalog_title}<span class="icon-arrow-right-5"></span></span></a>                    
+					
 					<!-- BEGIN TILE_LIST -->
 					
 					<a class="tile {CATALOG.TILE_LIST.width} {CATALOG.TILE_LIST.height}  bg-darkCobalt "	 data-click="transform"  href="course.php?course_id={CATALOG.TILE_LIST.course_id}">
@@ -64,12 +104,20 @@
 							</div>		
 						</div>
 						<div class="tile-status">
-							<div class="label"><h3 class="fg-white no-margin">{CATALOG.TILE_LIST.course_title}</h3></div>
+							<div class="label fg-white no-margin"  style="font-size: {CATALOG.TILE_LIST.fontsize}pt;">{CATALOG.TILE_LIST.course_title}</div>
 						</div>
 						<div class="brand">
-					        <div class="badge available"></div>
+					        <div class="badge {CATALOG.TILE_LIST.status} " ></div>
 					    </div>
 					</a>
+					
+					
+					
+			
+			  	
+					  	
+
+<!--  -->
 					  	
 					<!-- END TILE_LIST -->
 					

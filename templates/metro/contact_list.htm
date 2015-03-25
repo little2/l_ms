@@ -18,7 +18,7 @@
 	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
 	Contact<small class="on-right">list</small>
 	<div class="place-right">
-		<a><img src="images/bt_delete.png" width="48px" id="deleteCompany" 	name="deleteCompany"></a> 			
+		<a href="javascript:contact_del()"><img src="images/bt_delete.png" width="48px" id="deleteCompany" 	name="deleteCompany"></a> 			
 		<a href="javascript:contact_edit()"><img src="images/edit.png" width="48px"></a> 			
 		<a href="javascript:contact_new()" class="on-right-more"><img 	src="images/bt_create.png" width="48px"></a>
 	</div>
@@ -78,6 +78,7 @@ contact_view({user_id});
 
 
 function contact_view(user_id) {
+	console.log(user_id);
     $.ajax({
         type: 'POST', //GET or POST
         url: "contact_view.php?id=" + user_id, //請求的頁面
@@ -86,22 +87,23 @@ function contact_view(user_id) {
         success: function(data) {
         	document.getElementById('content').innerHTML=data['message'];
         	document.getElementById('content').style.top = '10px';
-        	var url = 'upload/';  
+        	var url = 'server/';  
         	
         	$('#fileupload').fileupload({
-        		url: url+'?ud=user&fn='+user_id,
+        		url: url+'?d_upload_dir=user&specified_name='+user_id+"&file_append=false",
                 dataType: 'json',
-                done: function (e, data) {
-                	alert('ok');
+                done: function (e, data) {                
                     $.each(data.result.files, function (index, file) {
                         $('<p/>').text(file.name).appendTo('#files');
                     });
-                    /*
+                    
+                    d = new Date();
+                    
                     $.each(data.result.files, function (index, file) {                                         	
-                        $("#myimg").attr("src",url+'user/'+file.name);
+                        $("#myimg").attr("src",url+'user/'+file.name+"?"+d.getTime());
                     });
                     $("#componennt_id").addClass('no-display');            
-                    */
+                    
                     
                 },
                 progressall: function (e, data) {
@@ -120,7 +122,7 @@ function contact_view(user_id) {
 
        }, //當請求成功後此事件會被呼叫
         error: function(data) {
-            alert('error')
+            alert('error-123')
         }, //當請求失敗後此事件會被呼叫
         statusCode: { //狀態碼處理
             404: function() {
@@ -300,7 +302,7 @@ function contact_del() {
 
                 $("#group-content-" + document.getElementById('user_id').value).addClass('no-display');
                 $.Dialog.close()
-                document.getElementById('contact_content').innerHTML = "<h3 class='on-right-more'>刪除成功</h3>";
+                document.getElementById('content').innerHTML = "<h3 class='on-right-more'>刪除成功</h3>";
 
                 // location.href= ('./company_list.php');          
             }

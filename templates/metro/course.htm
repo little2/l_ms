@@ -66,7 +66,7 @@
 				
 				<dt id="course_title_label">課程名稱</dt>
 				<dd>
-					<span class="viewtext"   id="course_title_viewtext">{course_title}	</span> 
+					<span class="viewtext"   id="course_title_viewtext">{course_title}</span> 
 					<span id="course_title_span" name="course_title_span"
 						class="input-control text inputtext no-display"  style="width: 80%"> 
 						<input id="course_title" name="course_title"  class="inputtext no-display "  type="text" value="{course_title}" 
@@ -631,16 +631,26 @@ function choose_source(type)
 	
 	
 		case 'bt_upload':
+			
+			//console.log($('#files_zone').text());
+			
 			$('#bt_online').addClass('half-opacity');
 			$('#bt_upload').removeClass('half-opacity');
 			$('#upload_zone').removeClass('no-display');
 			$('#online_zone').addClass('no-display');
 			$('#homework_zone').addClass('no-display');	
 			$('#sco_type').val("video");
+			
+			if($('#files_zone').text()!="")
+				$('#sco_profiles').removeClass('no-display');
+			else
+				$('#sco_profiles').addClass('no-display');
+			
 			break;
 		
 
 		case 'bt_online':
+			console.log($('#files_zone').text());
 			$('#bt_online').removeClass('half-opacity');
 			$('#bt_upload').addClass('half-opacity');
 			$('#upload_zone').addClass('no-display');
