@@ -196,7 +196,11 @@ function contact_new() {
     });
 
     contact_edit();
-
+    $('#user_email',$("#formPost")).prop('readonly',false);
+ //   $('#user_email').removeAttr('disabled');
+  //  $('#user_email').attr('disabled',false);
+    
+	
     $('.office').each(function() {
         $(this).addClass('no-display');
     });
@@ -204,6 +208,10 @@ function contact_new() {
 }
 
 function contact_edit() {
+
+	$('#user_email',$("#formPost")).prop('readonly',true);
+	
+	
     $('.viewtext').each(function() {
         $(this).addClass('no-display');
     });
@@ -214,6 +222,7 @@ function contact_edit() {
 }
 
 function contact_cancel() {
+	$('#user_email',$("#formPost")).prop('readonly',false);
     $('.inputtext').each(function() {
         $(this).addClass('no-display');
     });

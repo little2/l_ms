@@ -11,25 +11,20 @@
         <nav class="breadcrumbs">
 		    <ul>
 				<li><a href="home.php">Home</a></li>
-				<li class="active"><a href="course_list.php">{$lang.LearningCenter}</a></li>
+				<li><a href="course_list.php?{function_type}">{function_title}</a></li>
+				<li class="active"><a href="#">{catalog_title}</a></li>
 		    </ul>
 		</nav>       
 		
 		<!--  -->
 		
-      <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+      <div class="tile-group no-margin no-padding1 clearfix {bt_remove_course_display}" style="width: 100%;">
                  	 <a href="#"><span class="tile-group-title fg-orange">功能<span class="icon-arrow-right-5"></span></span></a>
 					
-					<a id="icon_course_add" class="tile bg-darkCrimson " data-click="transform"  href="javascript:show_project_list('BEGIN');">
-					    <div class="tile-content icon">
-					        <i class="icon-plus-2"></i>
-					    </div>
-					    <div class="tile-status">
-					        <span class="name">增加</span>
-					    </div>
-					</a>
 
-					<a id="icon_course_remove" class="tile bg-darkCrimson" data-click="transform"  href="javascript:course_remove();">
+
+
+					<a id="icon_course_remove" class="tile bg-darkCrimson {bt_remove_course_display} " data-click="transform"  href="javascript:course_remove();">
 					    <div class="tile-content icon">
 					        <i class="icon-remove"></i>
 					    </div>
@@ -55,7 +50,7 @@
 		 
 		 <!-- BEGIN CATALOG -->
                 <div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
-                    <a href="#"><span class="tile-group-title fg-orange">{CATALOG.catalog_title}<span class="icon-arrow-right-5"></span></span></a>                    
+                    <a href="#"><span class="tile-group-title fg-orange">{catalog_title}<span class="icon-arrow-right-5"></span></span></a>                    
 					<!-- BEGIN TILE_LIST -->
 					
 					<a class="tile double  bg-darkCobalt "  id="coursetile_{CATALOG.TILE_LIST.course_id}"	 name="coursetile_{CATALOG.TILE_LIST.course_id}"	 data-click="transform"  href="javascript:click_course_tile({CATALOG.TILE_LIST.course_id})">
@@ -87,7 +82,8 @@
 						
 					</a>					
 					<!-- END MORE_TILE -->
-					<a class="tile half bg-darkMagenta"  href="course.php?course_id=0&catalog_id={CATALOG.catalog_id}">
+					
+					<a class="tile half bg-darkMagenta {bt_create_course_display} "  href="course.php?course_id=0&catalog_id={CATALOG.catalog_id}">
 						<div class="tile-content icon">
 							<i class="icon-plus-2"></i>
 						</div>
