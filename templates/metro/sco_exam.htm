@@ -118,7 +118,7 @@
 	                                	<button type="button" class="editmode bt_correct {QUIZ.ITEM.correct} fg-white"  seq="{QUIZ.ITEM.seq}"  onClick="bt_choose_correct(this,{QUIZ.qid})">正解</button>
 	                                </div>
 	                                <div  class="place-left" style="width:88%">
-	                                	<p class="description  viewmode">{QUIZ.ITEM.content} {QUIZ.ITEM.seq}</p>
+	                                	<p class="description  viewmode">{QUIZ.ITEM.content}</p>
 	                                	<div class="input-control textarea editmode no-display readable-text">
 								    		<textarea style="readable-text">{QUIZ.ITEM.content}</textarea>
 										</div>
@@ -140,7 +140,7 @@
                             <!-- 
                             <button id="quiz_SHAS"   type="button" class="shortcut info  no-display" onClick="quiz_kind(this);"><h2>簡答</h2></button>
                              -->
-                          	<input type="text"  id="quiz_type"  name="quiz_type" value=""/>
+                          	<input type="hidden"  id="quiz_type"  name="quiz_type" value=""/>
       
                             <div style="clear:both;height:10px"></div>
                             	<label>請輸入題目</label>
@@ -195,14 +195,14 @@ console.log(grade +' '+pass_mark);
 
 	if(grade > pass_mark)
 	{
-		$('button h1',$('#area_result')).text('Pass');
+		$('button h1',$('#area_result')).text('{$lang.Pass}');
 		$('button',$('#area_result')).removeClass('danger');
 		$('button',$('#area_result')).addClass('success');
 		$('#result').val('P');
 	}
 	else
 	{
-		$('button h1',$('#area_result')).text('Fail');
+		$('button h1',$('#area_result')).text('{$lang.Fail}');
 		$('button',$('#area_result')).removeClass('success');
 		$('button',$('#area_result')).addClass('danger');
 		$('#result').val('F');
@@ -248,14 +248,14 @@ function finish_exam()
 	$('#bt_send').addClass('no-display');
 	if(grade > pass_mark)
 	{
-		$('button h1',$('#area_result')).text('Pass');
+		$('button h1',$('#area_result')).text('{$lang.Pass}');
 		$('button',$('#area_result')).removeClass('danger');
 		$('button',$('#area_result')).addClass('success');
 		$('#result').val('P');
 	}
 	else
 	{
-		$('button h1',$('#area_result')).text('Fail');
+		$('button h1',$('#area_result')).text('{$lang.Fail}');
 		$('button',$('#area_result')).removeClass('success');
 		$('button',$('#area_result')).addClass('danger');
 		$('#result').val('F');
