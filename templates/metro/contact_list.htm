@@ -199,7 +199,8 @@ function contact_new() {
     $('#user_email',$("#formPost")).prop('readonly',false);
  //   $('#user_email').removeAttr('disabled');
   //  $('#user_email').attr('disabled',false);
-    
+    $('#user_email_viewtext').addClass('no-display');
+    $('#user_email_inputtext').removeClass('no-display');    
 	
     $('.office').each(function() {
         $(this).addClass('no-display');
@@ -208,10 +209,6 @@ function contact_new() {
 }
 
 function contact_edit() {
-
-	$('#user_email',$("#formPost")).prop('readonly',true);
-	
-	
     $('.viewtext').each(function() {
         $(this).addClass('no-display');
     });
@@ -219,10 +216,18 @@ function contact_edit() {
     $('.inputtext').each(function() {
         $(this).removeClass('no-display');
     });
+
+    $('#user_email',$("#formPost")).prop('readonly',true);
+    $('#user_email_viewtext').removeClass('no-display');
+    $('#user_email_inputtext').addClass('no-display');    
+
 }
 
 function contact_cancel() {
 	$('#user_email',$("#formPost")).prop('readonly',false);
+    $('#user_email_viewtext').addClass('no-display');
+    $('#user_email_inputtext').removeClass('no-display');	
+	
     $('.inputtext').each(function() {
         $(this).addClass('no-display');
     });

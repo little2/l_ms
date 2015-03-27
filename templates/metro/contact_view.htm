@@ -46,8 +46,8 @@
 		
 		<dt>電子郵件</dt>
 		<dd>		
-			<div class="viewtext">{user_email}</div>
-			<span class="input-control text  on-right inputtext no-display" 	style="width:60%">	
+			<div class="viewtext" id="user_email_viewtext">{user_email}</div>
+			<span class="input-control text  on-right inputtext no-display" 	style="width:60%" id="user_email_inputtext">	
 				<input type="text"  class="inputtext " size="10"  id="user_email"  name="user_email" value="{user_email}"
 				placeholder="電子郵件"  /> 	
 				<button class="btn-clear"></button>
@@ -87,8 +87,8 @@
 		</dd>
 	</dl>
 	<div style="margin-top: 40px;margin-bottom: 40px" class="inputtext no-display">
-		<a class="default button"  onClick="contact_save()">Save</a>
-		<a class="button on-right-more"  onClick="contact_cancel()">Cancel</a>
+		<a class="default button"  onClick="contact_save()">{$lang.Save}</a>
+		<a class="button on-right-more"  onClick="contact_cancel()">{$lang.Cancel}</a>
 	</div>
 
 </div>

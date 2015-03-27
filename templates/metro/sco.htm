@@ -139,9 +139,10 @@
 							<div style="clear:both"></div>			
 						</div>
 						<!-- END COMMENT -->
+					
 					</div>	
 					
-					<div class="clearfix"></div>
+					<div class="clearfix" ></div>
 				</div>
 				
 				
@@ -228,6 +229,16 @@
 					newtile.find("#_comment").html(content_html);	
 					newtile.find("#datetime").html(data.datetime);	
 					$("#area_user_comment",container).append(newtile);
+					$('#activity_process_message',container).val("");	
+					scroll(0,document.body.scrollHeight)
+					
+					var r_tagname=$('div[data-discussid="'+data.discuss_id+'"]');
+					$(r_tagname).addClass('animated fadeInDownBig')
+					 setTimeout(function(){
+						 $(r_tagname).removeClass('animated fadeInDownBig')
+					
+					 }, 700 );    	
+					
 				}					
 		}	
 		var msg=mypost(o);
