@@ -451,6 +451,7 @@ $(function () {
         url: url,
         dataType: 'json',
         done: function (e, data) {
+        	
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo('#files_zone');
                 $('#sco_path').val(file.name);
@@ -650,7 +651,7 @@ function choose_source(type)
 		
 
 		case 'bt_online':
-			console.log($('#files_zone').text());
+		
 			$('#bt_online').removeClass('half-opacity');
 			$('#bt_upload').addClass('half-opacity');
 			$('#upload_zone').addClass('no-display');
