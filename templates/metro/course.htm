@@ -147,16 +147,24 @@
 						    影片課程
 						    <small>本機上傳或視頻網站</small>
 						</a>
+						
 						<a id="bt_exam" name="bt_exam"  onClick="choose_source('bt_exam');"  class="button command-button inverse margin20">
 						    <i class="  icon-file-4 on-right"></i>
 						    測驗試題
 						    <small>新增測試題目</small>
 						</a>			
+						
 						<a id="bt_homework" name="bt_homework"  onClick="choose_source('bt_homework');"  class="button command-button inverse margin20">
 						    <i class=" icon-file-3 on-right"></i>
 						    作業
 						    <small>讓學員繳交作業檔案</small>
 						</a>  
+				
+						<a id="bt_attachment" name="bt_attachment"  onClick="choose_source('bt_attachment');"  class="button command-button inverse margin20">
+						    <i class=" icon-attachment on-right"></i>
+						    附件
+						    <small>供學員參考的檔案</small>
+						</a>  		
 					</dd>
 				
 					
@@ -219,27 +227,24 @@
 							</div>
 						</dd>	
 						
-									<dt>及格分數</dt>
-								  <dd>		
-								  <input type="hidden" id="exam_pass_mark" name="exam_pass_mark" />			
-								  	<div style="padding-top:30px"></div>			  	
-								  	<div  class="slider permanent-hint span8" data-role="slider"  data-position="60" data-accuracy="5" data-show-hint="true"   id="exampassmark_slider" name="exampassmark_slider">
-								  	<div class="complete" style="width: 645.5px;"></div>
-								  	<a class="marker" style="left: 645.5px;"></a>
-								  	<span class="hint" style="left: 635.5px;">63</span>
-								  	</div>
-								</dd>							
+						<dt>及格分數</dt>
+						  <dd>		
+						  <input type="hidden" id="exam_pass_mark" name="exam_pass_mark" />			
+						  	<div style="padding-top:30px"></div>			  	
+						  	<div  class="slider permanent-hint span8" data-role="slider"  data-position="60" data-accuracy="5" data-show-hint="true"   id="exampassmark_slider" name="exampassmark_slider">
+						  	<div class="complete" style="width: 645.5px;"></div>
+						  	<a class="marker" style="left: 645.5px;"></a>
+						  	<span class="hint" style="left: 635.5px;">63</span>
+						  	</div>
+						</dd>							
 						
 						
 						<div class="offset1"><a class="button large default" href="javascript:sco_exam_create_act()" >新增</a></div>
-				</div>
-			
-			
-					<!-- 試題製作(END) -->				
-			
-			
-			
-			
+				</div>			
+					<!-- 試題製作(END) -->		
+					
+					
+					<!-- 影片製作 -->	
 					<div id="video_zone" name="video_zone"  class="no-display">
 			      	<dt>請選擇學習單元來源</dt>
 			      	<dd>
@@ -313,6 +318,45 @@
 						<div class="offset1"><a class="button large default" href="javascript:sco_create_act()" >新增</a></div>
 					</div>		
 					</div>	
+					<!-- 影片製作（END) -->	
+					
+					
+					
+					
+					<!-- 附件製作 -->	
+					<div id="attachment_zone" name="attachment_zone"  class="no-display">
+				
+						<dt>請選取上傳的檔案</dt>
+						<dd>
+							<div  class="margin20"  id="take_upload_zone" name="take_upload_zone" >
+							 <div class="input-control file span5">
+							    <input id="fileupload" type="file" name="files[]" >
+							    <button class="btn-file"></button>
+							</div>
+							 <div id="componennt_id" class="progress-bar span5" data-role="progress-bar" ></div>
+							 
+							 </div>
+							 <div id="files_zone" class="files_zone"></div>
+						
+						</dd>
+					
+						<dt>附件名稱</dt>
+						<dd>
+							<div class="input-control text span5">
+							    <input type="text"  id="att_title" name="att_title"  value="" placeholder="附件名稱"/>
+							    <button class="btn-clear"></button>
+							</div>
+						</dd>	
+												
+
+						<div class="offset1"><a class="button large default" href="javascript:sco_create_attachment_act()" >新增</a></div>
+					
+					</div>	
+					<!-- 附件製作(END) -->	
+					
+										
+					
+					
 					</dl>		
 			</div>
 			<!-- 新增學習單元DIV(END)  -->
@@ -323,8 +367,8 @@
 			<ul class="sortable grid">
 
 			<!-- BEGIN SCO -->
-					<a class="tile double {SCO.height}  bg-lightBlue fg-white  shake-constant shake-little hover-stop"  id="scotile_{SCO.sco_id}"  name="scotile_{SCO.sco_id}"  data-click="transform"
-						href="javascript:click_sco_tile('{SCO.sco_id}')">
+					<a class="tile double {SCO.height}  bg-lightBlue fg-white  shake-constant shake-little hover-stop"  id="scotile_{SCO.sco_id}"  name="scotile_{SCO.sco_id}"  
+					data-click="transform"  href="javascript:click_sco_tile('{SCO.sco_id}');" onClick="return false;" data-url="{SCO.sco_path}">
 						<div class="tile-content">
 							<div class="padding10">
 								<h1 class="fg-white ntm">
@@ -405,8 +449,8 @@
 						</div>
 						<div class="email-data">
 							
-							<span class="email-data-title">{USERLIST.fullName}</span> <span
-								class="email-data-subtitle">{USERLIST.user_email}</span>
+							<span class="email-data-title">{USERLIST.fullName}</span> 
+							<span class="email-data-subtitle">{USERLIST.user_email}</span>
 						</div>	
 										
 						<div class="brand">
@@ -443,23 +487,25 @@ $(function () {
 	);
 	
 	
-	var pb = $("#componennt_id").progressbar();   
+	
 	
     // Change this to the location of your server-side upload handler:
+    	
+
+   
+	var container1=$('#video_zone');
+	 var pb = $("#componennt_id",container1).progressbar();   
     var url =  'server/';
-    $('#fileupload').fileupload({
+    $('#fileupload',container1).fileupload({
         url: url,
         dataType: 'json',
-        done: function (e, data) {
-        	
+        done: function (e, data) {        	
             $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo('#files_zone');
+                $('<p/>').text(file.name).appendTo('#files_zone',container1);
                 $('#sco_path').val(file.name);
-            });         
-           
-            
-            $('#take_upload_zone').addClass('no-display');
-            $('#sco_profiles').removeClass('no-display');
+            });   
+            $('#take_upload_zone',container1).addClass('no-display');
+            $('#sco_profiles',container1).removeClass('no-display');
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);           
@@ -467,6 +513,34 @@ $(function () {
 		}
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    
+    
+    
+    var container2=$('#attachment_zone');
+    var pb2 = $("#componennt_id",container2).progressbar();  
+  
+    $('#fileupload',container2).fileupload({
+    	url: url+'?d_upload_dir=attachment',      
+        dataType: 'json',
+        done: function (e, data) {        	
+            $.each(data.result.files, function (index, file) {
+            	
+            	$('#files_zone',container2).append('<p>'+file.realname+'</p>');
+            	$('#att_title',container2).val(file.realname);
+            	
+            	//console.log(file.name);
+               // $('<p/>').text(file.name+"OKOKO").appendTo('#files_zone',container2);
+               $('#sco_path').val(file.name);
+            });   
+            $('#take_upload_zone',container2).addClass('no-display');
+         
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);           
+            pb2.progressbar('value', progress);
+		}
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');   
     
     
     //排序 
@@ -588,6 +662,23 @@ function click_sco_tile(sco_id)
 		{       
 			location.href='sco_homework.php?sco_id='+sco_id;
 		}
+		else if(btclass.indexOf('attachment')!=-1)
+		{       
+			var url=$('#scotile_'+sco_id).attr('data-url');
+			
+			window.open('/lms/server/attachment/'+url);
+			/*
+			 $.ajax('/lms/server/attachment/'+url, {dataType:'json', success:function(data){
+				   var bb = new Blob([data.content], {type: 'application/octet-binary'});
+				   $('#scotile_'+sco_id).attr({download:url,href:window.URL.createObjectURL(bb)})
+				 }});
+			*/
+			//alert(url);
+			//data-url
+		$.unblockUI();
+			
+			return false;
+		}
 		else
 		{
 			location.href='sco.php?sco_id='+sco_id;
@@ -606,18 +697,24 @@ function choose_source(type)
 			$('#bt_video').removeClass('half-opacity');	
 			$('#bt_exam').addClass('half-opacity');
 			$('#bt_homework').addClass('half-opacity');
+			$('#bt_attachment').addClass('half-opacity');
+			
 			$('#video_zone').removeClass('no-display');		
 			$('#exam_zone').addClass('no-display');			
 			$('#homework_zone').addClass('no-display');		
+			$('#attachment_zone').addClass('no-display');		
 			break;
 			
 		case 'bt_exam':
 			$('#bt_video').addClass('half-opacity');	
 			$('#bt_exam').removeClass('half-opacity');
 			$('#bt_homework').addClass('half-opacity');
+			$('#bt_attachment').addClass('half-opacity');
+			
 			$('#video_zone').addClass('no-display');		
 			$('#exam_zone').removeClass('no-display');	
 			$('#homework_zone').addClass('no-display');		
+			$('#attachment_zone').addClass('no-display');		
 			
 			break;
 			
@@ -625,9 +722,25 @@ function choose_source(type)
 			$('#bt_video').addClass('half-opacity');	
 			$('#bt_exam').addClass('half-opacity');
 			$('#bt_homework').removeClass('half-opacity');
+			$('#bt_attachment').addClass('half-opacity');
+			
+			
 			$('#video_zone').addClass('no-display');		
 			$('#exam_zone').addClass('no-display');		
 			$('#homework_zone').removeClass('no-display');		
+			$('#attachment_zone').addClass('no-display');		
+			break;
+			
+		case 'bt_attachment':
+			$('#bt_video').addClass('half-opacity');	
+			$('#bt_exam').addClass('half-opacity');
+			$('#bt_homework').addClass('half-opacity');
+			$('#bt_attachment').removeClass('half-opacity');
+			
+			$('#video_zone').addClass('no-display');		
+			$('#exam_zone').addClass('no-display');		
+			$('#homework_zone').addClass('no-display');		
+			$('#attachment_zone').removeClass('no-display');		
 			break;
 	
 	
@@ -823,6 +936,28 @@ function sco_create_act()
 }
 
 
+function sco_create_attachment_act()
+{
+	$.blockUI({ message: '<h2><img src="./images/busy.gif" /> 處理中, 請稍侯...</h2>' }); 	
+	$.ajax({
+		type : 'POST', //GET or POST
+		url : "js_sco_attachment_create.php", //請求的頁面
+		cache : false, //防止抓到快取的回應
+		data : $("#formPost").serialize(), //要傳送到頁面的參數
+		success : function(data) {				
+			location.href='?course_id='+data.course_id;
+		}, //當請求成功後此事件會被呼叫
+		error : function(data) {
+			alert('error')
+		}, //當請求失敗後此事件會被呼叫
+		statusCode : { //狀態碼處理
+			404 : function() {
+				alert("page not found");
+			}
+		}
+	});
+
+}
 
 function sco_exam_create_act()
 {
