@@ -1,0 +1,186 @@
+
+        
+   <link rel="stylesheet" type="text/css" href="style2.css" />
+
+<h1 >
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	討論區<small class="on-right">列表</small>
+
+</h1>
+<div class="clearfix"></div>   
+<nav class="breadcrumbs">
+    <ul>
+		<li><a href="home.php">Home</a></li>
+		<li class="active"><a href="#">討論區</a></li>
+    </ul>
+</nav>       
+		
+		<!--  -->
+		<ul>
+		<li>
+
+		
+		<div class="tile bg-lightOlive" id="tile_discuss">
+		    <div class="tile-content icon">
+		        <i class="icon-info-2"></i>
+		    </div>
+		    <div class="tile-status">
+		        <span class="name">討論區</span>
+		    </div>
+		</div>
+		
+		<div class="tile bg-lightGreen" onClick='create_topic()' id="tile_create_topic">
+		    <div class="tile-content icon" >
+		        <i class="icon-plus-2"></i>
+		    </div>
+		    <div class="tile-status">
+		        <span class="name" >新增主題</span>
+		    </div>
+		</div>
+		
+		<div class="tile bg-lightGreen hide" onClick='return_view()' id="tile_return">
+		    <div class="tile-content icon" >
+		        <i class="icon-undo"></i>
+		    </div>
+		    <div class="tile-status">
+		        <span class="name" >返回</span>
+		    </div>
+		</div>
+				
+		
+				
+		</li>
+		</ul>
+		<div style="clear: both"></div>		
+
+		<ul>
+		<li>
+		<div id="post" class="hide">
+			<fieldset>
+                       <label>主題</label>
+                       <div class="input-control text" data-role="input-control">
+                           <input type="text" placeholder="請輸入主題" id="topic_title">
+                           <button class="btn-clear" tabindex="-1" type="button"></button>
+                       </div>
+                       <label>內容</label>
+
+						<div class="input-control textarea">
+						    <textarea rows="10" id="topic_content"></textarea>
+						</div>
+
+                       <input type="button" class="large"  value="送出" onClick="submit_topic()">
+                   </fieldset>
+		</div>
+				
+		</li>
+		</ul>
+		<div style="clear: both"></div>		
+		<div id="view">
+
+		<!-- SAMPLE -->
+		<div id="topic-sample" class="no-display">
+		<ul >		
+		<li>
+			<div style="float: left;">
+			<div class="post_date" style="float: none;">
+				<span class="date_d">{ANN.day}</span>
+				<span class="date_ym">{ANN.year}.{ANN.month}</span>
+			</div>
+			<div  class="delete_button">
+				<span class="text bg-magenta fg-white" onClick="delete_topic(this)">刪除</span>
+			</div>
+			</div>
+			
+			<div  class="article">
+				<h2><a id="topic_url"  href="announcement_detail.php?topic_id={ANN.topic_id}"  rel="bookmark" >{ANN.topic_title}</a></h2>
+				<div class="infotop hide">
+					<span class="info-category-icon"><a href="#" title="全部文章" rel="category tag">Informal Essay</a></span>
+					<span class="info-view-icon">Read:<b>873</b></span>
+					<span class="info-comment-icon">Reply:<a href="#" title="全部文章">3</a></span>
+				</div>
+			
+				<div class="thumbnail_box">
+					
+					<div class="thumbnail">
+					<a href="#" rel="bookmark" >
+						<img  src="images/announcement.png" />
+					</a>
+					
+					</div>
+					<div class="readmore"><a id="readme_url" href="announcement_detail.php?topic_id={ANN.topic_id}"  rel="bookmark" style="opacity: 1; " >Read more</a></div>
+				</div>
+			
+				<div class="entry_post">
+					<span id="topic_content">{ANN.topic_content}</span>
+
+					<div style="clear: both"></div>
+					<div class="infobot ">
+						<span class="info-user-icon hide">張貼者：{ANN.user_name}</span>
+						<span class="info-tag-icon hide">Tags：</span>
+					</div>
+				</div>
+			</div>
+		</li>
+		</ul>
+		<div style="clear: both"></div>
+		</div>
+		<!-- SAMPLE -->
+
+	<!-- BEGIN ANN -->
+		<div id="topic-{ANN.topic_id}">
+		<ul >		
+		<li>
+			<div style="float: left;">
+			<div class="post_date" style="float: none;">
+				<span class="date_d">{ANN.day}</span>
+				<span class="date_ym">{ANN.year}.{ANN.month}</span>
+			</div>
+			<div  class="delete_button">
+				<span class="text bg-magenta fg-white" onClick="delete_topic(this)">刪除</span>
+			</div>
+			</div>
+			
+			<div  class="article">
+				<h2><a href="announcement_detail.php?topic_id={ANN.topic_id}"  rel="bookmark" title="{ANN.topic_title}">{ANN.topic_title}</a></h2>
+				<div class="infotop hide">
+					<span class="info-category-icon"><a href="#" title="全部文章" rel="category tag">Informal Essay</a></span>
+					<span class="info-view-icon">Read:<b>873</b></span>
+					<span class="info-comment-icon">Reply:<a href="#" title="全部文章">3</a></span>
+				</div>
+			
+				<div class="thumbnail_box">
+					
+					<div class="thumbnail">
+					<a href="#" rel="bookmark" title="{ANN.topic_title}">
+						<img  src="images/announcement.png" alt="{ANN.topic_title}"/>
+					</a>
+					
+					</div>
+					<div class="readmore"><a href="announcement_detail.php?topic_id={ANN.topic_id}" title="{ANN.topic_title}" rel="bookmark" style="opacity: 1; " >Read more</a></div>
+				</div>
+			
+				<div class="entry_post">
+					<span>{ANN.topic_content}</span>
+
+					<div style="clear: both"></div>
+					<div class="infobot ">
+						<span class="info-user-icon hide">張貼者：{ANN.user_name}</span>
+						<span class="info-tag-icon hide">Tags：</span>
+					</div>
+				</div>
+			</div>
+		</li>
+		</ul>
+		<div style="clear: both"></div>
+		</div>
+	<!-- END ANN -->
+	
+
+
+
+	
+	
+	</div>
+
+
+<script src="js/actions/announment.js"></script>     

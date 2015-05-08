@@ -183,18 +183,20 @@
 
 if({isPass})
 {
+	
 	exam_show()
 	$('#area_quiz').addClass("no-display");
 	$('#bt_send').addClass("no-display");	
 	$('#bt_exam_edit2').addClass("no-display");	
 	$('#area_result').removeClass("no-display");
 
-	var grade= $('#grade').val();
-	var pass_mark= $('#pass_mark').val();
-console.log(grade +' '+pass_mark);
+	var grade= parseInt($('#grade').val());
+	var pass_mark=parseInt($('#pass_mark').val());
+
 
 	if(grade > pass_mark)
 	{
+		
 		$('button h1',$('#area_result')).text('{$lang.Pass}');
 		$('button',$('#area_result')).removeClass('danger');
 		$('button',$('#area_result')).addClass('success');

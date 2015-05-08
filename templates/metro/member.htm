@@ -199,8 +199,12 @@ container_member_course.init(
 			bt_remove:{bt_display_member_course_remove},	
 			jump:function(options) {
 				//course.php?course_id=14
-				var course_id = options.obj.attr('data-courseid');				
-				location.href='course.php?course_id='+course_id;		
+				var user_id = $('#member_user_id').val();
+				var course_id = options.obj.attr('data-courseid');		
+				var group_id=$('#group_id').val();
+				var group_title=$('#group_title').children('span.viewtext').text();
+				var member_title=$('#fullName').val();
+				location.href='report_form.php?course_id='+course_id+"&uid="+user_id+"&group_id="+group_id+"&group_title="+group_title+"&member_title="+member_title;		
 			},
 			remove:function(options){			
 				var course_id = options.obj.attr('data-courseid');						

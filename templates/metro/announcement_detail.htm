@@ -1,0 +1,139 @@
+
+        
+   <link rel="stylesheet" type="text/css" href="style2.css" />
+
+<h1 >
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	討論區<small class="on-right">內容</small>
+
+</h1>
+<div class="clearfix"></div>   
+<nav class="breadcrumbs">
+    <ul>
+		<li><a href="home.php">Home</a></li>
+		<li><a href="announcement_list.php">討論區</a></li>
+		<li class="active"><a href="#">Detail</a></li>
+		
+    </ul>
+</nav>       
+		
+		<!--  -->
+		
+
+
+	<div style="padding: 10px;">
+			
+		<div class="post_date" >
+			<span class="date_d" style="margin-top: 5px;">{day}</span>
+			<span class="date_ym"  style="margin-top: -3px;">{year}.{month}</span>
+		</div>
+		
+		<div class="articles">
+			<div class="post-title-single"><h2>{topic_title}</h2></div>
+			<div id="singleinfo" style="font-size: 14px;">
+				<span class="icon-user">&nbsp{topic_author}</span>
+				<span class="info-category-icon hide" ><a href="#" title="全部文章" rel="category tag">Informal</a></span>
+				<span class="info-view-icon hide"><b>880</b></span>
+				<span class="info-comment-icon hide"><b title="{topic_title}">3</b></span>
+				<input type="hidden" id="topic_id" name="topic_id" VALUE="{topic_id}">
+			</div>
+		</div>
+		
+		<div class="articles">
+			<div class="context">
+				<p>{topic_content}</p>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="articles">
+		<div class="section_title">
+		<span>Reply</span>
+		</div>
+		</div>
+		
+		
+		<div class="articles" id="reply_field">
+		<!-- You can start editing here. -->			
+			<ol class="commentlist">
+				<li >
+			   <div class="comment-body">
+			      		<div class="comment-author vcard">
+			      			<img alt='' src='{reply_photo_url}' class='avatar avatar-40 photo' height='40' width='40'  ID="reply_photo_url"/>					
+			      			
+			      			<strong><a href='' rel='external nofollow' class='url' ID="reply_username">{reply_username}</a></strong>:
+			      		</div>
+						
+						<p>
+							<div
+								class="notice marker-on-top-left  place-left on-right-more "
+								style="width: 90%;background:#27AAE2">
+								<div>
+									<textarea data-transform="input-control" id="reply_content" name="reply_content"></textarea>
+								</div>
+			
+								<div style="margin-top: 5px">
+									<button type="button"  class="button  large place-right"  onClick="submit_reply()">{$lang.Sumbit}</button>
+								</div>
+							</div>						
+						</p>			        
+					<div class="clear"></div>					
+			  </div>
+			</li>
+			</ol>
+		  </div>	
+		
+		<div class="clear"></div>
+		
+		<div class="articles">
+		<div class="section_title">
+		<span>Comment</span>
+		</div>
+		</div>
+		
+		<div class="articles" >
+		<!-- You can start editing here. -->
+			<h8 id="comments">Replys</h8>
+			<ol class="commentlist"  id="comment_zone">
+			
+			
+			<li class="comment even thread-even depth-1 no-display" id="comment-sample">
+			   <div id="div-comment-sample" class="comment-body">
+			      		<div class="comment-author vcard">
+			      		<img alt='' src=''' class='avatar avatar-40 photo' height='40' width='40' />
+			      		<strong><a href='#' rel='external nofollow' class='url' id="reply_author">你我知</a></strong>:</div>
+							<p id="reply_content">回復內容</p>			        
+					<div class="clear"></div>
+					<span class="datetime" id="reply_datatime">回復時間 </span> 
+					<span class="icon-remove"   style="cursor: pointer; color: #aaa;margin-left:15px" onClick="delete_reply(this)"> 刪除</span> 
+			  </div>
+			</li>
+			
+			<!-- BEGIN COMMENT -->
+			<li class="comment even thread-even depth-1 " id="comment-{COMMENT.reply_id}">
+			   <div id="div-comment-{COMMENT.reply_id}" class="comment-body">
+			      		<div class="comment-author vcard">
+			      		<img alt=''  src='{COMMENT.reply_author_image}' class='avatar avatar-40 photo' height='40' width='40' /><strong>
+			      		<a href='#' rel='external nofollow' class='url' id="reply_author">{COMMENT.reply_author}</a></strong>:</div>
+							<p id="reply_content">{COMMENT.reply_content}</p>			        
+					<div class="clear"></div>
+					<span class="datetime" id="reply_datatime">{COMMENT.reply_datatime}</span>
+					<span class="icon-remove"   style="cursor: pointer; color: #aaa;margin-left:15px" onClick="delete_reply(this)"> 刪除</span> 
+					
+			  </div>
+			</li>
+			<!-- END COMMENT -->
+			
+			</ol>
+		  </div>	
+	
+	
+	
+
+	
+	
+	
+	</div>
+
+<script src="js/actions/announment.js"></script>     

@@ -1,0 +1,190 @@
+<script type="text/javascript"  src="js/little2.js"></script>
+<link rel="stylesheet" href="templates/metro/css/jquery.fileupload.css">
+<script src="../common/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="../common/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="../common/plugins/html5sortable/jquery.sortable.js"></script>
+<link rel="stylesheet" href="../common/plugins/csshake/csshake.min.css">
+
+<h1>
+	<a href="javascript:history.go(-1)" ><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+	學習<small class="on-right">報表</small>
+</h1>
+
+<nav class="breadcrumbs">
+
+	<ul>
+		<li><a href="home.php">Home</a></li>
+		<li ><a href="group.php?group_id={group_id}">{group_title}</a></li>
+		<li ><a href="member.php?uid={user_id}">{member_title}</a></li>
+		<li class="active"><a href="#">{course_title}</a></li>
+	</ul>	
+	
+</nav>
+
+<div class="tile-group no-margin no-padding1 clearfix" style="width: 100%;">
+
+
+	
+</div>
+<div class="clearfix"></div>
+
+
+
+<div class="accordion  with-marker" data-role="accordion">
+	<div class="accordion-frame">
+		<a id="courseinfo_header" name="courseinfo_header"href="#" class="heading">課程資料</a>		
+		<div class="content" id="container_course_info"  name="container_course_info">			
+			<div class="clearfix"></div>
+			<input type="hidden" id="course_id" name="course_id" value="{course_id}"/>
+			<dl style="margin-left: 40px;">				
+				<dt id="course_title_label">課程名稱</dt>
+				<dd>
+					<span class="viewtext"   id="course_title_viewtext">{course_title}</span> 
+					<span id="course_title_span" name="course_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="course_title" name="course_title"  class="inputtext no-display "  type="text" value="{course_title}" 
+						placeholder="課程名稱" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt id="catalog_title_label">課程分類</dt>
+				<dd>
+					<span class="viewtext"   id="catalog_title_viewtext">{catalog_title}</span> 
+					<span id="catalog_title_span" name="catalog_title_span"
+						class="input-control text inputtext no-display"  style="width: 80%"> 
+						<input id="catalog_title" name="catalog_title"  class="inputtext no-display "  type="text" 
+									value="{catalog_title}" 	placeholder="課程分類" />
+						<button class="btn-clear"></button>
+					</span>
+				</dd>
+				
+				<dt>課程說明</dt>
+				<dd>
+					<span class="viewtext"   id="course_desc_viewtext">{course_desc}</span> 
+					<span class="input-control textarea inputtext no-display">
+						<textarea id="course_desc" name="course_desc" style="width: 80%"
+							placeholder="課程說明"   >{course_desc}</textarea>
+					</span>
+				</dd>
+			</dl>
+
+			<div style="margin-top: 40px; margin-bottom: 40px"
+				class="inputtext no-display" align="center">
+				<a class="default button large" onClick="course_save()">Save</a> 
+				<a class="button on-right-more"  id="bt_course_info_cancel" onClick=" course_show_info()">Cancel</a>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<div class="accordion-frame {sco-list-no-display}">
+		<a href="#" class=" active heading">學習報表</a>
+		<div class="content clearfix">
+			<div class="clearfix"></div>			
+			<div class="padding10" ></div>
+	
+			
+			<div id="sco_show_create_container"  name="sco_show_create_container"  style="margin-left: 40px;">
+			
+			
+			<div class="tile  triple double-vertical bg-darkCobalt" data-click="transform"  onClick=" jump_course({course_id})">
+				<div class="tile-content"	>
+					<div class="padding10">
+						<h1 class="fg-white ntm">{course_progress}<small class="on-right">%</small></h1>		
+						<h3 class="fg-white no-margin">{course_title}</h3>										
+					</div>		
+				</div>
+				<div class="tile-status">
+					
+					<h4 class="fg-white" style="margin-left:5px"><i class="icon-user" style="margin-right:5px"></i>{member_title}</h4>
+				</div>					
+			</div>
+			
+			
+			
+			<!-- BEGIN REPORT -->
+			<!-- 新增學習單元DIV  -->
+			<div style="clear:both"></div>
+            
+            <div class="tile  quadro bg-lightBlue  {REPORT.opacity} {REPORT.sco_type}" data-click="transform"  id="scotile_{REPORT.sco_id}" >
+				<div class="tile-content"	>
+					<div class="padding10">
+						<h1 class="fg-white ntm">{REPORT.progress}<small class="on-right">%</small></h1>												
+					</div>		
+				</div>
+				<div class="tile-status">
+					<h4 class="fg-white" style="margin-left:5px"><i class="{REPORT.icon_label}" style="margin-right:5px"></i>{REPORT.sco_title}</h4>
+				</div>					
+			</div>
+			
+			<div id="sco-tile-detail-{REPORT.sco_id}" class="tile bg-darkGreen {REPORT.opacity} {REPORT.bt_more_detail}"	 data-click="transform"  data-scoid="{REPORT.sco_id}"  onClick="show_detail(this)">
+				  <div class="tile-content icon" >
+				        <i class="icon-plus" ></i>
+				    </div>
+			
+				<div class="tile-status">
+					<div class="label">詳細</div>
+				</div>					
+			</div>		
+			
+			<div class="tile bg-darkGreen {REPORT.opacity} {REPORT.bt_more_detail} {REPORT.sco_type}"	 data-click="transform"  data-scoid="{REPORT.sco_id}"  onClick="click_sco_tile(this)">
+				  <div class="tile-content icon">
+				        <i class="icon-pop-out"></i>
+				    </div>
+			
+				<div class="tile-status">
+					<div class="label">查看</div>
+				</div>					
+			</div>				
+			
+			<div class="hide" id="sco-detail-{REPORT.sco_id}">
+					 <table class="table hovered">
+                        <thead>
+                        <tr>
+                            <th class="text-left">時間</th>
+                            <th class="text-left">學習狀況</th>
+                            <th class="text-left">備註</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        	<!-- BEGIN LIST -->
+             	           <tr>
+             	           		<td>{REPORT.LIST.reading_time}</td>
+             	           		<td class="right">{REPORT.LIST.learning_status}</td>
+             	           		<td class="right">{REPORT.LIST.memo}</td>
+                	       </tr>      
+                	       <!-- END LIST -->          	       
+      				    </tbody>
+                        <tfoot></tfoot>
+                    </table>
+					</div>
+			
+					<!-- 新增學習單元DIV(END)  -->
+					<!-- END REPORT -->	
+			</div>
+			
+											
+		</div>
+	</div>
+
+
+</div>
+
+<script src="js/actions/report_form.js"></script>     
+
+			
+
+		
+
+
+
+
+
+
+

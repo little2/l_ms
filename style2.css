@@ -1,0 +1,332 @@
+
+
+ul,li {
+	list-style-type: none
+}
+
+
+a {
+	color: #0088dd;
+	text-decoration: none !important
+}
+
+a:hover {
+	text-decoration: inherit
+}
+
+
+
+
+
+
+.delete_button {
+	display: block;
+	overflow: hidden;
+	float: none;
+	width: 70px;
+	height: 40px;
+	margin-top:5px;
+	cursor: pointer;
+}
+
+.delete_button .text {
+	display: block;
+	text-align: center;
+	font-size: 14px;
+	margin-top:5px;
+}
+
+.post_date {
+	display: block;
+	overflow: hidden;
+	float: left;
+	width: 70px;
+	height: 70px;
+	background-color: #27AAE2;
+	color: #FFFFFF
+}
+
+.post_date span {
+	display: block
+}
+
+.post_date .date_d {
+	text-align: center;
+	font-size: 38px;
+	font-weight: bold;
+	margin-top: 16px;
+	font-family: Arial, Tahoma, Geneva
+}
+
+.post_date .date_ym {
+	text-align: center;
+	font-weight: bold;
+	margin-top: 10px;
+	font-size: 15px;
+	font-family: Arial, Tahoma, Geneva
+}
+
+.articles {
+	padding: 10px 0 10px 0;
+	overflow: hidden
+}
+
+.post-title-single {
+	z-index: 5;
+	background: #fff;
+	margin-top: -7px;
+	display: block;
+	overflow: hidden;
+	margin-left: 12px;
+	*margin-left: 0px;
+	_margin-left: 12px;
+	position: absolute;
+	border-bottom: #eee 2px solid
+}
+
+.post-title-single h2 {
+	margin-left: 5px;
+	padding-right: 20px;
+	color: #27AAE2;
+	font-size: 28px;
+	margin-bottom: 8px;
+	line-height: 30px
+}
+
+
+.article {
+	overflow: hidden;
+	border-bottom: 1px #ddd solid
+}
+
+.article h2 {
+	margin-left: 8px;
+	margin-top: 0px;
+	height: 28px;
+	overflow: hidden;
+	line-height: 28px;
+	display: block;
+	font-size: 24px;
+	padding-left: 5px;
+	font-weight: normal
+}
+
+#singleinfo {
+	margin: 40px 0 0 12px;
+	*margin: 50px 0 0 12px;
+	_margin: 40px 0 0 80px
+}
+
+.infotop {
+	display: block;
+	border-top: 1px solid #eee;
+	font-size: 12px;
+	margin-top: 8px;
+
+	margin-left: 10px;
+	width: 280px;
+	overflow: hidden;
+	line-height: 20px;
+	height: 20px
+}
+
+.infotop a {
+	color: #919191
+}
+
+.infotop a:hover {
+	color: #72B332
+}
+
+.infobot {
+	float: left;
+	font-size: 12px;
+	padding-top: 20px;
+	padding-left: 5px;
+	width: 515px;
+	overflow: hidden;
+	line-height: 20px;
+	height: 40px;
+	color: #919191;
+
+}
+
+.infobot a {
+	color: #919191
+}
+
+.infobot a:hover {
+	color: #72B332
+}
+
+
+
+
+.thumbnail_box {
+	float: right;
+	width: 152px;
+	height: 114px;
+	margin-top: -20px;
+	margin-left: 20px;
+	padding: 4px;
+	border: 2px solid #ccc
+}
+
+.thumbnail_box:hover {
+	border: 2px solid #08D
+}
+
+.thumbnail img {
+	position: absolute;
+	z-index: 3
+}
+
+.readmore {
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	text-align: center;
+	font-size: 18px;
+	background: #6E6E6E;
+	margin-top: 105px;
+	margin-left: -6px;
+}
+
+.readmore a {
+	line-height: 20px;
+	height: 38px;
+	width: 152px;
+	padding: 10px;
+	display: block;
+	overflow: hidden;
+	color: #fff
+}
+
+.context {
+	margin: 16px;
+	position: relative;
+	overflow: hidden;
+	margin-top: 15px
+}
+
+
+.context p {
+	padding: 5px 0px;
+	margin: 0;
+	line-height: 22px
+}
+
+.entry_post {
+	margin-left: 12px;
+	line-height: 22px;
+	padding-top: 10px;	
+	font-size: 14px;
+	color: #777
+}
+
+
+.section_title {
+	border-top: 6px solid #27AAE2;
+	height: 1px;
+	margin: 20px 0;
+	position: relative
+}
+
+.section_title span,.section_title a {
+	display: block;
+	height: 40px;
+	padding: 0 18px;
+	line-height: 40px;
+	background: #27AAE2;
+	color: white;
+	position: absolute;
+	top: -25px;
+	overflow: hidden
+}
+
+
+
+
+.commentlist {
+	
+}
+
+.commentlist .comment {
+	list-style: none;
+	border-top: 1px solid #ddd
+}
+
+.commentlist li.comment ul.children {
+	margin-left: 20px
+}
+
+.commentlist .depth-1 {
+	margin: 10px 0 10px 0
+}
+
+.commentlist li {
+	position: relative
+}
+
+.commentlist .alt {
+	
+}
+
+.commentlist .comment-body {
+	padding: 5px 0 5px 0
+}
+
+.commentlist .comment-body:hover {
+	background: #fafafa
+}
+
+.commentlist p {
+	margin: 5px 0 5px 50px;
+	line-height: 22px
+}
+
+.reply {
+	
+}
+
+.reply a:link {
+	text-align: center;
+	font-size: 12px
+}
+
+.datetime {
+	font-size: 12px;
+	color: #aaa;
+	text-shadow: 0px 1px 0px #fff;
+	margin-left: 50px
+}
+
+.commentmetadata {
+	font-size: 12px;
+	color: #aaa;
+	text-shadow: 0px 1px 0px #fff;
+	margin-left: 50px
+}
+
+ol.commentlist li div.vcard img.avatar {
+	width: 40px;
+	height: 40px;
+	position: relative;
+	float: left;
+	margin: 4px 6px 0 0;
+	padding: 2px;
+	border: 1px solid #ddd;
+	background: #fff
+}
+
+ol.commentlist li div.floor {
+	float: right;
+	color: #bbb
+}
+
+
+
+
+
+
+
