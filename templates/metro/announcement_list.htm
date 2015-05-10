@@ -29,7 +29,7 @@
 		    </div>
 		</div>
 		
-		<div class="tile bg-lightGreen" onClick='create_topic()' id="tile_create_topic">
+		<div class="tile bg-lightGreen {discuss_manage_display}" onClick='create_topic()' id="tile_create_topic">
 		    <div class="tile-content icon" >
 		        <i class="icon-plus-2"></i>
 		    </div>
@@ -86,7 +86,7 @@
 				<span class="date_d">{ANN.day}</span>
 				<span class="date_ym">{ANN.year}.{ANN.month}</span>
 			</div>
-			<div  class="delete_button">
+			<div  class="delete_button {discuss_manage_display}">
 				<span class="text bg-magenta fg-white" onClick="delete_topic(this)">刪除</span>
 			</div>
 			</div>
@@ -135,7 +135,7 @@
 				<span class="date_d">{ANN.day}</span>
 				<span class="date_ym">{ANN.year}.{ANN.month}</span>
 			</div>
-			<div  class="delete_button">
+			<div  class="delete_button {discuss_manage_display}">
 				<span class="text bg-magenta fg-white" onClick="delete_topic(this)">刪除</span>
 			</div>
 			</div>
